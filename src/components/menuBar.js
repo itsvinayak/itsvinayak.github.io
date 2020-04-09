@@ -39,7 +39,7 @@ const MenuBar = () => {
 						</li>
 						<li>
 							<a
-								href="whatsapp://tel:9259888898"
+								href="https://api.whatsapp.com/send?phone=9259888898"
 								target="_blank"
 								class=" whatsapp fa fa-whatsapp"
 								rel="noopener noreferrer"
