@@ -143,6 +143,7 @@ a {
 	border-radius: 0.25rem;
 	-webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
 	box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
+  z-index: 99999;
 }
 
 .navigation ul {
