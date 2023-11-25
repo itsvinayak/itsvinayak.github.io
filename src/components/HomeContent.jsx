@@ -1,13 +1,14 @@
-import Image from "next/image";
-import TextTag from "@components/TextTag";
-import BasicDiv from "@components/BasicDiv";
+import { lazy } from "react";
+const Image = lazy(() => import("next/image"));
+const TextTag = lazy(() => import("@components/TextTag"));
+const BasicDiv = lazy(() => import("@components/BasicDiv"));
 
 const HomeContent = () => {
   return (
     <section>
       <BasicDiv>
         <h1 className="italic subpixel-antialiased text-2xl md:text-4xl mt-10 font-extrabold">
-          hey, I'm Vinayak &nbsp;
+          hey, I&#39;m Vinayak &nbsp;
           <Image
             src="/Hi.gif"
             alt="hi"
@@ -20,7 +21,7 @@ const HomeContent = () => {
           />
         </h1>
         <p className="text-md mt-5">
-          I'm a tech enthusiast with a passion for solving complex problems and
+          I&#39;m a tech enthusiast with a passion for solving complex problems and
           developing innovative solutions.
           <br />
           <br />

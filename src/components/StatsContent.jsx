@@ -4,6 +4,7 @@ const StatsContent = () => {
   return (
     <div>
       <YouTubeStats />
+      <BlogStats />
     </div>
   );
 };
