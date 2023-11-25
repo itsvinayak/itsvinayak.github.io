@@ -12,7 +12,7 @@ const links = [
 
 const Navbar = () => {
   return (
-    <nav className="flex justify-center items-center pt-8 overflow-auto">
+    <nav className="flex justify-center items-center overflow-auto">
             <Navlink links={links} />
     </nav>
   );

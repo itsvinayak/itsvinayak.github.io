@@ -1,9 +1,9 @@
-import YouTubeStats from "./YouTubeStats";
+import YouTubeStats from "@components/YouTubeStats";
 
-const StatsContent = ({ statsData }) => {
+const StatsContent = () => {
   return (
     <div>
-      <YouTubeStats youTubeStats={statsData.youTubeStats} />
+      <YouTubeStats />
     </div>
   );
 };

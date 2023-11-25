@@ -8,6 +8,14 @@ const DoubleImageCard = ({
   largeImage,
   smallImage,
 }) => {
+  console.log(
+    "DoubleImageCard : ",
+    link,
+    title,
+    description,
+    largeImage,
+    smallImage
+  );
   return (
     <Link
       href={link}

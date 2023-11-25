@@ -3,7 +3,7 @@ import StatsContent from "@components/StatsContent";
 import BasicDiv from "@components/BasicDiv";
 import Divider from "@components/Divider";
 
-const About = ({ statsData }) => {
+const About = () => {
   return (
     <BasicDiv>
       <h2 className="text-xl md:text-2xl font-bold text-white">Crafting Code and Content</h2>
@@ -19,7 +19,7 @@ const About = ({ statsData }) => {
         conference talks, and workshops. Delve into some of my preferred
         creations highlighted below.
       </p>
-      <StatsContent statsData={statsData} />
+      <StatsContent />
     </BasicDiv>
   );
 };
