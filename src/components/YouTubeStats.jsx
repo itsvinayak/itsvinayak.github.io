@@ -58,7 +58,7 @@ const YouTubeStats =  async () => {
   console.log("YouTubeStats : ", youTubeStats);
 
   return (
-    <div className="mt-6">
+    <div>
       <DoubleImageCard {...filteredYouTubeStats} />
     </div>
   );

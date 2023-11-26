@@ -4,8 +4,8 @@ import Navlink from "./Navlink";
 
 const links = [
   { name: "Home", href: "/" },
-  { name: "Blog", href: "#Blog" },
-  { name: "Connect", href: "#Connect" }
+  { name: "Blog", href: "Blog" },
+  { name: "Connect", href: "Connect" }
 ];
 
 

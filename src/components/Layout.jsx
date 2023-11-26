@@ -1,5 +1,7 @@
 import { lazy } from "react";
 const Navbar = lazy(() => import("@components/Navbar"));
+const Footer = lazy(() => import("@components/Footer"));
+const Newletter = lazy(() => import("@components/Newletter"));
 
 const Layout = ({ children }) => {
   return (
@@ -7,6 +9,8 @@ const Layout = ({ children }) => {
       <div className="md:max-w-2xl rounded-lg p-3.5 lg:p-6 ">
         <Navbar />
         {children}
+        <Newletter />
+        <Footer/>
       </div>
     </main>
   );
