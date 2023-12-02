@@ -1,9 +1,9 @@
-import Navlink from "./ui/Navlink";
+import Navlink from "@ui/Navlink";
 
 const links = [
   { name: "Home", href: "/" },
-  { name: "Blog", href: "blog" },
-  { name: "Connect", href: "connect" }
+  { name: "Blog", href: "/blog" },
+  { name: "Connect", href: "/connect" }
 ];
 
 

@@ -12,6 +12,8 @@ interface PostProps {
   slug: string;
   slugAsParams: string;
   authors: string[];
+  authorsImage: string[];
+  tags: string[];
 }
 
 export default async function Page() {
@@ -37,6 +39,8 @@ export default async function Page() {
                 slug: featuredPost.slug,
                 slugAsParams: featuredPost.slugAsParams,
                 authors: featuredPost.authors,
+                authorsImage: featuredPost.authorsImage,
+                tags: featuredPost.tags,
               }} />
             }
           </div>
@@ -49,6 +53,8 @@ export default async function Page() {
                 slug: post.slug,
                 slugAsParams: post.slugAsParams,
                 authors: post.authors,
+                authorsImage: post.authorsImage,
+                tags: post.tags,
               }} />
             ))}
           </div>

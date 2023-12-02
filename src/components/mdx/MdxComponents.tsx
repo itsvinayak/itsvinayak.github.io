@@ -1,13 +1,14 @@
 import * as React from "react"
 import Image from "next/image"
 import { useMDXComponent } from "next-contentlayer/hooks"
+import BlogTitle from "@components/BlogTitle"
 
 import { cn } from "@lib/utils"
 import { Callout } from "@ui/Callout"
 import { MdxCard } from "@components/mdx/MsxCard"
 
 const components = {
-h1: ({ className, ...props }: { className: string }) => (
+  h1: ({ className, ...props }: { className: string }) => (
     <h1
       className={cn(
         "mt-2 scroll-m-20 text-4xl font-bold tracking-tight",
@@ -16,7 +17,7 @@ h1: ({ className, ...props }: { className: string }) => (
       {...props}
     />
   ),
-h2: ({ className, ...props }: { className: string }) => (
+  h2: ({ className, ...props }: { className: string }) => (
     <h2
       className={cn(
         "mt-10 scroll-m-20 border-b pb-1 text-3xl font-semibold tracking-tight first:mt-0",
@@ -141,7 +142,7 @@ h2: ({ className, ...props }: { className: string }) => (
   code: ({ className, ...props }: { className: string }) => (
     <code
       className={cn(
-        "relative rounded border px-[0.3rem] py-[0.2rem] font-mono text-sm",
+        "relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm",
         className
       )}
       {...props}
@@ -158,25 +159,21 @@ interface MdxProps {
   imageSrc?: string,
   date: string,
   authors: string[],
+  authorsImage?: string[],
+  tags?: string[],
 }
 
-export function Mdx({ code, title, imageSrc, date, authors }: MdxProps) {
+export function Mdx({ code, title, imageSrc, date, authors, authorsImage, tags }: MdxProps) {
   const Component = useMDXComponent(code)
-  
+  if (!authorsImage) {
+    authorsImage = process.env.AUTHOR_IMAGE ? [process.env.AUTHOR_IMAGE] : [];
+  }
+  if (!tags) {
+    tags = process.env.LIVE_BLOG_TAGS ? [process.env.LIVE_BLOG_TAGS] : [];
+  }
   return (
-    <article className="prose lg:prose-xl">
-      <h1>{title}</h1>
-      {imageSrc && (
-        <div className="my-8">
-          <Image
-            src={imageSrc}
-            alt={title}
-            layout="responsive"
-            width={16}
-            height={9}
-          />
-        </div>
-      )}
+    <article className="pt-12">
+      <BlogTitle title={title} date={date} authors={authors} authorsImage={authorsImage} tags={tags} />
       <Component components={components} />
     </article>
   )

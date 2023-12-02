@@ -1,22 +1,20 @@
+// contentlayer.config.js
 import { defineDocumentType, makeSource } from "contentlayer/source-files";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
-
-/** @type {import('contentlayer/source-files').ComputedFields} */
-const computedFields = {
+var computedFields = {
   slug: {
     type: "string",
-    resolve: (doc) => `/${doc._raw.flattenedPath}`,
+    resolve: (doc) => `/${doc._raw.flattenedPath}`
   },
   slugAsParams: {
     type: "string",
-    resolve: (doc) => doc._raw.flattenedPath.split("/").slice(1).join("/"),
-  },
+    resolve: (doc) => doc._raw.flattenedPath.split("/").slice(1).join("/")
+  }
 };
-
-export const Post = defineDocumentType(() => ({
+var Post = defineDocumentType(() => ({
   name: "Post",
   filePathPattern: `articles/*.mdx`,
   type: "mdx",
@@ -24,25 +22,25 @@ export const Post = defineDocumentType(() => ({
   fields: {
     title: {
       type: "string",
-      required: true,
+      required: true
     },
     description: {
-      type: "string",
+      type: "string"
     },
     date: {
       type: "date",
-      required: true,
+      required: true
     },
     published: {
       type: "boolean",
-      default: true,
+      default: true
     },
     image: {
-      type: "string",
+      type: "string"
     },
     authors: {
       type: "list",
-      of: { type: "string" },
+      of: { type: "string" }
     },
     authorsPics: {
       type: "list",
@@ -50,14 +48,12 @@ export const Post = defineDocumentType(() => ({
     },
     tags: {
       type: "list",
-      of: { type: "string" },
+      of: { type: "string" }
     }
   },
-  computedFields,
+  computedFields
 }));
-
-
-export default makeSource({
+var contentlayer_config_default = makeSource({
   contentDirPath: "./content",
   documentTypes: [Post],
   mdx: {
@@ -69,8 +65,6 @@ export default makeSource({
         {
           theme: "github-dark",
           onVisitLine(node) {
-            // Prevent lines from collapsing in `display: grid` mode, and allow empty
-            // lines to be copy/pasted
             if (node.children.length === 0) {
               node.children = [{ type: "text", value: " " }];
             }
@@ -80,18 +74,23 @@ export default makeSource({
           },
           onVisitHighlightedWord(node) {
             node.properties.className = ["word--highlighted"];
-          },
-        },
+          }
+        }
       ],
       [
         rehypeAutolinkHeadings,
         {
           properties: {
             className: ["subheading-anchor"],
-            ariaLabel: "Link to section",
-          },
-        },
-      ],
-    ],
-  },
+            ariaLabel: "Link to section"
+          }
+        }
+      ]
+    ]
+  }
 });
+export {
+  Post,
+  contentlayer_config_default as default
+};
+//# sourceMappingURL=compiled-contentlayer-config-A2552I6Q.mjs.map

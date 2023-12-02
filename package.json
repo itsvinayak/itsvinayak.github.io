@@ -35,7 +35,7 @@
     "remark": "^15.0.1",
     "remark-emoji": "^4.0.1",
     "remark-gfm": "^4.0.0",
-"remark-html": "^16.0.1",
+    "remark-html": "^16.0.1",
     "remark-images": "^4.0.0",
     "remark-parse": "^11.0.0",
     "remark-react": "^9.0.1",
