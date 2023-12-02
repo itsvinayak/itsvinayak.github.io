@@ -12,9 +12,9 @@ interface ArticleCardProps {
     date: string;
     slug: string;
     slugAsParams: string;
-    authors: string[];
-    authorsImage: string[];
-    tags: string[];
+    authors?: string[];
+    authorsImage?: string[];
+    tags?: string[];
   };
 }
 
@@ -48,17 +48,17 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ post }) => {
         </div>
         <div className="flex flex-row items-center justify-between">
           <div>
-            {
+            {(authors && authorsImage) &&
               authors.map((author, index) => (
                 < AuthorsCard key={index} author={{
                   name: author,
-                  image: authorsImage[index],
+                  image: authorsImage?.[index] ?? "",
                 }} />
               ))
             }
           </div>
           <div>
-            {tags.map((tag, index) => (
+            {tags && tags.map((tag, index) => (
               <TextTag
                 key={index}
                 className="text-xs text-slate-200 m-1"

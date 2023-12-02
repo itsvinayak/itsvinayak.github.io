@@ -6,9 +6,9 @@ import AuthorsCard from '@ui/AuthorsCard';
 interface BlogTitleProps {
     title: string;
     date: string;
-    authors: string[];
-    authorsImage: string[];
-    tags: string[];
+    authors?: string[];
+    authorsImage?: string[];
+    tags?: string[];
 }
 
 const BlogTitle: React.FC<BlogTitleProps> = ({ title, date, authors, authorsImage, tags }) => {
@@ -21,7 +21,7 @@ const BlogTitle: React.FC<BlogTitleProps> = ({ title, date, authors, authorsImag
             <h1 className="text-4xl font-bold text-center m-5">{title}</h1>
             <div className="flex flex-row items-center justify-between">
                 <div>
-                    {
+                    { (authors && authorsImage) &&
                         authors.map((author: any, index: any) => (
                             < AuthorsCard key={index} author={{
                                 name: author,
@@ -31,7 +31,7 @@ const BlogTitle: React.FC<BlogTitleProps> = ({ title, date, authors, authorsImag
                     }
                 </div>
                 <div>
-                    {tags.map((tag, index) => (
+                    {tags && tags.map((tag, index) => (
                         <TextTag
                             key={index}
                             className="text-xs text-slate-200 m-1"

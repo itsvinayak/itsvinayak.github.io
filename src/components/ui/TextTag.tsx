@@ -3,8 +3,8 @@ import { cn } from "@lib/utils";
 
 interface TextTagProps {
   text: string;
-  logo: string;
-  className: string;
+  logo?: string;
+  className?: string;
 }
 
 const TextTag = ({ text, logo, className }: TextTagProps) => {

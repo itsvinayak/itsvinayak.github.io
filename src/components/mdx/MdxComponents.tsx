@@ -7,7 +7,12 @@ import { cn } from "@lib/utils"
 import { Callout } from "@ui/Callout"
 import { MdxCard } from "@components/mdx/MsxCard"
 
-const components = {
+
+interface MDXComponents {
+  [key: string]: React.ComponentType<any>;
+}
+
+const components: MDXComponents = {
   h1: ({ className, ...props }: { className: string }) => (
     <h1
       className={cn(
@@ -158,7 +163,7 @@ interface MdxProps {
   title: string,
   imageSrc?: string,
   date: string,
-  authors: string[],
+  authors?: string[],
   authorsImage?: string[],
   tags?: string[],
 }

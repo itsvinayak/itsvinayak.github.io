@@ -1,14 +1,15 @@
 import { notFound } from "next/navigation";
 import { getPostBySlug } from "@lib/utils";
-import Layout  from "@components/Layout";
+import Layout from "@components/Layout";
 import { Mdx } from "@components/mdx/MdxComponents";
 
-interface PageProps {
+interface ArticlePageProps {
     params: {
         slug: string;
     };
 }
-export async function Page({ params }: PageProps) {
+
+export default async function ArticlePage({ params }: ArticlePageProps) {
     console.log("params: ", params);
     const slug = params?.slug;
     console.log("slug : ", slug);
@@ -16,12 +17,12 @@ export async function Page({ params }: PageProps) {
         return notFound();
     }
     const post = await getPostBySlug(slug);
-    if(!post){
+    if (!post) {
         return notFound();
     }
     console.log("post : ", post?.body?.code);
     const code: string = post?.body?.code ?? "";
-    const { title , date, authors, image } = post;
+    const { title, date, authors, image } = post;
     console.log("code, title, date, authors, image: ", { code, title, date, authors, image });
     if (!code) {
         return notFound();
@@ -32,11 +33,3 @@ export async function Page({ params }: PageProps) {
         </Layout>
     );
 };
-
-
-
-
-
-export default Page;
-
-
