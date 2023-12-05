@@ -38,7 +38,7 @@
       ],
       "@ui/*": [
         "./src/components/ui/*"
-      ],
+      ]
     }
   },
   "include": [
@@ -47,7 +47,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/app/blog/[...slug].js",
-    ".contentlayer/generated"
+    ".contentlayer/generated",
+    "build/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"

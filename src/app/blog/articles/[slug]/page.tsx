@@ -9,14 +9,14 @@ interface ArticlePageProps {
     };
 }
 
-export default async function ArticlePage({ params }: ArticlePageProps) {
+export default function ArticlePage({ params }: ArticlePageProps) {
     console.log("params: ", params);
     const slug = params?.slug;
     console.log("slug : ", slug);
     if (!slug) {
         return notFound();
     }
-    const post = await getPostBySlug(slug);
+    const post = getPostBySlug(slug);
     if (!post) {
         return notFound();
     }

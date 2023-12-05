@@ -4,7 +4,7 @@ const DoubleImageCard = lazy(() => import("@ui/DoubleImageCard"));
 const getBlogData : BlogStatsProps = {
   link: `https://www.youtube.com/channel/${process.env.YOUTUBE_CHANNEL_ID}`,
   title: "@itsvinayak",
-  description: "12",
+  description: "200 Subscribers",
   largeImage: {
     src: "/profile.jpeg",
     alt: "Vinayak",
