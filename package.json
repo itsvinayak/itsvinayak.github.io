@@ -9,9 +9,6 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "engines": {
-    "node": ">=18.0.0"
-  },
   "author": {
     "name": "Vinayak",
     "email": "itsvinayak@gmail.com"
