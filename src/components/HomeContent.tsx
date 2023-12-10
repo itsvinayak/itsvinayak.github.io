@@ -1,43 +1,39 @@
 import { lazy } from "react";
 const Image = lazy(() => import("next/image"));
 const TextTag = lazy(() => import("@ui/TextTag"));
-const BasicDiv = lazy(() => import("@ui/BasicDiv"));
 
 const HomeContent = () => {
   return (
-    <section>
-      <BasicDiv>
-        <h1 className="italic subpixel-antialiased text-2xl md:text-4xl mt-10 font-extrabold">
-          hey, I&#39;m Vinayak &nbsp;
-          <Image
-            src="/Hi.gif"
-            alt="hi"
-            width={9}
-            loading={"lazy"}
-            height={10}
-            style={{ color: "transparent", width: "4vw", height: "5vh" }}
-            data-nimg="1"
-            className="inline-block"
-          />
-        </h1>
-        <p className="text-md mt-5">
-          I&#39;m a tech enthusiast with a passion for solving complex problems and
-          developing innovative solutions.
-          <br />
-          <br />
-          My expertise lies in{" "}
-          <TextTag text="Python (Flask/Django, Selenium)" logo={""} /> and
-          <TextTag
-            text="JavaScript
+    <>
+      <h1 className="italic subpixel-antialiased md:mt-4 font-extrabold md:text-4xl">
+        hey, I&#39;m Vinayak &nbsp;
+        <Image
+          src="/Hi.gif"
+          alt="hi"
+          width={9}
+          loading={"lazy"}
+          height={10}
+          data-nimg="1"
+          className="inline-block bg-transparent w-12 h-10"
+        />
+      </h1>
+      <p className="text-md mt-5 my-0">
+        I&#39;m a tech enthusiast with a passion for solving complex problems and
+        developing innovative solutions.
+        <br />
+        <br />
+        My expertise lies in{" "}
+        <TextTag text="Python (Flask/Django, Selenium)" logo={""} /> and
+        <TextTag
+          text="JavaScript
         (Node.js, Loopback, Node-RED)"
-            logo={""}
-          />{" "}
-          for backend design and development. I have a proven track record of
-          designing and implementing scalable and efficient solutions that meet
-          business objectives.
-        </p>
-      </BasicDiv>
-    </section>
+          logo={""}
+        />{" "}
+        for backend design and development. I have a proven track record of
+        designing and implementing scalable and efficient solutions that meet
+        business objectives.
+      </p>
+    </>
   );
 };
 

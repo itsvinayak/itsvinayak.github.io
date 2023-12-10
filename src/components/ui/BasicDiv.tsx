@@ -7,9 +7,9 @@ interface BasicDivProps {
 
 const BasicDiv = ({ children }: BasicDivProps) => {
   return (
-    <div className={cn("tracking-wide pt-8 flex flex-col self-center justify-center mx-6 md:mx-0")}>
+    <main className={cn("tracking-wide pt-8 flex flex-col self-center justify-center mx-6 md:mx-0 text-center md:text-left")}>
       {children}
-    </div>
+    </main>
   );
 };
 

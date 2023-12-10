@@ -31,9 +31,9 @@ interface BlogStatsProps {
 
 const BlogStats = () => {
   return (
-    <div className="w-1/2">
+    <>
       { getBlogData && <DoubleImageCard {...getBlogData} /> }
-    </div>
+    </>
   );
 };
 

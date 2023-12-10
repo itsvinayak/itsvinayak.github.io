@@ -76,7 +76,7 @@ const filterYouTubeData = (data: any) => {
 };
 
 
-const YouTubeStats =  async () => {
+const YouTubeStats = async () => {
   let youTubeStats = null;
   try {
     youTubeStats = await getYoutubeStatsData();
@@ -88,9 +88,9 @@ const YouTubeStats =  async () => {
   console.log("YouTubeStats : ", youTubeStats);
 
   return (
-    <div className="w-1/2">
+    <>
       {filteredYouTubeStats && <DoubleImageCard {...filteredYouTubeStats} />}
-    </div>
+    </>
   );
 };
 

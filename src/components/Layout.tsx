@@ -12,14 +12,17 @@ interface LayoutProps {
 
 const Layout = ({ children, className }: LayoutProps) => {
   return (
-    <main className="flex justify-center flex-col items-center bg-[#111010] overflow-y-hidden">
-      <div className={cn("md:max-w-4xl rounded-lg p-3.5 lg:p-6 ", className)}>
+    <main className="w-screen bg-white text-black  dark:bg-[#111010] dark:text-white">
+      <div className={cn("flex justify-center flex-col items-center rounded-lg overflow-y-hidden", className)}>
         <Navbar />
-        <div className="min-h-screen max-w-prose">
-        {children}
+        <div className="min-h-screen md:max-w-prose w-screen pt-20">
+          {children}
         </div>
-        <Newletter />
-        <Footer/>
+        <div className="md:max-w-prose w-screen">
+          <Newletter />
+        </div>
+        <hr className="border-1" />
+        <Footer />
       </div>
     </main>
   );

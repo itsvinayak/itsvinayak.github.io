@@ -1,14 +1,13 @@
 import TextTag from "@ui/TextTag";
 import StatsContent from "@components/StatsContent";
-import BasicDiv from "@ui/BasicDiv";
-import Divider from "@ui/Divider";
+
 
 const About = () => {
   return (
-    <BasicDiv>
-      <h2 className="text-xl md:text-2xl font-bold text-white">Crafting Code and Content</h2>
-      <Divider/>
-      <p className="mt-4">
+    <>
+      <h2 className="text-xl pt-4 md:text-2xl font-bold text-white">Crafting Code and Content</h2>
+      <hr className="border-1"/>
+      <p className="mt-4 pb-4">
         I work as a software developer during the day, and at night, I
         transition into a content creator. I specialize in crafting educational
         content for developers, focusing on topics such as{" "}
@@ -20,7 +19,7 @@ const About = () => {
         creations highlighted below.
       </p>
       <StatsContent />
-    </BasicDiv>
+    </>
   );
 };
 

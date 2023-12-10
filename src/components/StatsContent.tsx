@@ -4,7 +4,7 @@ const BlogStats = lazy(() => import("@components/BlogStats"));
 
 const StatsContent = () => {
   return (
-    <div className="group flex w-full mt-8 justify-between">
+    <div className="flex mt-2 justify-between flex-wrap">
       <YouTubeStats />
       <BlogStats />
     </div>

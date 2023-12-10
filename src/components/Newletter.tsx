@@ -1,26 +1,37 @@
-import BasicDiv from "@ui/BasicDiv";
-import Divider from "@ui/Divider";
-
 const Newletter = () => {
   return (
-    <BasicDiv>
-      <Divider />
-      <h1 className="mt-8 max-w-lg text-xl font-semibold tracking-tight text-gray-800 xl:text-2xl dark:text-white self-center">
-        Subscribe My newsletter to get update
+    <div className="flex flex-col items-center py-8 md:py-16">
+      <h1 className="text-md md:text-3xl lg:text-xl xl:text-2xl font-bold dark:text-white text-black text-center">
+        <span className="hover:bg-gradient-to-r from-[#171010] via-[#000000] to-[#000f2f] bg-[length:100%_6px] bg-no-repeat bg-bottom">Subscribe to My Newsletter for Updates</span>
       </h1>
-
-      <div className="flex flex-col mx-auto mt-6 space-y-3 md:space-y-0 md:flex-row">
+      <div className="relative mt-4 mx-6 md:mx-0 max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl flex justify-center items-center">
         <input
-          id="email"
-          type="text"
-          className="px-4 py-2 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-blue-300"
-          placeholder="Email Address"
+          type="email"
+          name="email"
+          placeholder="Email address"
+          autoComplete="email"
+          aria-label="Email address"
+          className="w-full rounded-2xl border border-transparent dark:text-white dark:border-white dark:placeholder-white dark:bg-transparent dark:ring-white/5 dark:focus:ring-white/5 dark:hover:ring-white/5 dark:focus:border-white/5 dark:hover:border-white/5 dark:hover:bg-transparent dark:hover:placeholder-white dark:hover:text-white dark:hover:ring-wh
+          bg-transparent py-4 pl-6 pr-12 text-base/6 text-neutral-950 focus:border-neutral-950 focus:outline-none focus:ring-neutral-950/5 hover:border-neutral-950 hover:outline-none hover:ring-neutral-950/5 transition"
         />
-        <button className="w-full px-6 py-2.5 text-sm font-medium tracking-wider text-white transition-colors duration-300 transform md:w-auto md:mx-4 focus:outline-none bg-gray-800 rounded-lg hover:bg-gray-700 focus:ring focus:ring-gray-300 focus:ring-opacity-80">
-          Subscribe
-        </button>
+        <div className="absolute inset-y-1 right-1 flex justify-end">
+          <button
+            type="submit"
+            aria-label="Submit"
+            className="flex aspect-square items-center justify-center rounded-xl bg-neutral-950 text-white transition hover:bg-neutral-800 w-fit px-4"
+          >
+            <svg viewBox="0 0 16 6" aria-hidden="true" className="w-4">
+              <path
+                fill="currentColor"
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M16 3 10 .5v2H0v1h10v2L16 3Z"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
-    </BasicDiv>
+    </div>
   );
 };
 
