@@ -1,12 +1,12 @@
 import TextTag from "@ui/TextTag";
 import StatsContent from "@components/StatsContent";
+import Heading from "@ui/Heading";
 
 
 const About = () => {
   return (
     <>
-      <h2 className="text-xl pt-4 md:text-2xl font-bold text-white">Crafting Code and Content</h2>
-      <hr className="border-1"/>
+      <Heading heading="Crafting Code and Content" />
       <p className="mt-4 pb-4">
         I work as a software developer during the day, and at night, I
         transition into a content creator. I specialize in crafting educational

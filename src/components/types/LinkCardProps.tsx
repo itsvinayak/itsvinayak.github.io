@@ -1,0 +1,7 @@
+export interface LinkCardProps {
+    title: string;
+    link: string;
+    description: string;
+    image: string;
+    classNameBox?: string;
+};

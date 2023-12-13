@@ -1,21 +1,7 @@
 import Layout from "@components/Layout";
 import CardGrid from "@ui/CardGrid";
+import { LinkCardProps } from "@components/types/LinkCardProps";
 
-interface LinkCardProps {
-    title: string;
-    link: string;
-    description: string;
-    image: string;
-    classNameBox?: string;
-};
-
-
-
-// lg:order-1 lg:row-span-1 2xl:row-span-1 lg:col-span-2  
-// lg:order-2 lg:row-span-1 2xl:row-span-1 lg:col-span-1  
-// lg:order-3 lg:row-span-2 2xl:row-span-1 lg:col-span-1  
-// lg:order-4 lg:row-span-2 2xl:row-span-1 col-span-2  
-// lg:order-2 lg:row-span-4 lg:col-span-1
 
 const Links: LinkCardProps[] = [
     {

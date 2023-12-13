@@ -2,12 +2,9 @@ import { notFound } from "next/navigation";
 import { getPostBySlug } from "@lib/utils";
 import Layout from "@components/Layout";
 import { Mdx } from "@components/mdx/MdxComponents";
+import { ArticlePageProps } from "@components/types/ArticleProps";
 
-interface ArticlePageProps {
-    params: {
-        slug: string;
-    };
-}
+
 
 export default function ArticlePage({ params }: ArticlePageProps) {
     console.log("params: ", params);

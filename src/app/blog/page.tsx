@@ -3,20 +3,7 @@ import BasicDiv from '@ui/BasicDiv';
 import Layout from '@components/Layout';
 import { getAllPost } from '@lib/utils';
 import ArticleCard from '@ui/ArticleCard';
-
-interface SinglePostProps{
-  title: string;
-  description?: string;
-  date: string;
-  slug: string;
-  slugAsParams: string;
-  authors?: string[];
-  authorsImage?: string[];
-  tags?: string[];
-}
-
-
-interface PostProps extends Array<SinglePostProps>{}
+import { PostProps, SinglePostProps } from '@components/types/ArticleProps';
 
 const Page = async () => {
   const posts: PostProps = await getAllPost();
