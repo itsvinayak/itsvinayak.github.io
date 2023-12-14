@@ -3,10 +3,10 @@ import BasicDiv from '@ui/BasicDiv';
 import Layout from '@components/Layout';
 import { getAllPost } from '@lib/utils';
 import ArticleCard from '@ui/ArticleCard';
-import { PostProps, SinglePostProps } from '@components/types/ArticleProps';
+import { SinglePostProps } from '@components/types/ArticleProps';
 
 const Page = async () => {
-  const posts: PostProps = await getAllPost();
+  const posts: SinglePostProps[] = await getAllPost();
   const featuredPost: SinglePostProps | undefined = posts.pop() as SinglePostProps | undefined;
   return (
     <Layout>

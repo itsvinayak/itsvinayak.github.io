@@ -10,8 +10,8 @@ interface TextTagProps {
 const TextTag = ({ text, logo, className }: TextTagProps) => {
   console.log("TextTag : ", text, logo);
   return (
-    <span className={cn("border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 rounded p-1 text-sm inline-flex items-center leading-4 text-neutral-900 dark:text-neutral-100 no-underline", className)}>
-      <span className="text-neutral-900 dark:text-neutral-100">{text}</span>
+    <span className={cn("border border-neutral-200 dark:border-neutral-700 bg-neutral-800 text-white rounded p-1 text-sm inline-flex items-center leading-4  dark:text-neutral-100 no-underline", className)}>
+      <span className="text-neutral-100">{text}</span>
       {logo && (
         <span className="ml-1">
           <Image

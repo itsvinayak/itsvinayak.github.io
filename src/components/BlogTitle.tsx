@@ -1,15 +1,8 @@
 import { formatDate } from "@lib/utils";
 import TextTag from '@ui/TextTag';
 import AuthorsCard from '@ui/AuthorsCard';
+import { BlogTitleProps } from "@components/types/BlogTitleProps";
 
-
-interface BlogTitleProps {
-    title: string;
-    date: string;
-    authors?: string[];
-    authorsImage?: string[];
-    tags?: string[];
-}
 
 const BlogTitle: React.FC<BlogTitleProps> = ({ title, date, authors, authorsImage, tags }) => {
     return (
