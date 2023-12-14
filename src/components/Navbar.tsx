@@ -48,7 +48,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`flex align-middle md:justify-center items-center fixed top-0 px-4 py-2 bg-white dark:bg-[#111010] dark:border-[#24222254] w-screen md:w-auto ${isScrolled ? "shadow-md" : ""
+      className={`flex z-40 align-middle md:justify-center items-center fixed top-0 px-4 bg-white dark:bg-[#111010] dark:border-[#24222254] w-screen md:w-auto ${isScrolled ? "shadow-md" : ""
         }`}
     >
       <div className="md:hidden w-screen flex flex-row justify-between align-middle">

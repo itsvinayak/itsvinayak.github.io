@@ -15,7 +15,7 @@ const Page = async () => {
           <h2 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">My Blog</h2>
           <p className="my-4 text-zinc-400">Some of My written work.</p>
         </div>
-        <hr className="border-1"/>
+        <hr className="border-1" />
         <article>
           <div className="grid grid-cols-1 gap-8 mx-auto lg:grid-cols-1 pt-8">
             {featuredPost && (
