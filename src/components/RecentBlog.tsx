@@ -32,5 +32,4 @@ const RecentBlog = async () => {
     );
 };
 
-
-module.exports = RecentBlog;
+export default RecentBlog;
