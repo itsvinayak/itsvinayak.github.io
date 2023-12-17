@@ -3,7 +3,7 @@ import CardGrid from "@ui/CardGrid";
 import { LinkCardProps } from "@components/types/LinkCardProps";
 import { FaGithub,FaYoutube, FaDev,FaStackOverflow } from "react-icons/fa";
 import { FaHashnode } from "react-icons/fa6";
-
+import { BsSubstack } from "react-icons/bs";
 
 
 
@@ -47,6 +47,14 @@ const Links: LinkCardProps[] = [
         "image": "",
         "icon": <FaStackOverflow />,
         "classNameBox": "lg:order-3 lg:row-span-2 2xl:row-span-1 lg:col-span-2"
+    },
+    {
+        "title": "substack",
+        "link": "https://itsvinayak.substack.com/",
+        "description": "My substack Blog",
+        "image": "",
+        "icon": <BsSubstack />,
+        "classNameBox": "lg:order-3 lg:row-span-2 2xl:row-span-1 lg:col-span-4"
     }
 ];
 
@@ -56,7 +64,7 @@ const Links: LinkCardProps[] = [
 const Page = () => {
     return (
         <Layout>
-            <div className="grid gap-4 lg:grid-cols-4 pt-10 lg:pt-20 px-9 lg:px-0">
+            <div className="grid gap-4 lg:grid-cols-4 pt-5 px-9 lg:px-0">
                 {Links.map((link: LinkCardProps) => (
                     <CardGrid
                         key={link.title}

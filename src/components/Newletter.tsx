@@ -1,3 +1,7 @@
+"use client";
+
+import React from "react";
+
 const Newletter = () => {
   return (
     <div className="flex flex-col items-center py-8 md:py-16">
@@ -18,6 +22,7 @@ const Newletter = () => {
           <button
             type="submit"
             aria-label="Submit"
+            onClick={ () => location.href = 'https://itsvinayak.substack.com/' }
             className="flex aspect-square items-center justify-center rounded-xl bg-neutral-950 text-white transition hover:bg-neutral-800 w-fit px-4"
           >
             <svg viewBox="0 0 16 6" aria-hidden="true" className="w-4">

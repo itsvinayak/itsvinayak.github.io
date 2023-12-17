@@ -37,10 +37,10 @@ const DoubleImageCard = ({
   return (
     <Link
       href={link}
-      className="rounded flex items-center py-4 m-4 w-auto justify-around border-zinc-600 border"
+      className="rounded flex items-center md:flex-row flex-col md:py-4 m-1 w-full md:w-[46%]  md:align-middle justify-around border-zinc-600 border"
     >
-      <div className="flex items-center space-x-3 m-4">
-        <div className="relative h-16">
+      <div>
+        <div className="relative h-10 md:h-16 p-1">
           <Image
             src={largeImage.src}
             alt={largeImage.alt}
@@ -50,12 +50,12 @@ const DoubleImageCard = ({
             decoding="async"
             style={{ color: "transparent" }}
             data-nimg="1"
-            className="border border-neutral-200 dark:border-neutral-700 rounded-full h-16 w-16"
+            className="border border-neutral-200 dark:border-neutral-700 rounded-full h-8 w-8 md:h-16 md:w-16"
           />
           <div
             className="border border-neutral-200 dark:border-neutral-700 
             rounded-full bg-white inline-flex p-1 
-            relative h-6 w-6 items-center -top-6 -right-10"
+            relative h-4 w-4 md:h-6 md:w-6  items-center -top-4 -right-4 md:-top-6 md:-right-10"
           >
             <Image
               src={smallImage.src}
@@ -68,11 +68,11 @@ const DoubleImageCard = ({
           </div>
         </div>
       </div>
-      <div className="flex flex-col mx-4">
-        <p className="text-neutral-900 dark:text-neutral-100 font-bold text-xl">
+      <div className="flex flex-col mx-4 p-1">
+        <p className="text-neutral-900 dark:text-neutral-100 font-bold text-sm md:text-xl">
           {title}
         </p>
-        <p className="text-neutral-600 dark:text-neutral-400">{description}</p>
+        <p className="text-neutral-600 dark:text-neutral-400 text-xs md:text-lg">{description}</p>
       </div>
     </Link>
   );
