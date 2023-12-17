@@ -11,7 +11,7 @@ const Page = async () => {
   return (
     <Layout>
       <BasicDiv>
-        <div className="max-w-2xl mx-auto lg:mx-0">
+        <div className="mx-auto lg:mx-0 max-w-5xl">
           <h2 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">My Blog</h2>
           <p className="my-4 text-zinc-400">Some of My written work.</p>
         </div>

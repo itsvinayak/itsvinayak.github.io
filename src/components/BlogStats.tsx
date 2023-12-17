@@ -2,9 +2,9 @@ import { lazy } from "react";
 const DoubleImageCard = lazy(() => import("@ui/DoubleImageCard"));
 
 const getBlogData : BlogStatsProps = {
-  link: `https://www.youtube.com/channel/${process.env.YOUTUBE_CHANNEL_ID}`,
-  title: "@itsvinayak",
-  description: "200 Subscribers",
+  link: process.env.blogLink || `https://dev.to/itsvinayak`,
+  title: process.env.blogTitle || "@dev/itsvinayak",
+  description: process.env.blogDescription || "> 2390 Subscribers",
   largeImage: {
     src: "/profile.jpeg",
     alt: "Vinayak",

@@ -5,7 +5,7 @@ const TextTag = lazy(() => import("@ui/TextTag"));
 const HomeContent = () => {
   return (
     <>
-      <h1 className="italic subpixel-antialiased md:mt-4 font-extrabold md:text-4xl">
+      <h1 className="italic subpixel-antialiased md:mt-4 font-extrabold md:text-4xl tracking-wide leading-relaxed">
         hey, I&#39;m Vinayak &nbsp;
         <Image
           src="/Hi.gif"
