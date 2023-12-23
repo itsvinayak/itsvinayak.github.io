@@ -37,7 +37,7 @@ const DoubleImageCard = ({
   return (
     <Link
       href={link}
-      className="rounded flex items-center md:flex-row flex-col md:py-4 m-1 w-full md:w-[46%]  md:align-middle justify-around border-zinc-600 border"
+      className="rounded flex items-center md:flex-row bg-[#262626] flex-col md:py-4 m-1 w-full md:w-[46%]  md:align-middle justify-around border-zinc-600 border"
     >
       <div>
         <div className="relative h-10 md:h-16 p-1">
