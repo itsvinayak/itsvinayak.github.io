@@ -1,14 +1,8 @@
-import type { Config } from 'tailwindcss'
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
   mode: 'jit',
   // darkMode: ['class', '[data-mode="dark"]'],
-  purge: {
-    content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
-    options: {
-      safelist: ['dark'],
-    },
-  },
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -25,7 +19,7 @@ const config: Config = {
   },
   plugins: [
     require('@tailwindcss/typography'),
-    require('@tailwindcss/aspect-ratio')
+    require('@tailwindcss/aspect-ratio'),
   ],
-}
-export default config
+};
+export default config;

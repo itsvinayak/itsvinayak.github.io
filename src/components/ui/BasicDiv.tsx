@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { cn } from "@lib/utils"
+import { cn } from '@lib/utils';
 
 interface BasicDivProps {
   children: ReactNode;
@@ -7,7 +7,11 @@ interface BasicDivProps {
 
 const BasicDiv = ({ children }: BasicDivProps) => {
   return (
-    <main className={cn("tracking-wide pt-8 flex flex-col self-center justify-center mx-6 md:mx-0 text-center md:text-left")}>
+    <main
+      className={cn(
+        'mx-6 flex flex-col justify-center self-center pt-8 text-center tracking-wide md:mx-0 md:text-left'
+      )}
+    >
       {children}
     </main>
   );

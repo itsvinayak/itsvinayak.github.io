@@ -8,9 +8,6 @@
   <a href="https://linktr.ee/itsvinayak"><img src="https://img.shields.io/badge/linktree-39E09B?style=for-the-badge&logo=linktree&logoColor=black"/></a>
 </p>
 
-
-
-
 <p align="left">
   
   - 🌱 I’m currently learning many things <a href="https://www.freecodecamp.org/itsvinayak"> <img src="https://img.shields.io/badge/freecodecamp-27273D?style=for-the-badge&logo=freecodecamp&logoColor=white"/> </a> <a href="https://www.udemy.com/user/vinayak-sharma-17/"> <img src="https://img.shields.io/badge/Udemy-EC5252?style=for-the-badge&logo=Udemy&logoColor=white"/> </a>
@@ -24,6 +21,7 @@
 ### 📺 Latest YouTube Videos
 
 <!-- YOUTUBE:START -->
+
 - [Optimize Your Kubernetes Workflow With Essential Bash Aliases! 💻](https://www.youtube.com/watch?v=yyuk9557OY4)
 - [5 lesser known Tricks and Shorthands for JavaScript](https://www.youtube.com/watch?v=4ROFiicxh5M)
 - [3 Ways to Clone Objects in JavaScript](https://www.youtube.com/watch?v=5zX5yYaAluA)
@@ -33,10 +31,8 @@
 
 ➡️ [more videos...](https://www.youtube.com/channel/UC3Vrabb-Q563wejSp3KG8fA)
 
-
-
-<!--  <p><img align="left" src="https://github-readme-stats.vercel.app/api?username=itsvinayak&show_icons=true&theme=radical" alt="itsvinayak" /></p> 
- <p> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<!--  <p><img align="left" src="https://github-readme-stats.vercel.app/api?username=itsvinayak&show_icons=true&theme=radical" alt="itsvinayak" /></p>
+ <p> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
   <img align="center" src="https://user-images.githubusercontent.com/627794/87238688-cd69cc00-c3d3-11ea-99f4-812dfd665b38.gif" width="180"></p>
  -->
 <!-- --- -->
@@ -56,6 +52,7 @@
 <!-- --- -->
 
 <!-- BLOG-POST-LIST:START -->
+
 - [What Defines a Software Developer?](https://itsvinayak.hashnode.dev/what-defines-a-software-developer)
 - [GIT For Beginners](https://itsvinayak.hashnode.dev/git-for-beginners)
 - [Boost Your JavaScript Skills with These 5 Must-Know Shorthands and Tricks](https://itsvinayak.hashnode.dev/boost-your-javascript-skills-with-these-5-must-know-shorthands-and-tricks)
@@ -64,13 +61,13 @@
 - [File Uploads Made Easy with Node.js](https://itsvinayak.hashnode.dev/file-uploads-made-easy-with-nodejs)
 <!-- BLOG-POST-LIST:END -->
 
-
 <!-- p align="center">
 <a href="https://app.daily.dev/itsvinayak"><img src="https://github.com/itsvinayak/itsvinayak/blob/master/devcard.svg" width="200" alt="vinayak's Dev Card"/></a>
 </p -->
 
 ---
-[![itsvinayak's GitHub | Stats](https://stats-dev.quine.sh/itsvinayak/github?theme=dark)](https://dev.quine.sh?utm_source=widgets&utm_campaign=itsvinayak) 
+
+[![itsvinayak's GitHub | Stats](https://stats-dev.quine.sh/itsvinayak/github?theme=dark)](https://dev.quine.sh?utm_source=widgets&utm_campaign=itsvinayak)
 
 ---
 
@@ -103,8 +100,7 @@
 <a href="https://www.youtube.com/@itsvinayak" target="blank"><img align="center" src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/youtube.svg" alt="vinayak sharma" height="30" width="30" /></a>
 </p>
 
-
-<!-- 
+<!--
 <hr/>
 <p align="left">
 <img src="https://user-images.githubusercontent.com/33996594/204121689-b00e13bb-61fe-4590-8c06-ef2dbe140307.svg" width="100%" />

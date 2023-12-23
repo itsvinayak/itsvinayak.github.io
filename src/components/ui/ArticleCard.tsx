@@ -1,9 +1,9 @@
-import ReadMore from "@ui/ReadMore";
-import Link from "next/link";
-import AuthorsCard from "@ui/AuthorsCard";
-import TextTag from "@ui/TextTag";
-import React from "react";
-import { formatDate } from "@lib/utils";
+import ReadMore from '@ui/ReadMore';
+import Link from 'next/link';
+import AuthorsCard from '@ui/AuthorsCard';
+import TextTag from '@ui/TextTag';
+import React from 'react';
+import { formatDate } from '@lib/utils';
 
 interface ArticleCardProps {
   post: {
@@ -19,58 +19,72 @@ interface ArticleCardProps {
 }
 
 const ArticleCard: React.FC<ArticleCardProps> = ({ post }) => {
-  console.log("serving post -> ", post);
-  let { title, description, date, slug, slugAsParams, authors, authorsImage, tags } = post;
+  console.log('serving post -> ', post);
+  let {
+    title,
+    description,
+    date,
+    slug,
+    slugAsParams,
+    authors,
+    authorsImage,
+    tags,
+  } = post;
   if (!authorsImage) {
-    authorsImage = ['/profile.jpeg']
+    authorsImage = ['/profile.jpeg'];
   }
   if (!tags) {
-    tags = ['JS', 'React', 'Next.js']
+    tags = ['JS', 'React', 'Next.js'];
   }
-  let postLink: string = "";
+  let postLink: string = '';
   if (slugAsParams) {
     postLink = `/blog/${slug}`;
   }
   return (
     <Link href={postLink}>
       <article
-        className="overflow-hidden relative duration-700 
-    border rounded-xl hover:bg-zinc-800/10 group
-     md:gap-8 hover:border-zinc-400/50 border-zinc-600  p-2 md:p-8"
+        className='group relative overflow-hidden 
+    rounded-xl border border-zinc-600 p-2
+     duration-700 hover:border-zinc-400/50 hover:bg-zinc-800/10  md:gap-8 md:p-8'
       >
-        <h2 className="text-xl font-medium duration-1000 lg:text-3xl text-zinc-200 group-hover:text-white font-display">
+        <h2 className='font-display text-xl font-medium text-zinc-200 duration-1000 group-hover:text-white lg:text-3xl'>
           {title}
         </h2>
-        <div className="py-2">
-          <span className="text-xs duration-1000 group-hover:text-white group-hover:border-zinc-200 drop-shadow-orange text-slate-200">
+        <div className='py-2'>
+          <span className='drop-shadow-orange text-xs text-slate-200 duration-1000 group-hover:border-zinc-200 group-hover:text-white'>
             <time dateTime={date}>{formatDate(date)}</time>
           </span>
         </div>
-        <div className="flex flex-row items-center justify-between">
+        <div className='flex flex-row items-center justify-between'>
           <div>
-            {(authors && authorsImage) &&
+            {authors &&
+              authorsImage &&
               authors.map((author, index) => (
-                < AuthorsCard key={index} author={{
-                  name: author,
-                  image: authorsImage?.[index] ?? "",
-                }} />
-              ))
-            }
+                <AuthorsCard
+                  key={index}
+                  author={{
+                    name: author,
+                    image: authorsImage?.[index] ?? '',
+                  }}
+                />
+              ))}
           </div>
           <div>
-            {tags && tags.map((tag, index) => (
-              <TextTag
-                key={index}
-                className="text-xs text-slate-200 m-1"
-                text={tag}
-                logo={""} />
-            ))}
+            {tags &&
+              tags.map((tag, index) => (
+                <TextTag
+                  key={index}
+                  className='m-1 text-xs text-slate-200'
+                  text={tag}
+                  logo={''}
+                />
+              ))}
           </div>
         </div>
-        <p className="mt-4 text-sm  duration-1000 text-zinc-400 group-hover:text-zinc-200">
+        <p className='mt-4 text-sm  text-zinc-400 duration-1000 group-hover:text-zinc-200'>
           {description}
         </p>
-        <div className="flex justify-between items-center mt-4">
+        <div className='mt-4 flex items-center justify-between'>
           <ReadMore link={postLink} />
         </div>
       </article>

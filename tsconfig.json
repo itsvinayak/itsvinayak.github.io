@@ -2,11 +2,7 @@
   "compilerOptions": {
     "target": "es5",
     "baseUrl": ".",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -24,21 +20,11 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./src/app/*"
-      ],
-      "@components/*": [
-        "./src/components/*"
-      ],
-      "@lib/*": [
-        "./lib/*"
-      ],
-      "@generated": [
-        "./.contentlayer/generated"
-      ],
-      "@ui/*": [
-        "./src/components/ui/*"
-      ]
+      "@/*": ["./src/app/*"],
+      "@components/*": ["./src/components/*"],
+      "@lib/*": ["./lib/*"],
+      "@generated": ["./.contentlayer/generated"],
+      "@ui/*": ["./src/components/ui/*"]
     }
   },
   "include": [
@@ -50,7 +36,5 @@
     ".contentlayer/generated",
     "build/types/**/*.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

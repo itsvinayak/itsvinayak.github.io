@@ -1,10 +1,10 @@
-import { lazy } from "react";
-const YouTubeStats = lazy(() => import("@components/YouTubeStats"));
-const BlogStats = lazy(() => import("@components/BlogStats"));
+import { lazy } from 'react';
+const YouTubeStats = lazy(() => import('@components/YouTubeStats'));
+const BlogStats = lazy(() => import('@components/BlogStats'));
 
 const StatsContent = () => {
   return (
-    <div className="flex mt-2 justify-between flex-wrap">
+    <div className='mt-2 flex flex-wrap justify-between'>
       <YouTubeStats />
       <BlogStats />
     </div>

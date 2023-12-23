@@ -14,7 +14,8 @@
     "format:fix": "prettier --write --ignore-path .gitignore .",
     "lint:fix": "eslint --fix --ignore-path .gitignore .",
     "tailwind:build": "postcss styles/index.css -o public/build/tailwind.css",
-    "tailwind:watch": "postcss styles/index.css -o public/build/tailwind.css --watch"
+    "tailwind:watch": "postcss styles/index.css -o public/build/tailwind.css --watch",
+    "tailwind:prod": "NODE_ENV=production npm run tailwind:build"
   },
   "author": {
     "name": "Vinayak",
@@ -40,7 +41,7 @@
     "clsx": "^2.0.0",
     "contentlayer": "^0.3.4",
     "date-fns": "^2.30.0",
-    "next": "^13.5.4",
+    "next": "^14.0.4",
     "next-contentlayer": "^0.3.4",
     "react": "^18",
     "react-dom": "^18",

@@ -1,20 +1,20 @@
-"use client";
+'use client';
 
-
-import Navlink from "@ui/Navlink";
-import { FaBars, FaTimes } from "react-icons/fa";
-import { useState, useEffect } from "react";
+import Navlink from '@ui/Navlink';
+import { FaBars, FaTimes } from 'react-icons/fa';
+import { useState, useEffect } from 'react';
 
 const links = [
-  { name: "Home", href: "/" , active: false},
-  { name: "Blog", href: "/blog", active: false },
-  { name: "Connect", href: "/connect", active: false }
+  { name: 'Home', href: '/' },
+  { name: 'Blog', href: '/blog' },
+  { name: 'Work', href: '/work' },
+  { name: 'Connect', href: '/connect' },
 ];
 
 const NavbarLogo = () => {
   return (
-    <span className="text-2xl py-4 font-bold text-gray-500 dark:text-gray-400">
-      <text className="">it&apos;s vinayak </text>
+    <span className='py-4 text-2xl font-bold text-gray-500 dark:text-gray-400'>
+      <text className=''>it&apos;s vinayak </text>
     </span>
   );
 };
@@ -22,21 +22,21 @@ const NavbarLogo = () => {
 const NavbarButton = ({ actionFunction, actionType }: any) => {
   return (
     <button
-      className="rounded-lg focus:outline-none focus:shadow-outline block text-2xl text-gray-500 dark:text-gray-400 transition duration-150 ease-in-out p-4"
+      className='focus:shadow-outline block rounded-lg p-4 text-2xl text-gray-500 transition duration-150 ease-in-out focus:outline-none dark:text-gray-400'
       onClick={actionFunction}
       tabIndex={0}
     >
       {actionType ? (
         <>
-          <span className="z-50 ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none ">
+          <span className='ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute right-4 top-4 z-50 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none '>
             <FaTimes />
-            <span className="sr-only md:not-sr-only">Close</span>
+            <span className='sr-only md:not-sr-only'>Close</span>
           </span>
         </>
       ) : (
         <>
           <FaBars />
-          <span className="sr-only md:not-sr-only">Open</span>
+          <span className='sr-only md:not-sr-only'>Open</span>
         </>
       )}
     </button>
@@ -55,31 +55,35 @@ const Navbar = () => {
       setIsScrolled(scrollPosition > 0);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
   return (
     <nav
-      className={`flex z-40 align-middle md:justify-center items-center fixed top-0 px-4 bg-white dark:bg-[#111010] dark:border-[#24222254] w-screen md:w-auto ${isScrolled ? "shadow-md" : ""
-        }`}
+      className={`fixed top-0 z-40 flex w-screen items-center bg-white px-4 align-middle md:w-auto md:justify-center dark:border-[#24222254] dark:bg-[#111010] ${
+        isScrolled ? 'shadow-md' : ''
+      }`}
     >
-      <div className="md:hidden w-screen flex flex-row justify-between align-middle">
+      <div className='flex w-screen flex-row justify-between align-middle md:hidden'>
         <NavbarLogo />
         <NavbarButton actionFunction={toggleNav} actionType={showNav} />
       </div>
-      <div className="hidden md:block">
+      <div className='hidden md:block'>
         <Navlink links={links} classNameProps={'flex flex-row'} />
       </div>
       {showNav && (
         <div
-          className="md:hidden fixed top-0 left-0 bg-white dark:bg-[#111010] bg-opacity-90 z-10 overflow-hidden w-screen h-screen"
+          className='fixed left-0 top-0 z-10 h-screen w-screen overflow-hidden bg-white bg-opacity-90 md:hidden dark:bg-[#111010]'
           onClick={toggleNav}
         >
-          <Navlink links={links} classNameProps={'flex flex-col m-10 text-lg'} />
+          <Navlink
+            links={links}
+            classNameProps={'flex flex-col m-10 text-lg'}
+          />
         </div>
       )}
     </nav>

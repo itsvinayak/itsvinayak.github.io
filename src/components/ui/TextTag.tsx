@@ -1,5 +1,5 @@
-import Image from "next/image";
-import { cn } from "@lib/utils";
+import Image from 'next/image';
+import { cn } from '@lib/utils';
 
 interface TextTagProps {
   text: string;
@@ -8,18 +8,23 @@ interface TextTagProps {
 }
 
 const TextTag = ({ text, logo, className }: TextTagProps) => {
-  console.log("TextTag : ", text, logo);
+  console.log('TextTag : ', text, logo);
   return (
-    <span className={cn("border border-neutral-200 dark:border-neutral-700 bg-neutral-800 text-white rounded p-1 text-sm inline-flex items-center leading-4  dark:text-neutral-100 no-underline", className)}>
-      <span className="text-neutral-100">{text}</span>
+    <span
+      className={cn(
+        'inline-flex items-center rounded border border-neutral-200 bg-neutral-800 p-1 text-sm leading-4 text-white no-underline  dark:border-neutral-700 dark:text-neutral-100',
+        className
+      )}
+    >
+      <span className='text-neutral-100'>{text}</span>
       {logo && (
-        <span className="ml-1">
+        <span className='ml-1'>
           <Image
             src={logo}
             alt={text}
             width={16}
             height={16}
-            className="inline-block"
+            className='inline-block'
           />
         </span>
       )}

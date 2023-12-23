@@ -12,46 +12,56 @@ React is an open-source JavaScript library that is used to develop interactive u
 ---
 
 ### Modules required:
+
 - npm
 - React
 - axios
+
 ```
  $ npx install axios --save
 ```
 
+### Basic setup:
 
-### Basic setup: 
 - Start a project by the following command:
+
 ```
 $ npx create-react-app youtube-clone
 ```
-- now go to youtube-clone : 
+
+- now go to youtube-clone :
+
 ```
 $ cd youtube-clone
 ```
+
 - Start the server- Start the server by typing the following command in the terminal :
+
 ```
 $ npm start
 ```
+
 open <i>http://localhost:3000/</i>
-
-
 
 ---
 
 ### Basic setup
+
 - Change directory to src and delete everything:
+
 ```
 $ cd src && rm *
 ```
+
 - now create several <i>index.js,app.js,YoutubeApi.js,SearchBar.js,VideoDetails.js,VideoItem.js,VideoList.js</i> file
-<img src="https://dev-to-uploads.s3.amazonaws.com/i/wvejtxbimi53sdsazl5c.png" />
+
+  <img src='https://dev-to-uploads.s3.amazonaws.com/i/wvejtxbimi53sdsazl5c.png' />
 
 - For styling add semantic UI CDN to index.html
+
 ```
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 ```
- 
 
 ---
 
@@ -69,7 +79,9 @@ ReactDOM.render(
   document.getElementById('root')
 );
 ```
+
 ### Edit App.js
+
 ```
 import React from 'react';
 import SearchBar from './components/SearchBar';
@@ -129,7 +141,9 @@ class App extends React.Component {
 
 export default App;
 ```
+
 ### Edit youtube-clone/src/components/VideoList.js
+
 ```
 import React from 'react';
 import VideoItem from './VideoItem';
@@ -150,6 +164,7 @@ export default VideoList;
 ```
 
 ### Edit youtube-clone/src/components/VideoDetails.js
+
 ```
 import React from 'react';
 
@@ -187,6 +202,7 @@ export default VideoDetails;
 ```
 
 ### Edit youtube-clone/src/components/SearchBar.js
+
 ```
 import React from 'react';
 
@@ -232,9 +248,11 @@ class SearchBar extends React.Component{
 
 export default SearchBar;
 ```
+
 ### youtube-clone/src/components/style/videoitem.css
+
 ```
- 
+
 .video-item{
   display:flex!important;
   align-items: center!important;
@@ -254,7 +272,8 @@ export default SearchBar;
 ### Edit youtube-clone/src/api/YoutubeApi.js
 
 Get an API key from google developer
-<a href="https://console.developers.google.com/">google developer</a> 
+
+<a href='https://console.developers.google.com/'>google developer</a>{' '}
 
 ```
 import axios from "axios";
@@ -273,6 +292,6 @@ export default axios.create({
 });
 ```
 
-
 ## project is live <a href="https://itsvinayak.github.io/youtube-clone/"> here</a>
+
 ### source code <a href="https://github.com/itsvinayak/youtube-clone">@github</a>

@@ -3,7 +3,6 @@ import About from '@components/About';
 import Layout from '@components/Layout';
 import BasicDiv from '@ui/BasicDiv';
 
-
 export default async function Page() {
   return (
     <Layout>
@@ -12,7 +11,5 @@ export default async function Page() {
         <About />
       </BasicDiv>
     </Layout>
-  )
+  );
 }
-
-

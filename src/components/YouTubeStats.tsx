@@ -1,8 +1,6 @@
-import { lazy } from "react";
-const DoubleImageCard = lazy(() => import("@ui/DoubleImageCard"));
-import { getYoutubeStatsData } from "@lib/utils";
-
-
+import { lazy } from 'react';
+const DoubleImageCard = lazy(() => import('@ui/DoubleImageCard'));
+import { getYoutubeStatsData } from '@lib/utils';
 
 interface YouTubeStatsProps {
   link: string;
@@ -20,24 +18,24 @@ interface YouTubeStatsProps {
 
 const filterYouTubeData = (data: any) => {
   let filteredData: YouTubeStatsProps = {
-    link: "",
-    title: "",
-    description: "",
+    link: '',
+    title: '',
+    description: '',
     largeImage: {
-      src: "",
-      alt: ""
+      src: '',
+      alt: '',
     },
     smallImage: {
-      src: "",
-      alt: ""
-    }
+      src: '',
+      alt: '',
+    },
   };
 
   let displayText;
   if (!data) {
     data = {};
   }
-  console.log("filterYouTubeData ", data);
+  console.log('filterYouTubeData ', data);
 
   data.subscriberCount = Number(data?.subscriberCount) || 0;
   data.viewCount = Number(data?.viewCount) || 0;
@@ -59,38 +57,35 @@ const filterYouTubeData = (data: any) => {
   if (data) {
     filteredData = {
       link: `https://www.youtube.com/channel/${process.env.YOUTUBE_CHANNEL_ID}`,
-      title: "@itsvinayak",
+      title: '@itsvinayak',
       description: displayText,
       largeImage: {
-        src: "/profile.jpeg",
-        alt: "Vinayak",
+        src: '/profile.jpeg',
+        alt: 'Vinayak',
       },
       smallImage: {
-        src: "/youtube-logo.svg",
-        alt: "YouTube",
+        src: '/youtube-logo.svg',
+        alt: 'YouTube',
       },
     };
   }
-  console.log("filteredData : ", filteredData);
+  console.log('filteredData : ', filteredData);
   return filteredData;
 };
-
 
 const YouTubeStats = async () => {
   let youTubeStats = null;
   try {
     youTubeStats = await getYoutubeStatsData();
   } catch (error) {
-    console.log("Error : ", error);
+    console.log('Error : ', error);
   }
   let filteredYouTubeStats: YouTubeStatsProps = filterYouTubeData(youTubeStats);
 
-  console.log("YouTubeStats : ", youTubeStats);
+  console.log('YouTubeStats : ', youTubeStats);
 
   return (
-    <>
-      {filteredYouTubeStats && <DoubleImageCard {...filteredYouTubeStats} />}
-    </>
+    <>{filteredYouTubeStats && <DoubleImageCard {...filteredYouTubeStats} />}</>
   );
 };
 

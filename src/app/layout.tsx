@@ -4,41 +4,40 @@ import '@/globals.css';
 import Loader from '@ui/Loader';
 import { Suspense } from 'react';
 
-const inter = Inter({ subsets: ['latin'] })
+console.log('process.env loaded  ', process.env);
 
-let title = 'vinayak'
-let description = 'vinayak'
+const inter = Inter({ subsets: ['latin'] });
 
-// setting envoriment 
+let title = 'vinayak';
+let description = 'My Personal Website';
+
+// setting envoriment
+console.log('Loading Env in ', process.env.NODE_ENV);
+const projectDir = process.cwd();
+console.log('projectDir ', projectDir);
 if (process.env.NODE_ENV === 'development') {
   console.log('running app in development');
-  title += ' | development mode enabled'
+  title += ' | development mode enabled';
 } else {
   console.log('running app in production');
-  console.log = () => { };
+  console.log = () => {};
 }
-
-
 
 export const metadata: Metadata = {
   title: title,
   description: description,
-}
-
-
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang='en'>
       <body className={inter.className}>
-        <Suspense fallback={<Loader />}>
-        {children}
-        </Suspense>
+        <Suspense fallback={<Loader />}>{children}</Suspense>
       </body>
     </html>
-  )
+  );
 }

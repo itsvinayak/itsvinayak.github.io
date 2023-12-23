@@ -1,19 +1,19 @@
-import React, { lazy } from "react";
-import { cn } from "@lib/utils";
-import { LayoutProps } from "@components/types/LayoutProps";
+import React, { lazy } from 'react';
+import { cn } from '@lib/utils';
+import { LayoutProps } from '@components/types/LayoutProps';
 
-const Navbar = lazy(() => import("@components/Navbar"));
-const Footer = lazy(() => import("@components/Footer"));
+const Navbar = lazy(() => import('@components/Navbar'));
+const Footer = lazy(() => import('@components/Footer'));
 
 const Layout = ({ children, className }: LayoutProps) => {
   return (
-    <main className="w-full min-h-screen bg-white text-black dark:bg-[#111010] dark:text-white overflow-y-hidden">
-      <div className={cn("flex flex-col items-center rounded-lg", className)}>
+    <main className='min-h-screen w-full overflow-y-hidden bg-white text-black dark:bg-[#111010] dark:text-white'>
+      <div className={cn('flex flex-col items-center rounded-lg', className)}>
         <Navbar />
-        <div className="w-full md:max-w-prose px-4 py-20 min-h-screen">
+        <div className='min-h-screen w-full px-4 py-20 md:max-w-prose'>
           {children}
         </div>
-        <hr className="w-1/2" />
+        <hr className='w-1/2' />
         <Footer />
       </div>
     </main>
