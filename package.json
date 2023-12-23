@@ -7,7 +7,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "tsc --noEmit --watch",
+    "format": "prettier --check --ignore-path .gitignore .",
+    "format:fix": "prettier --write --ignore-path .gitignore .",
+    "lint:fix": "eslint --fix --ignore-path .gitignore .",
+    "tailwind:build": "postcss styles/index.css -o public/build/tailwind.css",
+    "tailwind:watch": "postcss styles/index.css -o public/build/tailwind.css --watch"
   },
   "author": {
     "name": "Vinayak",
@@ -27,15 +34,9 @@
     "itsvinayak"
   ],
   "dependencies": {
-    "@headlessui/react": "^1.7.17",
-    "@heroicons/react": "^2.0.18",
-    "@mdx-js/loader": "^3.0.0",
-    "@mdx-js/react": "^3.0.0",
-    "@next/mdx": "^14.0.3",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/typography": "^0.5.10",
     "@types/mdx": "^2.0.10",
-    "axios": "^1.6.2",
     "clsx": "^2.0.0",
     "contentlayer": "^0.3.4",
     "date-fns": "^2.30.0",
@@ -50,7 +51,8 @@
     "remark-gfm": "^4.0.0",
     "sharp": "^0.33.0",
     "shiki": "^0.14.5",
-    "tailwind-merge": "^2.0.0"
+    "tailwind-merge": "^2.0.0",
+    "tailwindcss": "^3.0.0"
   },
   "devDependencies": {
     "@types/node": "^20",
@@ -62,7 +64,6 @@
     "postcss": "^8",
     "prettier": "^3.1.1",
     "prettier-plugin-tailwindcss": "^0.5.9",
-    "tailwindcss": "^3.3.0",
     "typescript": "^5"
   }
 }

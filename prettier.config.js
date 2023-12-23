@@ -1,5 +1,6 @@
 module.exports = {
   plugins: ["prettier-plugin-tailwindcss"],
+  extends: ["prettier", "prettier/@typescript-eslint", "prettier/react", "prettier/standard"],
   semi: true,
   singleQuote: false,
   printWidth: 120,
