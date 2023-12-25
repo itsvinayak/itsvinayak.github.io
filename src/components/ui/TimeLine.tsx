@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { TimeLineItemProps } from '@components/types/TimeLineProps';
 
 const TimeLineItem: React.FC<TimeLineItemProps> = ({ title, description, fromTime, toTime, sourceLink, sourceText, icon, sourceLinkIcon, isLatest }) => {
+    console.log('TimeLineItem');
     if (!sourceLinkIcon) {
         sourceLinkIcon = <svg className="w-3.5 h-3.5 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
             <path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z" />
@@ -25,7 +26,11 @@ const TimeLineItem: React.FC<TimeLineItemProps> = ({ title, description, fromTim
             </span>
             <p className="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">{description}</p>
             {!!sourceLink && (
-                <Link href={sourceLink} className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-200 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700">
+                <Link
+                    href={sourceLink}
+                    target="_blank"
+                    className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-200 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700">
+                    <span className='mr-2'>{sourceLinkIcon}</span>
                     {sourceText}</Link>
             )}
         </li>

@@ -20,12 +20,13 @@ export const WorkData = [
     },
     {
         title: 'Freelance Technical Writer at LambdaTest · Freelance',
+        icon: <MdWork />,
         description: 'Wrote articles on LambdaTest blog on topics related to testing, automation, and cross-browser testing.',
         fromTime: 'May 2021',
         toTime: 'August 2022',
-        sourceLink: 'https://www.lambdatest.com/blog/author/vinayak/',
+        sourceLink: 'https://www.lambdatest.com/blog/author/vinayaksharma/',
         sourceText: 'View Articles',
-        sourceIcon: <CgWebsite />
+        sourceLinkIcon: <CgWebsite />
     },
     {
         title: 'Subject Matter Expert at Chegg Inc. · Part-time',
