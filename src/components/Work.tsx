@@ -1,5 +1,7 @@
 import TextTag from '@ui/TextTag';
 import Heading from '@ui/Heading';
+import { FaArrowRight } from 'react-icons/fa';
+import Link from 'next/link';
 
 const About = () => {
   return (
@@ -20,6 +22,13 @@ const About = () => {
         RabbitMQ, Node.js, Redis, FinTech, Payments, REST APIs, debugging,
         MongoDB, problem-solving, software development, Git, Docker, and DevOps.
       </p>
+      <Link
+        href='/work' 
+        className='dark:bg-[#262626] bg-gray-300 p-2 my-2 hover:dark:bg-gray-800	w-1/2 text-center rounded-md dark:text-gray-100 text-gray-900'
+        >
+        Reveal Full History
+        <FaArrowRight className='inline-block mx-4 animate-[backAndForward_5s_ease-in-out_infinite]	' />
+      </Link>
     </>
   );
 };
