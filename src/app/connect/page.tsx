@@ -1,9 +1,6 @@
 import Layout from '@components/Layout';
 import CardGrid from '@ui/CardGrid';
 import { LinkCardProps } from '@components/types/LinkCardProps';
-import { FaGithub, FaYoutube, FaDev, FaStackOverflow } from 'react-icons/fa';
-import { FaHashnode } from 'react-icons/fa6';
-import { BsSubstack } from 'react-icons/bs';
 
 const Links: LinkCardProps[] = [
   {
