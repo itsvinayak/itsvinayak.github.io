@@ -12,22 +12,17 @@ const HomeContent = () => {
         and developing innovative solutions.
         <br />
         <br />
-        My expertise lies in{' '}
-        <TextTag text='Python' logo={''} /> ( <TextTag text='Flask/Django' logo={''} />,{' '} and  <TextTag text='Selenium' logo={''} /> ) {' '}
-        <TextTag
-          text='JavaScript'
-          logo={''}
-        />{' '}
-        {/* (Node.js, Loopback, ) */}
-        ( 
-        <TextTag text='Loopback' logo={''} />, {' '}
-        <TextTag text='Next.js' logo={''} />, {' '}
-        <TextTag text='Node.js' logo={''} />, {' '} and
-        <TextTag text='Node-Red' logo={''} />
-        )
-        for backend design and development. I have a proven track record of
-        designing and implementing scalable and efficient solutions that meet
-        business objectives.
+        My expertise lies in <TextTag text='Python' logo={''} /> ({' '}
+        <TextTag text='Flask/Django' logo={''} />, and{' '}
+        <TextTag text='Selenium' logo={''} /> ){' '}
+        <TextTag text='JavaScript' logo={''} /> {/* (Node.js, Loopback, ) */}
+        (
+        <TextTag text='Loopback' logo={''} />,{' '}
+        <TextTag text='Next.js' logo={''} />,{' '}
+        <TextTag text='Node.js' logo={''} />, and
+        <TextTag text='Node-Red' logo={''} />) for backend design and
+        development. I have a proven track record of designing and implementing
+        scalable and efficient solutions that meet business objectives.
       </p>
     </>
   );

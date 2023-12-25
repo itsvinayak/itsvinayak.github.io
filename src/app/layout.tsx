@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Roboto } from 'next/font/google'
+import { Roboto } from 'next/font/google';
 import '@/globals.css';
 import Loader from '@ui/Loader';
 import { Suspense } from 'react';
@@ -12,7 +12,6 @@ const roboto = Roboto({
   subsets: ['latin'],
   display: 'swap',
 });
-
 
 let title = 'vinayak';
 let description = 'My Personal Website';
