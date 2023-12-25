@@ -1,12 +1,18 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Roboto } from 'next/font/google'
 import '@/globals.css';
 import Loader from '@ui/Loader';
 import { Suspense } from 'react';
 
 console.log('process.env loaded  ', process.env);
 
-const inter = Inter({ subsets: ['latin'] });
+const roboto = Roboto({
+  weight: ['400', '700'],
+  style: ['normal', 'italic'],
+  subsets: ['latin'],
+  display: 'swap',
+});
+
 
 let title = 'vinayak';
 let description = 'My Personal Website';
@@ -35,7 +41,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={inter.className}>
+      <body className={roboto.className}>
         <Suspense fallback={<Loader />}>{children}</Suspense>
       </body>
     </html>
