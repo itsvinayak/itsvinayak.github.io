@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import {cn} from '@lib/utils';
+import { cn } from '@lib/utils';
+import SocailFooterBar from '@ui/SocailFooterBar';
 
 interface FooterLinkProps {
     href: string;
@@ -11,7 +12,7 @@ const FooterLink = ({ href, text, classProps }: FooterLinkProps) => {
     return (
         <Link
             href={href}
-            className={cn('flex items-center transition-all hover:scale-110 hover:text-neutral-800 dark:hover:text-neutral-100 text-sm md:text-md', classProps)} 
+            className={cn('flex items-center transition-all hover:scale-110 hover:text-neutral-800 dark:hover:text-neutral-100 text-sm md:text-md', classProps)}
             target='_blank'
         >
             <svg
@@ -35,18 +36,11 @@ const FooterLink = ({ href, text, classProps }: FooterLinkProps) => {
 
 const Footer = () => {
     return (
-        <footer className='text-md flex w-screen flex-row items-center justify-between p-5 overflow-auto text-nowrap '>
-            <div className='flex w-1/4 flex-row justify-between pb-2 pt-4 '>
-                <FooterLink href='/connect' text='Connect' classProps='m-4' />
-                <FooterLink
-                    href='https://itsvinayak.substack.com/'
-                    text='Get Email Updates'
-                />
-                <p className='text-sm m-4'>
-                    <b>Created by</b> @itsvinayak
-                </p>
+        <footer className='text-md flex w-screen flex-col lg:flex-row items-center justify-between p-5 overflow-auto'>
+            <SocailFooterBar />
+            <div className='flex flex-col md:flex-row lg:w-1/2 w-screen text-center'>
+                Created by @itsvinayak
             </div>
-
         </footer>
     );
 };

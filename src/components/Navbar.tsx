@@ -13,7 +13,7 @@ const links = [
 
 const NavbarLogo = () => {
   return (
-    <span className='py-4 text-2xl font-bold text-gray-500 dark:text-gray-400'>
+    <span className='py-4 text-2xl font-bold text-[#111010] dark:text-white'>
       <text className=''>it&apos;s vinayak </text>
     </span>
   );
@@ -22,7 +22,7 @@ const NavbarLogo = () => {
 const NavbarButton = ({ actionFunction, actionType }: any) => {
   return (
     <button
-      className='focus:shadow-outline block rounded-lg p-4 text-2xl text-gray-500 transition duration-150 ease-in-out focus:outline-none dark:text-gray-400'
+      className='focus:shadow-outline block rounded-lg p-4 text-2xl text-[#111010] transition duration-150 ease-in-out focus:outline-none dark:text-white'
       onClick={actionFunction}
       tabIndex={0}
     >
@@ -64,9 +64,8 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 z-40 flex w-screen items-center bg-white px-4 align-middle md:w-auto md:justify-center dark:border-[#24222254] dark:bg-[#111010] ${
-        isScrolled ? 'shadow-md' : ''
-      }`}
+      className={`fixed top-0 z-40 flex w-screen items-center bg-white px-4 align-middle md:justify-center dark:bg-[#111010] ${isScrolled ? 'shadow-md' : ''
+        }`}
     >
       <div className='flex w-screen flex-row justify-between align-middle md:hidden'>
         <NavbarLogo />
