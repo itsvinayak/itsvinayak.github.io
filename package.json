@@ -24,8 +24,18 @@
     "email": "itsvinayak@gmail.com"
   },
   "next-unused": {
-    "exclude": ["node_modules", ".next", "styles", "types", "public", "content"],
-    "entrypoints": ["src/app", "src/components"]
+    "exclude": [
+      "node_modules",
+      ".next",
+      "styles",
+      "types",
+      "public",
+      "content"
+    ],
+    "entrypoints": [
+      "src/app",
+      "src/components"
+    ]
   },
   "license": "MIT",
   "displayName": "itsvinayak",
@@ -44,6 +54,7 @@
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/typography": "^0.5.10",
     "@types/mdx": "^2.0.10",
+    "@vercel/speed-insights": "^1.0.2",
     "clsx": "^2.0.0",
     "contentlayer": "^0.3.4",
     "date-fns": "^2.30.0",

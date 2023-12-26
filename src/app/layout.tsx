@@ -3,6 +3,8 @@ import { Roboto } from 'next/font/google';
 import '@/globals.css';
 import Loader from '@ui/Loader';
 import { Suspense } from 'react';
+import { SpeedInsights } from "@vercel/speed-insights/next"
+
 
 console.log('process.env loaded  ', process.env);
 
@@ -42,6 +44,7 @@ export default function RootLayout({
     <html lang='en'>
       <body className={roboto.className}>
         <Suspense fallback={<Loader />}>{children}</Suspense>
+        <SpeedInsights />
       </body>
     </html>
   );
