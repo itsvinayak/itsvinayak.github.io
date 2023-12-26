@@ -4,6 +4,13 @@ import Layout from '@components/Layout';
 import { getAllPost } from '@lib/utils';
 import ArticleCard from '@ui/ArticleCard';
 import { SinglePostProps } from '@components/types/ArticleProps';
+import type { Metadata } from 'next'
+
+
+export const metadata: Metadata = {
+  title: 'Blog',
+  description: 'Blog Page of Vinayaks Personal Website'
+};
 
 const Page = async () => {
   const posts: SinglePostProps[] = await getAllPost();

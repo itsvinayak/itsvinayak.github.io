@@ -3,6 +3,12 @@ import BasicDiv from '@ui/BasicDiv';
 import TimeLine from '@ui/TimeLine';
 import { WorkData } from '@components/data/work';
 import Heading from '@components/ui/Heading';
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Work',
+  description: 'Work Page of Vinayaks Personal Website'
+};
 
 for (let i = 0; i < WorkData.length; i++) {
   let data = WorkData[i]?.description?.split(' - ');

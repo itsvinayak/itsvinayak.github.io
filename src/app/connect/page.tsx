@@ -2,6 +2,12 @@ import Layout from '@components/Layout';
 import CardGrid from '@ui/CardGrid';
 import { LinkCardProps } from '@components/types/LinkCardProps';
 import { SocialLinks } from '@components/data/social';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Connect',
+  description: 'Connect Page of Vinayaks Personal Website',
+};
 
 const classProps = [
   'lg:order-1 lg:row-span-1 2xl:row-span-1 lg:col-span-2',

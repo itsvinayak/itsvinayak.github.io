@@ -2,7 +2,6 @@ import * as React from 'react';
 import Image from 'next/image';
 import { useMDXComponent } from 'next-contentlayer/hooks';
 import BlogTitle from '@components/BlogTitle';
-
 import { cn } from '@lib/utils';
 import { Callout } from '@ui/Callout';
 import { MdxCard } from '@components/mdx/MsxCard';
