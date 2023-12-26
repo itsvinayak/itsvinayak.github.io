@@ -9,6 +9,7 @@
     "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "next lint",
+    "find:unused": "next-unused",
     "type-check": "tsc --noEmit",
     "type-check:watch": "tsc --noEmit --watch",
     "format": "prettier --check --ignore-path .gitignore .",
@@ -21,6 +22,10 @@
   "author": {
     "name": "Vinayak",
     "email": "itsvinayak@gmail.com"
+  },
+  "next-unused": {
+    "exclude": ["node_modules", ".next", "styles", "types", "public", "content"],
+    "entrypoints": ["src/app", "src/components"]
   },
   "license": "MIT",
   "displayName": "itsvinayak",
@@ -65,6 +70,7 @@
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.0.2",
+    "next-unused": "^0.0.6",
     "postcss": "^8",
     "prettier": "^3.1.1",
     "prettier-plugin-tailwindcss": "^0.5.9",
