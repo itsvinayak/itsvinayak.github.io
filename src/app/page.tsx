@@ -3,6 +3,7 @@ import About from '@components/About';
 import Layout from '@components/Layout';
 import BasicDiv from '@ui/BasicDiv';
 import Work from '@components/Work';
+import ImageContent from '@components/ImageContent';
 
 export default async function Page() {
   return (
@@ -11,6 +12,7 @@ export default async function Page() {
         <HomeContent />
         <About />
         <Work />
+        <ImageContent />
       </BasicDiv>
     </Layout>
   );

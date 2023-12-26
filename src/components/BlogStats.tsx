@@ -1,5 +1,6 @@
 import { lazy } from 'react';
 const DoubleImageCard = lazy(() => import('@ui/DoubleImageCard'));
+import { FaRss } from 'react-icons/fa';
 
 const getBlogData: BlogStatsProps = {
   link: process.env.blogLink || `https://dev.to/itsvinayak`,
@@ -10,7 +11,7 @@ const getBlogData: BlogStatsProps = {
     alt: 'Vinayak',
   },
   smallImage: {
-    src: '/rss-round-color-icon.svg',
+    src: <FaRss color="black" />,
     alt: 'Rss',
   },
 };
@@ -24,7 +25,7 @@ interface BlogStatsProps {
     alt: string;
   };
   smallImage: {
-    src: string;
+    src?: any;
     alt: string;
   };
 }

@@ -1,6 +1,7 @@
 import { lazy } from 'react';
 const DoubleImageCard = lazy(() => import('@ui/DoubleImageCard'));
 import { getYoutubeStatsData } from '@lib/utils';
+import { FaYoutube } from 'react-icons/fa';
 
 interface YouTubeStatsProps {
   link: string;
@@ -11,7 +12,7 @@ interface YouTubeStatsProps {
     alt: string;
   };
   smallImage: {
-    src: string;
+    src?: any;
     alt: string;
   };
 }
@@ -64,7 +65,7 @@ const filterYouTubeData = (data: any) => {
         alt: 'Vinayak',
       },
       smallImage: {
-        src: '/youtube-logo.svg',
+        src: <FaYoutube color="black" />,
         alt: 'YouTube',
       },
     };

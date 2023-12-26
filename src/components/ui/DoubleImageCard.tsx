@@ -10,7 +10,7 @@ interface DoubleImageCardProps {
     alt: string;
   };
   smallImage: {
-    src: string;
+    src?: any;
     alt: string;
   };
 }
@@ -32,6 +32,19 @@ const DoubleImageCard = ({
   );
   if (!link || !title || !description || !largeImage || !smallImage) {
     return null;
+  }
+  let smallImageIcon = null;
+  if (typeof smallImage.src === 'string' && smallImage.src.length !== 0) {
+    smallImage.src = <Image
+      src={smallImage.src}
+      alt={smallImage.alt}
+      width={15}
+      height={11}
+      decoding='async'
+      data-nimg='1'
+    />;
+  } else if (typeof smallImage.src === 'object' && smallImage.src !== null) {
+    smallImageIcon = smallImage.src;
   }
   return (
     <Link
@@ -56,14 +69,7 @@ const DoubleImageCard = ({
             inline-flex h-4 w-4 items-center 
             rounded-full border border-neutral-200 bg-white p-1  md:-right-10 md:-top-6 md:h-6 md:w-6 dark:border-neutral-700'
           >
-            <Image
-              src={smallImage.src}
-              alt={smallImage.alt}
-              width={15}
-              height={11}
-              decoding='async'
-              data-nimg='1'
-            />
+            {!!smallImageIcon && smallImageIcon}
           </div>
         </div>
       </div>
