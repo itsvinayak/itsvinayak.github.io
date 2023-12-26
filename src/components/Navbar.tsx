@@ -2,8 +2,11 @@
 
 import Image from 'next/image';
 import Navlink from '@ui/Navlink';
+import ThemeSwitcher from '@components/ThemeSwitcher';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
+
+
 
 
 const links = [
@@ -22,7 +25,7 @@ const NavbarLogo = () => {
         width={40}
         height={40}
         className='rounded-full border border-neutral-200 dark:border-neutral-700'
-        />
+      />
       <span className='sr-only'>Logo</span>
     </span>
   );
@@ -73,16 +76,21 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 z-40 flex w-screen items-center bg-white px-4 align-middle md:justify-center dark:bg-[#111010] ${
-        isScrolled ? 'shadow-md' : ''
-      }`}
+      className={`fixed top-0 z-40 flex w-screen items-center bg-white align-middle md:justify-center dark:bg-[#111010] ${isScrolled ? 'shadow-md' : ''
+        }`}
     >
       <div className='flex w-screen flex-row justify-between align-middle md:hidden'>
         <NavbarLogo />
-        <NavbarButton actionFunction={toggleNav} actionType={showNav} />
+        <div className='flex flex-row items-center'>
+          <ThemeSwitcher />
+          <NavbarButton actionFunction={toggleNav} actionType={showNav} />
+        </div>
       </div>
       <div className='hidden md:block'>
         <Navlink links={links} classNameProps={'flex flex-row'} />
+      </div>
+      <div className='hidden md:block mt-4 self-center'>
+        <ThemeSwitcher />
       </div>
       {showNav && (
         <div
