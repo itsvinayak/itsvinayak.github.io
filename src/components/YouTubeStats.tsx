@@ -81,7 +81,7 @@ const YouTubeStats = async () => {
   } catch (error) {
     console.log('Error : ', error);
   }
-  let filteredYouTubeStats: YouTubeStatsProps = filterYouTubeData(youTubeStats);
+  let filteredYouTubeStats: YouTubeStatsProps = filterYouTubeData(youTubeStats?.stats);
 
   console.log('YouTubeStats : ', youTubeStats);
 
