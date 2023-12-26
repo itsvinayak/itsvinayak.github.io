@@ -1,7 +1,7 @@
+import { FaYoutube } from 'react-icons/fa';
+import { getYoutubeStatsData } from '@lib/utils';
 import { lazy } from 'react';
 const DoubleImageCard = lazy(() => import('@ui/DoubleImageCard'));
-import { getYoutubeStatsData } from '@lib/utils';
-import { FaYoutube } from 'react-icons/fa';
 
 interface YouTubeStatsProps {
   link: string;

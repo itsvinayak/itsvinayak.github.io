@@ -1,8 +1,8 @@
-'use client';
-
 import Navlink from '@ui/Navlink';
 import { FaBars, FaTimes } from 'react-icons/fa';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+'use client';
+
 
 const links = [
   { name: 'Home', href: '/' },

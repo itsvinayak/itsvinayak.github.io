@@ -1,6 +1,6 @@
-import TextTag from '@ui/TextTag';
-import StatsContent from '@components/StatsContent';
 import Heading from '@ui/Heading';
+import StatsContent from '@components/StatsContent';
+import TextTag from '@ui/TextTag';
 
 const About = () => {
   return (

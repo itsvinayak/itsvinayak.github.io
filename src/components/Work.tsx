@@ -1,7 +1,7 @@
-import TextTag from '@ui/TextTag';
 import Heading from '@ui/Heading';
-import { FaArrowRight } from 'react-icons/fa';
 import Link from 'next/link';
+import TextTag from '@ui/TextTag';
+import { FaArrowRight } from 'react-icons/fa';
 
 const About = () => {
   return (

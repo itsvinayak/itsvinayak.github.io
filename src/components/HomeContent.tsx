@@ -1,6 +1,8 @@
+import { FaJsSquare, FaNodeJs, FaPython } from 'react-icons/fa';
 import { lazy } from 'react';
+import { SiLoopback, SiNodered, SiSelenium } from 'react-icons/si';
+import { TbBrandDjango, TbBrandNextjs } from 'react-icons/tb';
 const TextTag = lazy(() => import('@ui/TextTag'));
-import { FaPython, FaNodeJs, FaJsSquare } from 'react-icons/fa';
 
 const HomeContent = () => {
   return (
@@ -16,15 +18,15 @@ const HomeContent = () => {
         My expertise lies in <TextTag
           text='Python'
           logo={<FaPython />}
-        /> ( <TextTag text='Flask/Django' logo={''} />, and{' '}
-        <TextTag text='Selenium' logo={''} /> ){' '}
+        /> ( <TextTag text='Flask/Django' logo={<TbBrandDjango />} />, and{' '}
+        <TextTag text='Selenium' logo={<SiSelenium />} /> ){' '}
         <TextTag text='JavaScript' logo={<FaJsSquare />} />{' '}
         {/* (Node.js, Loopback, ) */}
         (
-        <TextTag text='Loopback' logo={''} />,{' '}
-        <TextTag text='Next.js' logo={''} />,{' '}
+        <TextTag text='Loopback' logo={<SiLoopback />} />,{' '}
+        <TextTag text='Next.js' logo={<TbBrandNextjs />} />,{' '}
         <TextTag text='Node.js' logo={<FaNodeJs />} />, and
-        <TextTag text='Node-Red' logo={''} />) for backend design and
+        <TextTag text='Node-Red' logo={<SiNodered />} />) for backend design and
         development. I have a proven track record of designing and implementing
         scalable and efficient solutions that meet business objectives.
       </p>
