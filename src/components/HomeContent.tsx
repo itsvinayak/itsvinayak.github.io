@@ -5,7 +5,7 @@ import { FaPython, FaNodeJs, FaJsSquare } from 'react-icons/fa';
 const HomeContent = () => {
   return (
     <>
-      <h1 className='hidden font-extrabold italic leading-relaxed tracking-wide subpixel-antialiased md:mt-4 md:block md:text-4xl'>
+      <h1 className='font-extrabold italic leading-relaxed tracking-wide subpixel-antialiased md:mt-4 block md:text-4xl'>
         hey, I&#39;m Vinayak &nbsp;
       </h1>
       <p className='text-md my-0 mt-5'>
