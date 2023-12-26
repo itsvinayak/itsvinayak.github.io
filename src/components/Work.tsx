@@ -23,11 +23,11 @@ const About = () => {
         MongoDB, problem-solving, software development, Git, Docker, and DevOps.
       </p>
       <Link
-        href='/work' 
-        className='dark:bg-[#262626] bg-gray-300 p-2 my-2 hover:dark:bg-gray-800	w-full md:w-1/2 text-center rounded-md dark:text-gray-100 text-gray-900'
-        >
+        href='/work'
+        className='my-2 w-full rounded-md bg-gray-300 p-2	text-center text-gray-900 md:w-1/2 dark:bg-[#262626] dark:text-gray-100 hover:dark:bg-gray-800'
+      >
         Reveal Full History
-        <FaArrowRight className='inline-block mx-4 animate-[backAndForward_5s_ease-in-out_infinite]	' />
+        <FaArrowRight className='mx-4 inline-block animate-[backAndForward_5s_ease-in-out_infinite]	' />
       </Link>
     </>
   );

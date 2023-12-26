@@ -65,7 +65,7 @@ const filterYouTubeData = (data: any) => {
         alt: 'Vinayak',
       },
       smallImage: {
-        src: <FaYoutube color="black" />,
+        src: <FaYoutube color='black' />,
         alt: 'YouTube',
       },
     };

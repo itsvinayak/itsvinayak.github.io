@@ -35,14 +35,16 @@ const DoubleImageCard = ({
   }
   let smallImageIcon = null;
   if (typeof smallImage.src === 'string' && smallImage.src.length !== 0) {
-    smallImage.src = <Image
-      src={smallImage.src}
-      alt={smallImage.alt}
-      width={15}
-      height={11}
-      decoding='async'
-      data-nimg='1'
-    />;
+    smallImage.src = (
+      <Image
+        src={smallImage.src}
+        alt={smallImage.alt}
+        width={15}
+        height={11}
+        decoding='async'
+        data-nimg='1'
+      />
+    );
   } else if (typeof smallImage.src === 'object' && smallImage.src !== null) {
     smallImageIcon = smallImage.src;
   }

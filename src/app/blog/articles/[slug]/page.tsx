@@ -1,19 +1,22 @@
+import type { Metadata } from 'next';
+import type { ArticlePageProps } from '@components/types/ArticleProps';
 import { notFound } from 'next/navigation';
 import { getPostBySlug } from '@lib/utils';
 import Layout from '@components/Layout';
 import { Mdx } from '@components/mdx/MdxComponents';
-import { ArticlePageProps } from '@components/types/ArticleProps';
-import type { Metadata } from 'next';
 
+export async function generateMetadata(params?: any): Promise<Metadata> {
+  const post = getPostBySlug(params?.slug);
 
-export async function generateMetadata(
-  slug: string
-): Promise<Metadata | undefined> {
-  const post = getPostBySlug(slug);
   if (!post) {
-    return undefined;
+    return {
+      title: '404',
+      description: '404',
+    };
   }
+
   const { title, description, image } = post;
+
   return {
     title,
     description,
@@ -23,7 +26,7 @@ export async function generateMetadata(
       url: process.env.NEXT_PUBLIC_SITE_URL,
       images: [
         {
-          url: image || "",
+          url: image || '',
           width: 800,
           height: 600,
           alt: title,
@@ -34,29 +37,38 @@ export async function generateMetadata(
 }
 
 export default function ArticlePage({ params }: ArticlePageProps) {
-  console.log('params: ', params);
+  console.log('params:', params);
   const slug = params?.slug;
-  console.log('slug : ', slug);
+
+  console.log('slug:', slug);
+
   if (!slug) {
     return notFound();
   }
+
   const post = getPostBySlug(slug);
+
   if (!post) {
     return notFound();
   }
-  console.log('post : ', post?.body?.code);
-  const code: string = post?.body?.code ?? '';
+
+  console.log('post:', post?.body?.code);
+
+  const code: string = post?.body?.code || '';
   const { title, date, authors, image } = post;
-  console.log('code, title, date, authors, image: ', {
+
+  console.log('code, title, date, authors, image:', {
     code,
     title,
     date,
     authors,
     image,
   });
+
   if (!code) {
     return notFound();
   }
+
   return (
     <Layout>
       <Mdx

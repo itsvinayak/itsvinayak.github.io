@@ -9,7 +9,7 @@ const BasicDiv = ({ children }: BasicDivProps) => {
   return (
     <section
       className={cn(
-        'mx-2 flex flex-col justify-center self-center md:pt-8 tracking-wide md:mx-0 text-left sm:text-sm md:text-lg',
+        'mx-2 flex flex-col justify-center self-center text-left tracking-wide sm:text-sm md:mx-0 md:pt-8 md:text-lg'
       )}
     >
       {children}

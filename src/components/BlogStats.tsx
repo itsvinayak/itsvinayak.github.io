@@ -11,7 +11,7 @@ const getBlogData: BlogStatsProps = {
     alt: 'Vinayak',
   },
   smallImage: {
-    src: <FaRss color="black" />,
+    src: <FaRss color='black' />,
     alt: 'Rss',
   },
 };
