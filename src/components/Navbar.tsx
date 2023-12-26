@@ -1,8 +1,9 @@
 'use client';
+
+import Image from 'next/image';
 import Navlink from '@ui/Navlink';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
-
 
 
 const links = [
@@ -15,7 +16,14 @@ const links = [
 const NavbarLogo = () => {
   return (
     <span className='py-4 text-2xl font-bold text-[#111010] dark:text-white'>
-      <text className=''>it&apos;s vinayak </text>
+      <Image
+        src='/profile.jpeg'
+        alt='vinayak'
+        width={40}
+        height={40}
+        className='rounded-full border border-neutral-200 dark:border-neutral-700'
+        />
+      <span className='sr-only'>Logo</span>
     </span>
   );
 };
@@ -29,7 +37,7 @@ const NavbarButton = ({ actionFunction, actionType }: any) => {
     >
       {actionType ? (
         <>
-          <span className='ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute right-4 top-4 z-50 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none '>
+          <span className='ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute right-8 top-5 z-50 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none '>
             <FaTimes />
             <span className='sr-only md:not-sr-only'>Close</span>
           </span>
