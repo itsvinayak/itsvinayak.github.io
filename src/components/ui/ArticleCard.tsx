@@ -47,11 +47,11 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ post }) => {
     rounded-xl border border-zinc-600 p-2
      duration-700 hover:border-zinc-400/50 hover:bg-zinc-800/10  md:gap-8 md:p-8'
       >
-        <h2 className='font-display text-xl font-medium text-zinc-200 duration-1000 group-hover:text-white lg:text-3xl'>
+        <h2 className='font-display text-xl font-medium text-black dark:text-zinc-200 duration-1000 dark:group-hover:text-white lg:text-3xl'>
           {title}
         </h2>
         <div className='py-2'>
-          <span className='drop-shadow-orange text-xs text-slate-200 duration-1000 group-hover:border-zinc-200 group-hover:text-white'>
+          <span className='drop-shadow-orange text-xs dark:text-slate-200 text-gray-800 duration-1000 dark:group-hover:border-zinc-200 dark:group-hover:text-white'>
             <time dateTime={date}>{formatDate(date)}</time>
           </span>
         </div>
@@ -81,7 +81,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ post }) => {
               ))}
           </div>
         </div>
-        <p className='mt-4 text-sm  text-zinc-400 duration-1000 group-hover:text-zinc-200'>
+        <p className='mt-4 text-sm  dark:text-zinc-400 text-gray-900 group-hover:text-gray-800 duration-1000 dark:group-hover:text-zinc-200'>
           {description}
         </p>
         <div className='mt-4 flex items-center justify-between'>

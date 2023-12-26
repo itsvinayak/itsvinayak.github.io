@@ -14,7 +14,7 @@ const CardGrid: React.FC<CardGridProps> = ({
   let iconComponent;
   if (icon) {
     iconComponent = (
-      <div className='flex h-10 w-10 items-center justify-center rounded-full bg-zinc-600'>
+      <div className='flex h-10 w-10 items-center justify-center rounded-full bg-gray-200 dark:bg-zinc-600'>
         {icon}
       </div>
     );
@@ -60,11 +60,11 @@ const CardGrid: React.FC<CardGridProps> = ({
       <div className='m-4 flex flex-col items-center justify-center'>
         {/* image */}
         {iconComponent}
-        <h1 className='mt-5 text-center text-sm font-bold text-white md:text-base 2xl:text-2xl'>
+        <h1 className='mt-5 text-center text-sm font-bold text-black dark:text-white md:text-base 2xl:text-2xl'>
           {title}
         </h1>
       </div>
-      <p className='prose text-center text-base/6 text-white lg:prose-xl'>
+      <p className='prose text-center text-base/6 text-black dark:text-white lg:prose-xl'>
         {description}
       </p>
     </Link>

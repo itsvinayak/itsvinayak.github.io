@@ -7,7 +7,7 @@ const TextTag = lazy(() => import('@ui/TextTag'));
 const HomeContent = () => {
   return (
     <>
-      <h1 className='font-extrabold italic leading-relaxed tracking-wide subpixel-antialiased md:mt-4 block md:text-4xl'>
+      <h1 className='font-extrabold italic leading-relaxed tracking-wide subpixel-antialiased md:mt-4 block text-2xl md:text-4xl'>
         hey, I&#39;m Vinayak &nbsp;
       </h1>
       <p className='text-md my-0 mt-5'>

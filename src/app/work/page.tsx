@@ -4,6 +4,8 @@ import TimeLine from '@ui/TimeLine';
 import { WorkData } from '@components/data/work';
 import Heading from '@components/ui/Heading';
 import type { Metadata } from 'next';
+import { BsPersonWorkspace } from "react-icons/bs";
+
 
 export const metadata: Metadata = {
   title: 'Work',
@@ -28,7 +30,7 @@ export default function Page() {
     <Layout>
       <BasicDiv>
         <div className='mb-10'>
-          <Heading heading='Work' className='text-5xl md:text-5xl' />
+          <Heading heading='Work' className='text-5xl pt-1 md:text-5xl' icon={<BsPersonWorkspace  />}/>
         </div>
         <TimeLine items={WorkData} />
       </BasicDiv>

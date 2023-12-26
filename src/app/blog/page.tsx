@@ -20,12 +20,12 @@ const Page = async () => {
     <Layout>
       <BasicDiv>
         <div className='mx-auto max-w-5xl lg:mx-0'>
-          <h2 className='text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl'>
+          <h2 className='text-3xl font-bold tracking-tight dark:text-zinc-100 text-black sm:text-4xl'>
             My Blog
           </h2>
-          <p className='my-4 text-zinc-400'>Some of My written work.</p>
+          <p className='my-4 dark:text-zinc-400 text-black'>Some of My written work.</p>
         </div>
-        <hr className='border-1' />
+        <hr className='h-px dark:bg-gray-200 border-0 bg-gray-700'/>
         <article>
           <div className='mx-auto grid grid-cols-1 gap-8 pt-8 lg:grid-cols-1'>
             {featuredPost && (

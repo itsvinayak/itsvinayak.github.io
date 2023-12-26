@@ -30,14 +30,14 @@ const TimeLineItem: React.FC<TimeLineItemProps> = ({
   return (
     <li className='mb-10 ms-6'>
       {!!icon && (
-        <span className='absolute -start-3 flex h-6 w-6 animate-pulse items-center justify-center rounded-full bg-blue-100 ring-8 ring-white dark:bg-blue-900 dark:ring-gray-900'>
+        <span className='absolute -start-3 flex h-6 w-6 animate-pulse items-center justify-center rounded-full bg-gray-200 ring-8 ring-white dark:bg-gray-900 dark:ring-gray-900'>
           {icon}
         </span>
       )}
       <h3 className='mb-1 flex items-center text-lg font-semibold text-gray-900 dark:text-white'>
         {title}
         {!!isLatest && (
-          <span className='me-2 ms-3 rounded bg-blue-100 px-2.5 py-0.5 text-sm font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300'>
+          <span className='me-2 ms-3 rounded bg-gray-100 px-2.5 py-0.5 text-sm font-medium text-gray-800 dark:bg-gray-900 dark:text-gray-300'>
             Latest
           </span>
         )}
@@ -52,7 +52,7 @@ const TimeLineItem: React.FC<TimeLineItemProps> = ({
         <Link
           href={sourceLink}
           target='_blank'
-          className='inline-flex items-center rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:text-blue-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700'
+          className='inline-flex items-center rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-700 focus:z-10 focus:text-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700'
         >
           <span className='mr-2'>{sourceLinkIcon}</span>
           {sourceText}
