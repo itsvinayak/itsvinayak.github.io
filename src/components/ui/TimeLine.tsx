@@ -30,7 +30,7 @@ const TimeLineItem: React.FC<TimeLineItemProps> = ({
   return (
     <li className='mb-10 ms-6'>
       {!!icon && (
-        <span className='absolute -start-3 flex h-6 w-6 items-center justify-center rounded-full bg-blue-100 ring-8 ring-white dark:bg-blue-900 dark:ring-gray-900'>
+        <span className='animate-pulse absolute -start-3 flex h-6 w-6 items-center justify-center rounded-full bg-blue-100 ring-8 ring-white dark:bg-blue-900 dark:ring-gray-900'>
           {icon}
         </span>
       )}
