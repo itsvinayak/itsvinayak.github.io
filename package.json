@@ -17,7 +17,7 @@
     "lint:fix": "eslint --fix --ignore-path .gitignore .",
     "tailwind:build": "postcss styles/index.css -o public/build/tailwind.css",
     "tailwind:watch": "postcss styles/index.css -o public/build/tailwind.css --watch",
-    "tailwind:prod": "NODE_ENV=production npm run tailwind:build"
+    "tailwind:prod": "DEPLOYMENT_TYPE=production npm run tailwind:build"
   },
   "author": {
     "name": "Vinayak",

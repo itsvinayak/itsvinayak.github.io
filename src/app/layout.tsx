@@ -19,10 +19,10 @@ let title = 'vinayak';
 let description = 'My Personal Website';
 
 // setting envoriment
-console.log('Loading Env in ', process.env.NODE_ENV);
+console.log('Loading Env in ', process.env.DEPLOYMENT_TYPE);
 const projectDir = process.cwd();
 console.log('projectDir ', projectDir);
-if (process.env.NODE_ENV === 'development') {
+if (process.env.DEPLOYMENT_TYPE === 'development') {
   console.log('running app in development');
   title += ' | development mode enabled';
 } else {
