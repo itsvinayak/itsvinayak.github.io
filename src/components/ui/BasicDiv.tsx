@@ -7,13 +7,13 @@ interface BasicDivProps {
 
 const BasicDiv = ({ children }: BasicDivProps) => {
   return (
-    <main
+    <section
       className={cn(
-        'mx-6 flex flex-col justify-center self-center pt-8 text-center tracking-wide md:mx-0 md:text-left'
+        'mx-2 flex flex-col justify-center self-center md:pt-8 tracking-wide md:mx-0 text-left sm:text-sm md:text-lg',
       )}
     >
       {children}
-    </main>
+    </section>
   );
 };
 
