@@ -5,7 +5,7 @@ DarkNexfolio is a sleek and responsive personal website built with Next.js, desi
 [Preview Link](https://itsvinayak.vercel.app/)
 
 
-![image](./images/main2.gif)
+![image](./images/main.png)
 
 
 ## Getting Started
