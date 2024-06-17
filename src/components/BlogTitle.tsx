@@ -12,14 +12,14 @@ const BlogTitle: React.FC<BlogTitleProps> = ({
 }) => {
   return (
     <div className='p-4'>
-      <div className='flex flex-row text-xs font-light'>
+      <h1 className='mx-0 text-center text-2xl font-bold md:m-5 md:text-4xl'>
+        {title}
+      </h1>
+      <div className='flex flex-row items-center text-xs font-bold text-gray-500 dark:text-gray-400'>
         <p> Published on </p>
         <time dateTime={date} className='px-1'>
           {formatDate(date)}
         </time>
-      </div>
-      <h1 className='m-5 text-center text-4xl font-bold'>{title}</h1>
-      <div className='flex flex-row items-center justify-between'>
         <div>
           {authors &&
             authorsImage &&
@@ -33,12 +33,12 @@ const BlogTitle: React.FC<BlogTitleProps> = ({
               />
             ))}
         </div>
-        <div>
+        <div className='flex flex-row'>
           {tags &&
             tags.map((tag, index) => (
               <TextTag
                 key={index}
-                className='m-1 text-xs text-slate-200'
+                className='m-1 mt-[-1px] text-xs text-slate-200'
                 text={tag}
                 logo={''}
               />

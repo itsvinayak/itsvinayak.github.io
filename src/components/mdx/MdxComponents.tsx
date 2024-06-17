@@ -4,7 +4,7 @@ import { useMDXComponent } from 'next-contentlayer/hooks';
 import BlogTitle from '@components/BlogTitle';
 import { cn } from '@lib/utils';
 import { Callout } from '@ui/Callout';
-import { MdxCard } from '@components/mdx/MsxCard';
+import { MdxCard } from '@components/mdx/MdxCard';
 
 interface MDXComponents {
   [key: string]: React.ComponentType<any>;
@@ -134,13 +134,16 @@ const components: MDXComponents = {
     />
   ),
   pre: ({ className, ...props }: { className: string }) => (
-    <pre
-      className={cn(
-        'mb-4 mt-6 overflow-x-auto rounded-lg border bg-black py-4',
-        className
-      )}
-      {...props}
-    />
+    // <!-- add unique id  -->
+    <div className='relative'>
+      <pre
+        className={cn(
+          'mb-4 mt-6 overflow-x-auto rounded-lg bg-black py-4',
+          className
+        )}
+        {...props}
+      />
+    </div>
   ),
   code: ({ className, ...props }: { className: string }) => (
     <code

@@ -5,7 +5,6 @@ date: 26, Nov 2023
 authors: ['vinayak']
 ---
 
-## How to Create a Youtube clone using react
 
 React is an open-source JavaScript library that is used to develop interactive user interfaces. It is managed by Facebook and a community of individual developers and companies. React mainly focuses on developing single-page web or mobile applications. here, we will create a Youtube clone.
 
@@ -17,7 +16,7 @@ React is an open-source JavaScript library that is used to develop interactive u
 - React
 - axios
 
-```
+```bash
  $ npx install axios --save
 ```
 
@@ -25,19 +24,19 @@ React is an open-source JavaScript library that is used to develop interactive u
 
 - Start a project by the following command:
 
-```
+```bash
 $ npx create-react-app youtube-clone
 ```
 
 - now go to youtube-clone :
 
-```
+```bash
 $ cd youtube-clone
 ```
 
 - Start the server- Start the server by typing the following command in the terminal :
 
-```
+```bash
 $ npm start
 ```
 
@@ -49,7 +48,7 @@ open <i>http://localhost:3000/</i>
 
 - Change directory to src and delete everything:
 
-```
+```bash
 $ cd src && rm *
 ```
 
@@ -67,7 +66,7 @@ $ cd src && rm *
 
 ### Edit index.js
 
-```
+```JavaScript
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
@@ -82,7 +81,7 @@ ReactDOM.render(
 
 ### Edit App.js
 
-```
+```JavaScript
 import React from 'react';
 import SearchBar from './components/SearchBar';
 import YoutubeApi, { baseParams } from './api/YoutubeApi';
@@ -144,7 +143,7 @@ export default App;
 
 ### Edit youtube-clone/src/components/VideoList.js
 
-```
+```JavaScript
 import React from 'react';
 import VideoItem from './VideoItem';
 
@@ -165,7 +164,7 @@ export default VideoList;
 
 ### Edit youtube-clone/src/components/VideoDetails.js
 
-```
+```JavaScript
 import React from 'react';
 
 const VideoDetails = ({video}) => {
@@ -203,7 +202,7 @@ export default VideoDetails;
 
 ### Edit youtube-clone/src/components/SearchBar.js
 
-```
+```JavaScript
 import React from 'react';
 
 
@@ -251,7 +250,7 @@ export default SearchBar;
 
 ### youtube-clone/src/components/style/videoitem.css
 
-```
+``css
 
 .video-item{
   display:flex!important;
@@ -275,7 +274,7 @@ Get an API key from google developer
 
 <a href='https://console.developers.google.com/'>google developer</a>{' '}
 
-```
+```JavaScript
 import axios from "axios";
 
 

@@ -10,6 +10,7 @@ interface AuthorsCardProps {
 const AuthorsCard: React.FC<AuthorsCardProps> = ({ author }) => {
   return (
     <header className='flex flex-row items-center justify-center'>
+      <p className='text-xs'>by {author.name}</p>
       {author.image && (
         <Image
           src={author.image}
@@ -19,7 +20,6 @@ const AuthorsCard: React.FC<AuthorsCardProps> = ({ author }) => {
           className='m-2 h-5 w-5 rounded-full'
         />
       )}
-      <p className='text-xs'>@ {author.name}</p>
     </header>
   );
 };
