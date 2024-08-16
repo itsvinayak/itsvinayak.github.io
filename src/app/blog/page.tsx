@@ -11,11 +11,9 @@ export const metadata: Metadata = {
   description: 'Blog Page of Vinayaks Personal Website',
 };
 
-const Page = async () => {
-  const posts: SinglePostProps[] = await getAllPost();
-  const featuredPost: SinglePostProps | undefined = posts.pop() as
-    | SinglePostProps
-    | undefined;
+const Page = () => {
+  const posts: SinglePostProps[] = getAllPost();
+  const featuredPost = posts.pop();
   return (
     <Layout>
       <BasicDiv>

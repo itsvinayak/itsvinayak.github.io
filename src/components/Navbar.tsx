@@ -39,19 +39,15 @@ const NavbarButton = ({ actionFunction, actionType }: any) => {
             tabIndex={0}
         >
             {actionType ? (
-                <>
-                    <span className='ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute right-8 top-5 z-50 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none '>
-                        <FaTimes />
-                        <span className='sr-only md:not-sr-only'>Close</span>
-                    </span>
-                </>
+                <span className='ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute right-8 top-5 z-50 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none '>
+                    <FaTimes />
+                    <span className='sr-only md:not-sr-only'>Close</span>
+                </span>
             ) : (
-                <>
-                    <span className='ring-offset-background focus:ring-ring data-[state=close]:bg-secondary absolute right-8 top-5 z-50 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none'>
-                        <FaBars />
-                        <span className='sr-only md:not-sr-only'>Open</span>
-                    </span>
-                </>
+                <span className='ring-offset-background focus:ring-ring data-[state=close]:bg-secondary absolute right-8 top-5 z-50 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none'>
+                    <FaBars />
+                    <span className='sr-only md:not-sr-only'>Open</span>
+                </span>
             )}
         </button>
     );
@@ -91,19 +87,20 @@ const Navbar = () => {
             <div className='hidden md:block'>
                 <Navlink links={links} classNameProps={'flex flex-row'} />
             </div>
-            <div className='hidden md:block mt-4 self-center'>
+            <div className='hidden md:block mt-7 self-center'>
                 <ThemeSwitcher />
             </div>
             {showNav && (
-                <div
+                <button
                     className='fixed left-0 top-0 z-10 h-screen w-screen overflow-hidden bg-white md:hidden dark:bg-[#111010]'
                     onClick={toggleNav}
+                    onKeyDown={toggleNav}
                 >
                     <Navlink
                         links={links}
                         classNameProps={'flex flex-col m-10 text-lg'}
                     />
-                </div>
+                </button>
             )}
         </nav>
     );

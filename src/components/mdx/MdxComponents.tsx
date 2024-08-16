@@ -17,6 +17,7 @@ const components: MDXComponents = {
         'mt-2 scroll-m-20 text-4xl font-bold tracking-tight',
         className
       )}
+      aria-label="Heading 1"
       {...props}
     />
   ),
@@ -26,6 +27,7 @@ const components: MDXComponents = {
         'mt-10 scroll-m-20 border-b pb-1 text-3xl font-semibold tracking-tight first:mt-0',
         className
       )}
+      aria-label="Heading 2"
       {...props}
     />
   ),
@@ -35,6 +37,7 @@ const components: MDXComponents = {
         'mt-8 scroll-m-20 text-2xl font-semibold tracking-tight',
         className
       )}
+      aria-label="Heading 3"
       {...props}
     />
   ),
@@ -44,6 +47,7 @@ const components: MDXComponents = {
         'mt-8 scroll-m-20 text-xl font-semibold tracking-tight',
         className
       )}
+      aria-label="Heading 4"
       {...props}
     />
   ),
@@ -53,6 +57,7 @@ const components: MDXComponents = {
         'mt-8 scroll-m-20 text-lg font-semibold tracking-tight',
         className
       )}
+      aria-label="Heading 5"
       {...props}
     />
   ),
@@ -62,6 +67,7 @@ const components: MDXComponents = {
         'mt-8 scroll-m-20 text-base font-semibold tracking-tight',
         className
       )}
+      aria-label="Heading 6"
       {...props}
     />
   ),
