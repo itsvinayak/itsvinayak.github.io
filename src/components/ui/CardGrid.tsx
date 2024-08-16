@@ -63,10 +63,10 @@ const CardGrid: React.FC<CardGridProps> = ({
         <h1 className='mt-5 text-center text-sm font-bold text-black dark:text-white md:text-base 2xl:text-2xl'>
           {title}
         </h1>
+        <p className='prose text-center text-base/6 text-black dark:text-white lg:prose-xl'>
+          {description}
+        </p>
       </div>
-      <p className='prose text-center text-base/6 text-black dark:text-white lg:prose-xl'>
-        {description}
-      </p>
     </Link>
   );
 };

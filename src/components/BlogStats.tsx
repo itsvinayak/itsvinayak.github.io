@@ -7,7 +7,7 @@ const getBlogData: BlogStatsProps = {
   title: process.env.blogTitle || '@dev/itsvinayak',
   description: process.env.blogDescription || '> 2390 Subscribers',
   largeImage: {
-    src: '/profile.jpeg',
+    src: '/dev2.png',
     alt: 'Vinayak',
   },
   smallImage: {
