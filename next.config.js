@@ -11,9 +11,8 @@ const withPWA = require('next-pwa')({
 
 const nextConfig = withPWA({
   reactStrictMode: true,
-  swcMinify: true,
   output: "export",
-  basePath: "/itsvinayak.github.io",
+  basePath: "/itsvinayak.github.io"
 });
 
 module.exports = withContentlayer(nextConfig);
