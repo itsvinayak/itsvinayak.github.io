@@ -5,19 +5,21 @@ import { getPostBySlug } from '@lib/utils';
 import Layout from '@components/Layout';
 import { Mdx } from '@components/mdx/MdxComponents';
 
-export async function generateMetadata(params?: any): Promise<Metadata> {
+
+export async function generateMetadata({params}: any): Promise<Metadata> {
   const post = getPostBySlug(params?.slug);
 
   if (!post) {
     return {
-      title: '404',
-      description: '404',
+      title: 'Post Title ',
+      description: 'Post Description',
     };
   }
 
   const { title, description, image } = post;
-
-  return {
+  
+  
+  let metaDate = {
     title,
     description,
     openGraph: {
@@ -34,7 +36,10 @@ export async function generateMetadata(params?: any): Promise<Metadata> {
       ],
     },
   };
+  console.log('metaDate:', metaDate);
+  return metaDate;
 }
+
 
 export default function ArticlePage({ params }: ArticlePageProps) {
   console.log('params:', params);
