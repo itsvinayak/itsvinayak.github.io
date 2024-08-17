@@ -13,7 +13,7 @@ const Layout = ({ children, className }: LayoutProps) => {
         <div className='min-h-screen w-full px-4 py-20 md:w-3/5'>
           {children}
         </div>
-        <hr className='h-px dark:bg-gray-200 border-0 bg-gray-700 w-1/2'/>
+        <hr className='h-px dark:bg-gray-200 border-0 bg-gray-700 w-3/4'/>
         <Footer />
       </div>
     </main>

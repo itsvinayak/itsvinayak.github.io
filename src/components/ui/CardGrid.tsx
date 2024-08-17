@@ -53,7 +53,7 @@ const CardGrid: React.FC<CardGridProps> = ({
       href={link}
       passHref
       className={cn(
-        'm-1 transform-gpu select-all overflow-hidden rounded-lg border border-zinc-600 p-5 shadow-xl	 duration-100 hover:scale-110',
+        'm-1 transform-gpu select-all overflow-hidden rounded-lg border border-zinc-600 p-5 shadow-xl	duration-700 hover:border-zinc-400/50 hover:bg-zinc-800/10',
         classNameBox
       )}
     >

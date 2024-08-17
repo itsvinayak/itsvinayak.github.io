@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { cn } from '@lib/utils';
 import { ImageComponentProps } from '@components/types/ImageGridProps';
+import Link from 'next/link';
 
 const ImageComponent: React.FC<ImageComponentProps> = ({
   src,
@@ -9,6 +10,7 @@ const ImageComponent: React.FC<ImageComponentProps> = ({
 }) => {
   return (
     <div className='animate-ease-out animate-flipUp'>
+    <Link href={src} target='_blank'>
       <Image
         src={src}
         width={300}
@@ -20,6 +22,7 @@ const ImageComponent: React.FC<ImageComponentProps> = ({
           className
         )}
       />
+      </Link>
     </div>
   );
 };

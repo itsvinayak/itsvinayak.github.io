@@ -34,17 +34,16 @@ const NavbarLogo = () => {
 const NavbarButton = ({ actionFunction, actionType }: any) => {
     return (
         <button
-            className='focus:shadow-outline block rounded-lg p-4 text-2xl text-[#111010] transition duration-150 ease-in-out focus:outline-none dark:text-white'
+            className='focus:shadow-outline block rounded-lg px-4 text-2xl text-[#111010] transition duration-150 ease-in-out focus:outline-none dark:text-white'
             onClick={actionFunction}
-            tabIndex={0}
         >
             {actionType ? (
-                <span className='ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute right-8 top-5 z-50 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none '>
+                <span className='ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute right-8 top-6 z-50 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none '>
                     <FaTimes />
                     <span className='sr-only md:not-sr-only'>Close</span>
                 </span>
             ) : (
-                <span className='ring-offset-background focus:ring-ring data-[state=close]:bg-secondary absolute right-8 top-5 z-50 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none'>
+                <span className='ring-offset-background focus:ring-ring data-[state=close]:bg-secondary absolute right-8 top-6 z-50 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none'>
                     <FaBars />
                     <span className='sr-only md:not-sr-only'>Open</span>
                 </span>
@@ -79,7 +78,7 @@ const Navbar = () => {
         >
             <div className='flex w-screen flex-row justify-between align-middle md:hidden'>
                 <NavbarLogo />
-                <div className='flex flex-row items-center space-x-10'>
+                <div className='flex flex-row items-center space-x-10 py-4'>
                     <ThemeSwitcher />
                     <NavbarButton actionFunction={toggleNav} actionType={showNav} />
                 </div>

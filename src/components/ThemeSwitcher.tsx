@@ -30,18 +30,22 @@ const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ className }) => {
 
     if (currentTheme === "dark") {
       return (
-        <button className={cn("w-6 h-6 text-yellow-500", className)} onClick={() =>
+        <button className={cn("text-yellow-500", className)} onClick={() =>
           setTheme('light')}>
-          <FaSun />
+          <FaSun
+            fontSize={25}
+          />
         </button>
       )
     }
 
     else {
       return (
-        <button className={cn("w-6 h-6 text-gray-900", className)} onClick={() =>
+        <button className={cn("text-gray-900", className)} onClick={() =>
           setTheme('dark')}>
-          <FaMoon />
+          <FaMoon 
+            fontSize={25}
+          />
         </button>
       )
     }
