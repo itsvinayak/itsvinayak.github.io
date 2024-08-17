@@ -15,8 +15,7 @@ const nextConfig = withPWA({
   swcMinify: true,
   pwa: {
     dest: 'public',
-  },
-  distDir: 'github-pages'
+  }
 });
 
 module.exports = withContentlayer(nextConfig);
