@@ -14,7 +14,6 @@ export const metadata: Metadata = {
 
 const Page = () => {
   const posts: SinglePostProps[] = getAllPost();
-  const featuredPost = posts.pop();
   return (
     <Layout>
       <BasicDiv>
@@ -27,22 +26,6 @@ const Page = () => {
         <hr className='h-px dark:bg-gray-200 border-0 bg-gray-700' />
         <article>
           <div className='mx-auto grid grid-cols-1 gap-8 pt-8 lg:grid-cols-1'>
-            {featuredPost && (
-              <ArticleCard
-                post={{
-                  title: featuredPost.title,
-                  description: featuredPost.description ?? '',
-                  date: featuredPost.date,
-                  slug: featuredPost.slug,
-                  slugAsParams: featuredPost.slugAsParams,
-                  authors: featuredPost.authors,
-                  authorsImage: featuredPost.authorsImage,
-                  tags: featuredPost.tags,
-                }}
-              />
-            )}
-          </div>
-          <div className='mx-auto grid grid-cols-1 gap-8 pt-8 lg:grid-cols-2'>
             {posts.map((post: SinglePostProps) => (
               <ArticleCard
                 key={post.slug}
