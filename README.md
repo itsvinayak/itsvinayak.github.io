@@ -1,5 +1,5 @@
 # DarkNexfolio
-[![GitHub Pages deploy](https://github.com/itsvinayak/itsvinayak.github.io/actions/workflows/nextjs.yml/badge.svg?event=deployment)](https://github.com/itsvinayak/itsvinayak.github.io/actions/workflows/nextjs.yml)
+[![GitHub Pages deploy](https://github.com/itsvinayak/itsvinayak.github.io/actions/workflows/nextjs.yml/badge.svg?event=deployment)](https://github.com/itsvinayak/itsvinayak.github.io/actions/workflows/nextjs.yml) ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
 
 [Preview Link](https://itsvinayak.vercel.app/)
 
