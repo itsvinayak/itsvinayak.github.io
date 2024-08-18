@@ -1,11 +1,16 @@
 const { withContentlayer } = require('next-contentlayer');
 
-const withPWA = require('next-pwa')({
+const config = {
   dest: 'public',
-  disable: process.env.DEPLOYMENT_TYPE === 'development',
   register: true,
   scope: '/',
-});
+}
+
+if (process.env.DEPLOYMENT_TYPE === 'development') {
+  config.disable = true;
+}
+
+const withPWA = require('next-pwa')(config);
 
 /** @type {import('next').NextConfig} */
 
@@ -14,7 +19,7 @@ const nextConfig = withPWA({
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
   swcMinify: true,
   output: 'export',
-  images:{
+  images: {
     unoptimized: true,
   }
 });

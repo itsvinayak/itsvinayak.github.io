@@ -38,7 +38,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ post }) => {
   }
   let postLink: string = '';
   if (slugAsParams) {
-    postLink = `/blog${slug}`;
+    postLink = `/blog/articles/${slugAsParams}`;
   }
   return (
     <Link href={postLink}>

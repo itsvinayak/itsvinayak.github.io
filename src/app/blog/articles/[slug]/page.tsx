@@ -6,7 +6,7 @@ import Layout from '@components/Layout';
 import { Mdx } from '@components/mdx/MdxComponents';
 
 
-export async function generateMetadata({params}: any): Promise<Metadata> {
+export async function generateMetadata({ params }: any): Promise<Metadata> {
   const post = getPostBySlug(params?.slug);
 
   if (!post) {
@@ -40,16 +40,15 @@ export async function generateMetadata({params}: any): Promise<Metadata> {
   return metaDate;
 }
 
-
-export async function generateStaticParams(): Promise<any>{
+// generate path for static generation
+export async function generateStaticParams(): Promise<any> {
   let posts = getAllPost();
   return posts.map((post) => ({
-    slug: post.slug
+    slug: post.slugAsParams
   }))
 }
 
-export default function ArticlePage({ params }: any) {
-  console.log('params:', params);
+export default function ArticlePage({ params }: ArticlePageProps) {
   const slug = params?.slug;
 
   console.log('slug:', slug);
