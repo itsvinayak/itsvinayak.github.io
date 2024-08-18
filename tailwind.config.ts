@@ -17,6 +17,7 @@ const config: Config = {
       },
       animation: {
         flipUp: 'flipUp 1s linear forwards',
+        backAndForward: 'backAndForward 20s linear infinite',
       },
       keyframes: {
         backAndForward: {
