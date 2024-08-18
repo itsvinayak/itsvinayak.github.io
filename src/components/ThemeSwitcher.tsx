@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { FaSun, FaMoon } from "react-icons/fa";
 import { cn } from "@lib/utils";
+import Head from 'next/head';
 
 
 interface ThemeSwitcherProps {
@@ -35,6 +36,10 @@ const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ className }) => {
           <FaSun
             fontSize={25}
           />
+          {/* set the theme color for mobile browsers */}
+          <Head>
+            <meta name="theme-color" content="#0000" />
+          </Head>
         </button>
       )
     }
@@ -43,9 +48,13 @@ const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ className }) => {
       return (
         <button className={cn("text-gray-900", className)} onClick={() =>
           setTheme('dark')}>
-          <FaMoon 
+          <FaMoon
             fontSize={25}
           />
+           {/* set the theme color for mobile browsers */}
+          <Head>
+            <meta name="theme-color" content="#ffff" />
+          </Head>
         </button>
       )
     }
