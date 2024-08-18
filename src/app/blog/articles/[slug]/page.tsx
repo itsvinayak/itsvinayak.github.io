@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import type { ArticlePageProps } from '@components/types/ArticleProps';
 import { notFound } from 'next/navigation';
-import { getPostBySlug } from '@lib/utils';
+import { getAllPost, getPostBySlug } from '@lib/utils';
 import Layout from '@components/Layout';
 import { Mdx } from '@components/mdx/MdxComponents';
 
@@ -17,8 +17,8 @@ export async function generateMetadata({params}: any): Promise<Metadata> {
   }
 
   const { title, description, image } = post;
-  
-  
+
+
   let metaDate = {
     title,
     description,
@@ -41,7 +41,14 @@ export async function generateMetadata({params}: any): Promise<Metadata> {
 }
 
 
-export default function ArticlePage({ params }: ArticlePageProps) {
+export async function generateStaticParams(): Promise<any>{
+  let posts = getAllPost();
+  return posts.map((post) => ({
+    slug: post.slug
+  }))
+}
+
+export default function ArticlePage({ params }: any) {
   console.log('params:', params);
   const slug = params?.slug;
 

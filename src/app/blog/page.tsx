@@ -6,6 +6,7 @@ import ArticleCard from '@ui/ArticleCard';
 import { SinglePostProps } from '@components/types/ArticleProps';
 import type { Metadata } from 'next';
 
+
 export const metadata: Metadata = {
   title: 'Blog',
   description: 'Blog Page of Vinayaks Personal Website',
@@ -23,7 +24,7 @@ const Page = () => {
           </h2>
           <p className='my-4 dark:text-zinc-400 text-black'>Some of My written work.</p>
         </div>
-        <hr className='h-px dark:bg-gray-200 border-0 bg-gray-700'/>
+        <hr className='h-px dark:bg-gray-200 border-0 bg-gray-700' />
         <article>
           <div className='mx-auto grid grid-cols-1 gap-8 pt-8 lg:grid-cols-1'>
             {featuredPost && (

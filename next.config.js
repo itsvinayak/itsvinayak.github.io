@@ -13,8 +13,9 @@ const nextConfig = withPWA({
   reactStrictMode: true,
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
   swcMinify: true,
-  pwa: {
-    dest: 'public',
+  output: 'export',
+  images:{
+    unoptimized: true,
   }
 });
 

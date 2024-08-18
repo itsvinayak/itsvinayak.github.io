@@ -38,7 +38,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ post }) => {
   }
   let postLink: string = '';
   if (slugAsParams) {
-    postLink = `/blog/${slug}`;
+    postLink = `/blog${slug}`;
   }
   return (
     <Link href={postLink}>
@@ -61,7 +61,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ post }) => {
               authorsImage &&
               authors.map((author, index) => (
                 <AuthorsCard
-                  key={index}
+                  key={author} // Use the author's name as the key
                   author={{
                     name: author,
                     image: authorsImage?.[index] ?? '',
@@ -70,15 +70,14 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ post }) => {
               ))}
           </div>
           <div>
-            {tags &&
-              tags.map((tag, index) => (
-                <TextTag
-                  key={index}
-                  className='m-1 text-xs text-slate-200'
-                  text={tag}
-                  logo={''}
-                />
-              ))}
+            {tags?.map((tag, index) => (
+              <TextTag
+                key={`${tag}-${index}`}
+                className='m-1 text-xs text-slate-200'
+                text={tag}
+                logo={''}
+              />
+            ))}
           </div>
         </div>
         <p className='mt-4 text-sm  text-gray-900 duration-1000 group-hover:text-gray-800 dark:text-zinc-400 dark:group-hover:text-zinc-200'>
