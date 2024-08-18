@@ -1,4 +1,5 @@
 # DarkNexfolio
+[![GitHub Pages deploy](https://github.com/itsvinayak/itsvinayak.github.io/actions/workflows/nextjs.yml/badge.svg?event=deployment)](https://github.com/itsvinayak/itsvinayak.github.io/actions/workflows/nextjs.yml)
 
 [Preview Link](https://itsvinayak.vercel.app/)
 
