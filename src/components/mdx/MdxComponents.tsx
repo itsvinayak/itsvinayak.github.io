@@ -144,7 +144,7 @@ const components: MDXComponents = {
     <div className='relative'>
       <pre
         className={cn(
-          'mb-4 mt-6 overflow-x-auto rounded-lg bg-black py-4',
+          'mb-4 mt-6 overflow-x-auto rounded-lg bg-black py-4 px-6 text-white',
           className
         )}
         {...props}
