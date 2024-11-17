@@ -16,29 +16,29 @@ Here, in this post, we have tried to mimic this feature.
 
 1.  Modules required :
 
-    - Django : 
-       
+    - Django :
+
 ```
 pip install Django
-``` 
-     
+```
+
 2. Basic setup :
 
     -  Command to make a project - here, the name of the project is named as "blog"
 
      ```
-       django-admin startproject blog 
-     ``` 
+       django-admin startproject blog
+     ```
 
     - in blog folder create an app - here, the name of the app is  named as  "author"
 
-      ``` 
+      ```
        python manage.py startapp author
-      ``` 
+      ```
 
 3. code
       - After creating the author app, open the models.py file in the author
- 
+
 ```
 from django.db import models
 from django.contrib.auth.models import AbstractUser
@@ -54,13 +54,13 @@ class User(AbstractUser):
     def __str__(self):
           return f"{self.username} Profile"
 
-``` 
+```
 Here, the ManyToMany field will help us create a followings field as a user can follow many other users and many users can follow him.
  [Docs on ManyTOManyField](https://docs.djangoproject.com/en/3.2/topics/db/examples/many_to_many/)
 
- 
 
- - After creating models and running migrations, we need to work on views.py 
+
+ - After creating models and running migrations, we need to work on views.py
 
 
 ```
@@ -91,12 +91,12 @@ def followToggle(request, author):
             authorObj.following.add(currentUserObj.id)
 
     return HttpResponseRedirect(reverse(profile, args=[authorObj.username]))
-``` 
+```
 
-we have to functions here: 
+we have to functions here:
 
  1.  profile() - this function handle user profile by accepting username as an argument
-  
+
  2.  followToggle() - this function handle follow/unfollow system for a user. This function takes a username as an argument, which our current user wants to follow/unfollow.
 
 - Now time to work on urls.py to connect views
@@ -110,7 +110,7 @@ urlpatterns = [
     path("profile/<str:username>/", views.profile, name="profile"),
     path("followToggle/<str:author>/",views.followToggle, name="followToggle")
 ]
-``` 
+```
 
 
 - Create a templates folder inside the templates folder, create an author/profile.html template.
@@ -160,7 +160,7 @@ urlpatterns = [
               </div>
             </div>
           </div>
-          
+
           <div class="card mt-3">
             <ul class="list-group list-group-flush">
               {% if author.website %}
@@ -190,14 +190,14 @@ urlpatterns = [
 
 {% endblock content %}
 
-``` 
- 
-this is the profile page for the author we want to follow/unfollow, we get this page by passing "username" to **profile views**  
-here, 
+```
 
->> ** author.following.count **: this tag represents the count of users following the current user 
+this is the profile page for the author we want to follow/unfollow, we get this page by passing "username" to **profile views**
+here,
+
+>> ** author.following.count **: this tag represents the count of users following the current user
 >> ** author.followers.count **: this tag represents the count of users followed by the current user, this type of relationship tag is called reverse or backward relationship [ docs](https://docs.djangoproject.com/en/dev/topics/db/queries/#many-to-many-relationships)
- 
+
 To follow/unfollow this user we are using **'followToggle' author=author.username ** this URL tag. follow and unfollow text on the button is represented by looking if the user exits in the author following list
 
-That's it. hope, you like it. 
+That's it. hope, you like it.
