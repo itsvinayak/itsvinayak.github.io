@@ -5,7 +5,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Suspense } from 'react';
 import '@/globals.css';
 import type { Metadata } from 'next';
-
+import { Analytics } from "@vercel/analytics/react"
 
 
 console.log('process.env loaded  ', process.env);
@@ -49,6 +49,7 @@ export default function RootLayout({
           <Suspense fallback={<Loader />}>{children}</Suspense>
         </Provider>
         <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );
