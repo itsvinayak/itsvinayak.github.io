@@ -3,6 +3,7 @@ import Provider from '@components/Provider';
 import { Roboto } from 'next/font/google';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Suspense } from 'react';
+//@ts-ignore
 import '@/globals.css';
 import type { Metadata } from 'next';
 import { Analytics } from "@vercel/analytics/react"
