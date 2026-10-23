@@ -7,8 +7,8 @@ import ImageContent from '@components/ImageContent';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Home',
-  description: 'Home Page of Vinayaks Personal Website',
+  title: 'itsvinayak',
+  description: 'Vinayaks Personal Website',
 };
 
 export default async function Page() {
