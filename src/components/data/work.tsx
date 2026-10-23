@@ -36,7 +36,7 @@ export const WorkData = [
       'Wrote articles on LambdaTest blog on topics related to testing, automation, and cross-browser testing.',
     fromTime: 'May 2021',
     toTime: 'August 2022',
-    sourceLink: 'https://www.lambdatest.com/blog/author/vinayaksharma/',
+    sourceLink: 'https://www.testmuai.com/learning-hub/author/vinayak-sharma',
     sourceText: 'View Articles',
     sourceLinkIcon: <CgWebsite />,
   },

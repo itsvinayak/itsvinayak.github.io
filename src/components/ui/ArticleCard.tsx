@@ -1,11 +1,10 @@
-import ReadMore from '@ui/ReadMore';
 import Link from 'next/link';
-import AuthorsCard from '@ui/AuthorsCard';
-import TextTag from '@ui/TextTag';
 import React from 'react';
 import { formatDate } from '@lib/utils';
+import { FaArrowRight } from 'react-icons/fa';
 
 interface ArticleCardProps {
+  index: number;
   post: {
     title: string;
     description: string;
@@ -18,76 +17,52 @@ interface ArticleCardProps {
   };
 }
 
-const ArticleCard: React.FC<ArticleCardProps> = ({ post }) => {
-  console.log('serving post -> ', post);
-  let {
-    title,
-    description,
-    date,
-    slug,
-    slugAsParams,
-    authors,
-    authorsImage,
-    tags,
-  } = post;
-  if (!authorsImage) {
-    authorsImage = ['/profile.jpeg'];
-  }
-  if (!tags) {
-    tags = ['JS', 'React', 'Next.js'];
-  }
-  let postLink: string = '';
-  if (slugAsParams) {
-    postLink = `/blog/articles/${slugAsParams}`;
-  }
+const ArticleCard: React.FC<ArticleCardProps> = ({ post, index }) => {
+  const { title, description, date, slugAsParams, tags } = post;
+  const postLink = slugAsParams ? `/blog/articles/${slugAsParams}` : post.slug;
+
   return (
-    <Link href={postLink}>
-      <article
-        className='group relative overflow-hidden 
-    rounded-xl border border-zinc-600 p-2
-     duration-700 hover:border-zinc-400/50 hover:bg-zinc-800/10  md:gap-8 md:p-8'
-      >
-        <h2 className='font-display text-xl font-medium text-black duration-1000 lg:text-3xl dark:text-zinc-200 dark:group-hover:text-white'>
-          {title}
-        </h2>
-        <div className='py-2'>
-          <span className='drop-shadow-orange text-xs text-gray-800 duration-1000 dark:text-slate-200 dark:group-hover:border-zinc-200 dark:group-hover:text-white'>
-            <time dateTime={date}>{formatDate(date)}</time>
+    <article className='group grid gap-3 border-b border-zinc-200 py-6 sm:grid-cols-[3rem_minmax(0,1fr)] sm:gap-5 sm:py-7 dark:border-zinc-800'>
+      <span className='hidden pt-1 font-mono text-xs tabular-nums text-zinc-400 sm:block dark:text-zinc-600'>
+        {String(index + 1).padStart(2, '0')}
+      </span>
+      <div className='min-w-0'>
+        <div className='mb-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-zinc-500 dark:text-zinc-400'>
+          <time dateTime={date}>{formatDate(date)}</time>
+          <span aria-hidden='true' className='text-zinc-300 dark:text-zinc-700'>
+            /
           </span>
+          <span>{post.authors?.join(', ') || 'Vinayak'}</span>
         </div>
-        <div className='flex flex-row flex-wrap items-center justify-between gap-2'>
-          <div>
-            {authors &&
-              authorsImage &&
-              authors.map((author, index) => (
-                <AuthorsCard
-                  key={author} // Use the author's name as the key
-                  author={{
-                    name: author,
-                    image: authorsImage?.[index] ?? '',
-                  }}
-                />
-              ))}
-          </div>
-          <div className='flex flex-wrap items-center gap-1 md:justify-end'>
-            {tags?.map((tag, index) => (
-              <TextTag
-                key={`${tag}-${index}`}
-                className='text-xs text-slate-200'
-                text={tag}
-                logo={''}
-              />
-            ))}
-          </div>
+        <Link
+          href={postLink}
+          className='group/title inline-flex max-w-full items-start gap-2'
+        >
+          <h2 className='text-lg font-semibold leading-snug text-zinc-950 transition-colors group-hover/title:text-emerald-700 sm:text-xl dark:text-zinc-100 dark:group-hover/title:text-emerald-400'>
+            {title}
+          </h2>
+          <FaArrowRight
+            className='mt-1.5 shrink-0 text-xs text-emerald-700 opacity-0 transition-all group-hover/title:translate-x-1 group-hover/title:opacity-100 dark:text-emerald-400'
+            aria-hidden='true'
+          />
+        </Link>
+        {description && (
+          <p className='mt-2 max-w-3xl text-sm leading-6 text-zinc-600 dark:text-zinc-400'>
+            {description}
+          </p>
+        )}
+        <div className='mt-3 flex flex-wrap items-center gap-2'>
+          {tags?.slice(0, 4).map((tag) => (
+            <span
+              key={tag}
+              className='rounded-sm bg-zinc-100 px-2 py-1 text-[11px] font-medium text-zinc-600 dark:bg-zinc-900 dark:text-zinc-400'
+            >
+              {tag}
+            </span>
+          ))}
         </div>
-        <p className='mt-4 text-sm  text-gray-900 duration-1000 group-hover:text-gray-800 dark:text-zinc-400 dark:group-hover:text-zinc-200'>
-          {description}
-        </p>
-        <div className='mt-4 flex items-center justify-between'>
-          <ReadMore link={postLink} />
-        </div>
-      </article>
-    </Link>
+      </div>
+    </article>
   );
 };
 
