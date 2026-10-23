@@ -9,8 +9,12 @@ const slugAliases: Record<string, string> = {
   Getting_Started_Clojure: 'Getting_Started_with_Clojure',
 };
 
-const getPostForRoute = (slug: string | undefined) =>
-  getPostBySlug(slugAliases[slug ?? ''] ?? slug ?? '');
+const getPostForRoute = (slug: string | undefined) => {
+  const normalizedSlug = slug?.endsWith('.html') ? slug.slice(0, -5) : slug;
+  return getPostBySlug(
+    slugAliases[normalizedSlug ?? ''] ?? normalizedSlug ?? ''
+  );
+};
 
 export async function generateMetadata({ params }: any): Promise<Metadata> {
   const post = getPostForRoute(params?.slug);
@@ -53,10 +57,17 @@ export async function generateStaticParams(): Promise<any> {
   const aliases = Object.entries(slugAliases)
     .filter(([, canonicalSlug]) => postSlugs.includes(canonicalSlug))
     .map(([alias]) => ({ slug: alias }));
+  const developmentHtmlSlugs =
+    process.env.NODE_ENV === 'development'
+      ? [...postSlugs, ...aliases.map(({ slug }) => slug)].map((slug) => ({
+          slug: `${slug}.html`,
+        }))
+      : [];
 
   return [
     ...posts.map((post) => ({ slug: post.slugAsParams })),
     ...aliases,
+    ...developmentHtmlSlugs,
   ];
 }
 

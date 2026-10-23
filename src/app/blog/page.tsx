@@ -16,9 +16,9 @@ const Page = () => {
   const posts: SinglePostProps[] = getAllPost();
   return (
     <Layout>
-      <BasicDiv>
-        <div className='mx-auto max-w-5xl lg:mx-0'>
-          <h2 className='text-3xl font-bold tracking-tight dark:text-zinc-100 text-black sm:text-4xl'>
+      <BasicDiv className='w-full'>
+        <div className='w-full max-w-5xl'>
+          <h2 className='text-left text-3xl font-bold tracking-tight text-black dark:text-zinc-100 sm:text-4xl'>
             My Blog
           </h2>
           <p className='my-4 dark:text-zinc-400 text-black'>Some of My written work.</p>
