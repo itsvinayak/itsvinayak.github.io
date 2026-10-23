@@ -55,7 +55,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ post }) => {
             <time dateTime={date}>{formatDate(date)}</time>
           </span>
         </div>
-        <div className='flex flex-row items-center justify-between'>
+        <div className='flex flex-row flex-wrap items-center justify-between gap-2'>
           <div>
             {authors &&
               authorsImage &&
@@ -69,11 +69,11 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ post }) => {
                 />
               ))}
           </div>
-          <div>
+          <div className='flex flex-wrap items-center gap-1 md:justify-end'>
             {tags?.map((tag, index) => (
               <TextTag
                 key={`${tag}-${index}`}
-                className='m-1 text-xs text-slate-200'
+                className='text-xs text-slate-200'
                 text={tag}
                 logo={''}
               />

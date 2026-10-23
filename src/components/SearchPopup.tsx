@@ -50,7 +50,11 @@ const SearchPopup = ({ containerId, className = '' }: SearchPopupProps) => {
       </button>
 
       <div
-        className={`fixed inset-0 z-[80] transition ${open ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'}`}
+        className={`fixed inset-0 z-[80] transition ${
+          open
+            ? 'pointer-events-auto opacity-100'
+            : 'pointer-events-none opacity-0'
+        }`}
       >
         <button
           type='button'
@@ -61,8 +65,10 @@ const SearchPopup = ({ containerId, className = '' }: SearchPopupProps) => {
 
         <div className='relative z-[81] flex min-h-full items-start justify-center px-4 pb-6 pt-20 sm:items-center sm:pt-6'>
           <div
-            className={`w-full max-w-3xl rounded-2xl border border-white/40 bg-white/65 p-5 shadow-2xl backdrop-blur-xl transition duration-200 dark:border-zinc-700/60 dark:bg-zinc-900/70 ${
-              open ? 'translate-y-0 scale-100 opacity-100' : 'translate-y-2 scale-[0.98] opacity-0'
+            className={`w-full max-w-3xl rounded-2xl border border-white/40 bg-white/95 p-5 shadow-2xl backdrop-blur-xl transition duration-200 dark:border-zinc-700/60 dark:bg-zinc-900/95 ${
+              open
+                ? 'translate-y-0 scale-100 opacity-100'
+                : 'translate-y-2 scale-[0.98] opacity-0'
             }`}
           >
             <div className='mb-3 flex items-center justify-between'>

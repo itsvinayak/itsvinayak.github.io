@@ -10,26 +10,23 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      DEPLOYMENT_TYPE: production
+      NEXT_PUBLIC_BASE_URL: https://itsvinayak.github.io
+      NEXT_PUBLIC_SITE_URL: https://itsvinayak.github.io
+      BLOG_URL: 'https://dev.to/itsvinayak'
+      BLOG_NUMBER_OF_POSTS: '20'
 
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v4.1.3
-      - name: Use Node.js 20.x
-        uses: actions/setup-node@v1
+        uses: actions/checkout@v4
+      - name: Use Node.js 24.x
+        uses: actions/setup-node@v4
         with:
-          node-version: "20.x"
+          node-version: "24.x"
 
       - name: Installing my packages
         run: npm ci
-
-      - name: Extract repository name
-        run: echo "BASE_PATH=/$(echo $GITHUB_REPOSITORY | cut -d '/' -f 2)" >> $GITHUB_ENV
-      
-      - name: Setup .env
-        run: |
-          echo "DEPLOYMENT_TYPE='production'" >> $GITHUB_ENV
-          echo "BLOG_URL='https://dev.to/itsvinayak'" >> $GITHUB_ENV
-          echo "BLOG_NUMBER_OF_POSTS='20'" >> $GITHUB_ENV
 
       - name: Build my App
         run: npm run build && touch ./out/.nojekyll

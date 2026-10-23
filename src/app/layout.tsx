@@ -8,8 +8,6 @@ import type { Metadata } from 'next';
 import { Analytics } from "@vercel/analytics/react"
 
 
-console.log('process.env loaded  ', process.env);
-
 const roboto = Roboto({
   weight: ['400', '700'],
   style: ['normal', 'italic'],
@@ -20,21 +18,18 @@ const roboto = Roboto({
 let title = 'vinayak';
 let description = 'My Personal Website';
 
-// setting envoriment
-console.log('Loading Env in ', process.env.DEPLOYMENT_TYPE);
-const projectDir = process.cwd();
-console.log('projectDir ', projectDir);
 if (process.env.DEPLOYMENT_TYPE === 'development') {
-  console.log('running app in development');
   title += ' | development mode enabled';
-} else {
-  console.log('running app in production');
-  console.log = () => {};
 }
 
 export const metadata: Metadata = {
   title: title,
   description: description,
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_BASE_URL ||
+      process.env.NEXT_PUBLIC_SITE_URL ||
+      'https://itsvinayak.github.io'
+  ),
 };
 
 export default function RootLayout({

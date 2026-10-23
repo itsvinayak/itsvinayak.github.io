@@ -140,7 +140,7 @@ const Navbar = () => {
                             <NavbarLogo />
 
                             <div className="flex items-center gap-2">
-                                <SearchPopup containerId="search-mobile-popup" />
+                                <SearchPopup containerId="search-mobile-menu-popup" />
                                 <ThemeSwitcher />
                                 <NavbarButton
                                     actionFunction={closeNav}

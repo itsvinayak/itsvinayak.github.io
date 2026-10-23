@@ -2,6 +2,7 @@ import { FaYoutube } from 'react-icons/fa';
 import { getYoutubeStatsData } from '@lib/utils';
 import { lazy } from 'react';
 const DoubleImageCard = lazy(() => import('@ui/DoubleImageCard'));
+const YOUTUBE_CHANNEL_ID = 'UC3Vrabb-Q563wejSp3KG8fA';
 
 interface YouTubeStatsProps {
   link: string;
@@ -32,32 +33,28 @@ const filterYouTubeData = (data: any) => {
     },
   };
 
-  let displayText;
   if (!data) {
     data = {};
   }
   console.log('filterYouTubeData ', data);
 
-  data.subscriberCount = Number(data?.subscriberCount) || 0;
-  data.viewCount = Number(data?.viewCount) || 0;
-  data.videoCount = Number(data?.videoCount) || 0;
+  const subscriberCount = Number(data?.subscriberCount) || 0;
+  const viewCount = Number(data?.viewCount) || 0;
+  const videoCount = Number(data?.videoCount) || 0;
+  let displayText = 'YouTube Channel';
 
-  if (
-    data.subscriberCount > data.viewCount &&
-    data.subscriberCount > data.videoCount
-  ) {
-    displayText = `${data.subscriberCount} Subscribers`;
-  } else if (
-    data.viewCount > data.subscriberCount &&
-    data.viewCount > data.videoCount
-  ) {
-    displayText = `${data.viewCount} Views`;
-  } else {
-    displayText = `${data.videoCount} Videos`;
+  if (subscriberCount || viewCount || videoCount) {
+    if (subscriberCount > viewCount && subscriberCount > videoCount) {
+      displayText = `${subscriberCount} Subscribers`;
+    } else if (viewCount > subscriberCount && viewCount > videoCount) {
+      displayText = `${viewCount} Views`;
+    } else {
+      displayText = `${videoCount} Videos`;
+    }
   }
   if (data) {
     filteredData = {
-      link: `https://www.youtube.com/channel/${process.env.YOUTUBE_CHANNEL_ID}`,
+      link: `https://www.youtube.com/channel/${process.env.YOUTUBE_CHANNEL_ID || YOUTUBE_CHANNEL_ID}`,
       title: '@itsvinayak',
       description: displayText,
       largeImage: {

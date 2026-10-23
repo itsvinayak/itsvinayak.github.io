@@ -15,7 +15,7 @@ const BlogTitle: React.FC<BlogTitleProps> = ({
       <h1 className='mx-0 text-center text-2xl font-bold md:m-5 md:text-4xl'>
         {title}
       </h1>
-      <div className='flex flex-row items-center text-xs font-bold text-gray-500 dark:text-gray-400'>
+      <div className='flex flex-row flex-wrap items-center gap-x-1 gap-y-2 text-xs font-bold text-gray-500 dark:text-gray-400'>
         <p> Published on </p>
         <time dateTime={date} className='px-1'>
           {formatDate(date)}
@@ -33,12 +33,12 @@ const BlogTitle: React.FC<BlogTitleProps> = ({
               />
             ))}
         </div>
-        <div className='flex flex-row'>
+        <div className='flex flex-row flex-wrap items-center gap-1'>
           {tags &&
             tags.map((tag, index) => (
               <TextTag
                 key={index}
-                className='m-1 mt-[-1px] text-xs text-slate-200'
+                className='text-xs text-slate-200'
                 text={tag}
                 logo={''}
               />

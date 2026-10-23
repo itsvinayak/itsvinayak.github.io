@@ -15,7 +15,7 @@ const Navlink = ({ links, classNameProps, onLinkClick }: any) => {
             href={link.href}
             onClick={onLinkClick}
             className={cn(
-              'relative inline-flex w-full items-center justify-start rounded-lg px-4 py-2 text-sm font-semibold tracking-wide text-zinc-800 transition-all hover:bg-zinc-100 hover:text-black dark:text-zinc-100 dark:hover:bg-zinc-800 md:w-fit md:text-base',
+              'relative inline-flex w-full items-center justify-start rounded-lg px-4 py-2 text-sm font-semibold tracking-wide text-zinc-800 transition-all hover:bg-zinc-800 hover:text-zinc-100 dark:text-zinc-100 dark:hover:bg-zinc-700 dark:hover:text-zinc-100 md:w-fit md:text-base',
               link.itemClass
             )}
           >
