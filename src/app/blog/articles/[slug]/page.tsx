@@ -5,9 +5,15 @@ import { getAllPost, getPostBySlug } from '@lib/utils';
 import Layout from '@components/Layout';
 import { Mdx } from '@components/mdx/MdxComponents';
 
+const slugAliases: Record<string, string> = {
+  Getting_Started_Clojure: 'Getting_Started_with_Clojure',
+};
+
+const getPostForRoute = (slug: string | undefined) =>
+  getPostBySlug(slugAliases[slug ?? ''] ?? slug ?? '');
 
 export async function generateMetadata({ params }: any): Promise<Metadata> {
-  const post = getPostBySlug(params?.slug);
+  const post = getPostForRoute(params?.slug);
 
   if (!post) {
     return {
@@ -42,10 +48,16 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
 
 // generate path for static generation
 export async function generateStaticParams(): Promise<any> {
-  let posts = getAllPost();
-  return posts.map((post) => ({
-    slug: post.slugAsParams
-  }))
+  const posts = getAllPost();
+  const postSlugs = posts.map((post) => post.slugAsParams);
+  const aliases = Object.entries(slugAliases)
+    .filter(([, canonicalSlug]) => postSlugs.includes(canonicalSlug))
+    .map(([alias]) => ({ slug: alias }));
+
+  return [
+    ...posts.map((post) => ({ slug: post.slugAsParams })),
+    ...aliases,
+  ];
 }
 
 export default function ArticlePage({ params }: ArticlePageProps) {
@@ -57,7 +69,7 @@ export default function ArticlePage({ params }: ArticlePageProps) {
     return notFound();
   }
 
-  const post = getPostBySlug(slug);
+  const post = getPostForRoute(slug);
 
   if (!post) {
     return notFound();
