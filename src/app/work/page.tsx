@@ -3,10 +3,15 @@ import BasicDiv from '@ui/BasicDiv';
 import TimeLine from '@ui/TimeLine';
 import { WorkData } from '@components/data/work';
 import type { Metadata } from 'next';
+import { createPageMetadata } from '@lib/seo';
 
 export const metadata: Metadata = {
-  title: 'Work',
-  description: 'Work Page of Vinayaks Personal Website',
+  ...createPageMetadata({
+    title: 'Work',
+    description:
+      'Explore Vinayak Sharma’s software engineering experience building payment systems, developer tools, and distributed services.',
+    path: '/work',
+  }),
 };
 
 export default function Page() {
@@ -14,13 +19,19 @@ export default function Page() {
     <Layout>
       <BasicDiv className='w-full'>
         <header className='w-full pb-8'>
-          <p className='mb-3 text-xs font-semibold uppercase text-emerald-700 dark:text-emerald-400'>
+          <p className='page-reveal mb-3 text-xs font-semibold uppercase text-emerald-700 dark:text-emerald-400'>
             Experience &amp; selected work
           </p>
-          <h1 className='text-left text-3xl font-bold tracking-tight text-zinc-950 sm:text-4xl dark:text-zinc-100'>
+          <h1
+            className='page-reveal text-left font-serif text-3xl font-medium tracking-tight text-zinc-950 sm:text-4xl dark:text-zinc-100'
+            style={{ animationDelay: '80ms' }}
+          >
             Work
           </h1>
-          <div className='mt-4 flex flex-wrap items-center justify-between gap-3'>
+          <div
+            className='page-reveal mt-4 flex flex-wrap items-center justify-between gap-3'
+            style={{ animationDelay: '160ms' }}
+          >
             <p className='max-w-xl text-sm leading-6 text-zinc-600 dark:text-zinc-400'>
               A timeline of the teams, products, and systems I’ve helped build.
             </p>

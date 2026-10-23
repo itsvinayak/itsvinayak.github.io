@@ -1,7 +1,9 @@
 import Link from 'next/link';
 import { TimeLineItemProps } from '@components/types/TimeLineProps';
 
-const TimeLineItem: React.FC<TimeLineItemProps> = ({
+const TimeLineItem: React.FC<
+  TimeLineItemProps & { animationDelay?: string }
+> = ({
   title,
   description,
   fromTime,
@@ -11,6 +13,7 @@ const TimeLineItem: React.FC<TimeLineItemProps> = ({
   icon,
   sourceLinkIcon,
   isLatest,
+  animationDelay,
 }) => {
   const descriptionItems =
     typeof description === 'string'
@@ -36,11 +39,12 @@ const TimeLineItem: React.FC<TimeLineItemProps> = ({
   }
   return (
     <li
-      className={`relative ms-4 border-s pb-8 ps-6 last:border-transparent sm:ms-6 sm:ps-8 ${
+      className={`page-reveal relative ms-4 border-s pb-8 ps-6 last:border-transparent sm:ms-6 sm:ps-8 ${
         isLatest
           ? 'border-emerald-300 dark:border-emerald-900'
           : 'border-zinc-200 dark:border-zinc-800'
       }`}
+      style={{ animationDelay }}
     >
       <span
         className={`absolute -start-[5px] top-1 h-2.5 w-2.5 rounded-full ring-4 ring-white dark:ring-[#111010] ${
@@ -100,7 +104,13 @@ const TimeLine: React.FC<TimeLineProp> = ({ items }) => {
   return (
     <ol className='relative mt-2'>
       {!!items &&
-        items.map((item, index) => <TimeLineItem key={index} {...item} />)}
+        items.map((item, index) => (
+          <TimeLineItem
+            key={index}
+            {...item}
+            animationDelay={`${Math.min(index * 70, 420)}ms`}
+          />
+        ))}
     </ol>
   );
 };

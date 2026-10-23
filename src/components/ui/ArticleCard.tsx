@@ -22,7 +22,10 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ post, index }) => {
   const postLink = slugAsParams ? `/blog/articles/${slugAsParams}` : post.slug;
 
   return (
-    <article className='group grid gap-3 border-b border-zinc-200 py-6 sm:grid-cols-[3rem_minmax(0,1fr)] sm:gap-5 sm:py-7 dark:border-zinc-800'>
+    <article
+      className='page-reveal group grid gap-3 border-b border-zinc-200 py-6 transition-colors sm:grid-cols-[3rem_minmax(0,1fr)] sm:gap-5 sm:py-7 dark:border-zinc-800'
+      style={{ animationDelay: `${Math.min(index * 65, 390)}ms` }}
+    >
       <span className='hidden pt-1 font-mono text-xs tabular-nums text-zinc-400 sm:block dark:text-zinc-600'>
         {String(index + 1).padStart(2, '0')}
       </span>

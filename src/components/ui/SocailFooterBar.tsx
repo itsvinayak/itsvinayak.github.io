@@ -6,10 +6,14 @@ interface SocialFooterBarProps {
   className?: string;
 }
 
-const SocialFooterBar: React.FC<SocialFooterBarProps> = ({className}) => {
-  console.log('SocialFooterBar : ', SocialLinks, className);
+const SocialFooterBar: React.FC<SocialFooterBarProps> = ({ className }) => {
   return (
-    <div className={cn('flex h-16 w-full flex-row items-center justify-center', className)}>
+    <div
+      className={cn(
+        'flex h-16 w-full flex-row items-center justify-center',
+        className
+      )}
+    >
       {SocialLinks.map((link) => (
         <Link
           key={link.title}

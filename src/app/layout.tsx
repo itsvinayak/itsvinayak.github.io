@@ -7,6 +7,7 @@ import { Suspense } from 'react';
 import '@/globals.css';
 import type { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/react';
+import { siteStructuredData, siteUrl } from '@lib/seo';
 
 const roboto = Roboto({
   weight: ['400', '700'],
@@ -15,21 +16,48 @@ const roboto = Roboto({
   display: 'swap',
 });
 
-let title = 'vinayak';
-let description = 'My Personal Website';
-
-if (process.env.DEPLOYMENT_TYPE === 'development') {
-  title += ' | development mode enabled';
-}
+const title = 'Vinayak Sharma | Software Engineer & Technical Creator';
+const description =
+  'Vinayak Sharma builds reliable payment systems and developer tools, and writes practical guides for software engineers.';
 
 export const metadata: Metadata = {
-  title: title,
+  title: {
+    default: title,
+    template: '%s | Vinayak Sharma',
+  },
   description: description,
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_BASE_URL ||
-      process.env.NEXT_PUBLIC_SITE_URL ||
-      'https://itsvinayak.github.io'
-  ),
+  applicationName: 'Vinayak Sharma',
+  authors: [{ name: 'Vinayak Sharma', url: siteUrl }],
+  creator: 'Vinayak Sharma',
+  publisher: 'Vinayak Sharma',
+  metadataBase: new URL(siteUrl),
+  alternates: { canonical: '/' },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
+  },
+  openGraph: {
+    title,
+    description,
+    url: '/',
+    siteName: 'Vinayak Sharma',
+    locale: 'en_US',
+    type: 'website',
+    images: [{ url: '/profile.jpeg', alt: 'Vinayak Sharma' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title,
+    description,
+    images: ['/profile.jpeg'],
+  },
 };
 
 export default function RootLayout({
@@ -58,6 +86,12 @@ export default function RootLayout({
           href='/favicon-16x16.png'
         />
         <link rel='manifest' href='/site.webmanifest' />
+        <script
+          type='application/ld+json'
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(siteStructuredData).replace(/</g, '\\u003c'),
+          }}
+        />
       </head>
       <body className={roboto.className}>
         <Provider>

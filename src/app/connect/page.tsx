@@ -1,10 +1,15 @@
 import Layout from '@components/Layout';
 import ConnectGrid from '@components/ConnectGrid';
 import type { Metadata } from 'next';
+import { createPageMetadata } from '@lib/seo';
 
 export const metadata: Metadata = {
-  title: 'Connect',
-  description: 'Connect Page of Vinayaks Personal Website',
+  ...createPageMetadata({
+    title: 'Connect',
+    description:
+      'Contact Vinayak Sharma about software engineering, payment systems, developer tools, writing, and speaking.',
+    path: '/connect',
+  }),
 };
 
 const Page = () => {

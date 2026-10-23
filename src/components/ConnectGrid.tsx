@@ -9,14 +9,20 @@ const ConnectGrid = () => {
   return (
     <main className='mx-auto w-full max-w-4xl px-1 pb-12 pt-8 md:pt-12'>
       <header className='max-w-2xl'>
-        <p className='mb-4 flex items-center gap-2 text-xs font-semibold uppercase text-emerald-700 dark:text-emerald-400'>
+        <p className='page-reveal mb-4 flex items-center gap-2 text-xs font-semibold uppercase text-emerald-700 dark:text-emerald-400'>
           <span className='h-2 w-2 rounded-full bg-emerald-500' />
           Get in touch
         </p>
-        <h1 className='text-3xl font-bold leading-tight text-zinc-950 sm:text-4xl dark:text-zinc-50'>
+        <h1
+          className='page-reveal font-serif text-3xl font-medium leading-tight text-zinc-950 sm:text-4xl dark:text-zinc-50'
+          style={{ animationDelay: '80ms' }}
+        >
           Let’s make something meaningful.
         </h1>
-        <p className='mt-4 max-w-xl text-base leading-7 text-zinc-600 dark:text-zinc-400'>
+        <p
+          className='page-reveal mt-4 max-w-xl text-base leading-7 text-zinc-600 dark:text-zinc-400'
+          style={{ animationDelay: '160ms' }}
+        >
           Have a project, an idea, or just want to talk engineering? Email is
           the best way to reach me.
         </p>
@@ -24,7 +30,8 @@ const ConnectGrid = () => {
 
       <section
         aria-label='Email contact'
-        className='mt-8 flex flex-col gap-5 border-y border-zinc-200 py-5 sm:flex-row sm:items-center sm:justify-between dark:border-zinc-800'
+        className='page-reveal mt-8 flex flex-col gap-5 border-y border-zinc-200 py-5 sm:flex-row sm:items-center sm:justify-between dark:border-zinc-800'
+        style={{ animationDelay: '220ms' }}
       >
         <div className='min-w-0'>
           <p className='text-xs font-semibold uppercase text-zinc-500 dark:text-zinc-400'>
@@ -61,16 +68,17 @@ const ConnectGrid = () => {
         </div>
 
         <ul className='grid gap-x-8 sm:grid-cols-2'>
-          {socialLinks.map((social) => (
+          {socialLinks.map((social, index) => (
             <li
               key={social.title}
-              className='border-t border-zinc-200 dark:border-zinc-800'
+              className='page-reveal border-t border-zinc-200 dark:border-zinc-800'
+              style={{ animationDelay: `${Math.min(280 + index * 55, 500)}ms` }}
             >
               <a
                 href={social.link}
                 target='_blank'
                 rel='noreferrer'
-                className='group flex min-h-[76px] items-center gap-4 py-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600'
+                className='group flex min-h-[76px] items-center gap-4 py-3 transition-transform duration-200 hover:translate-x-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600 motion-reduce:transform-none'
               >
                 <span className='flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-zinc-200 bg-white text-lg text-zinc-700 transition-colors group-hover:border-emerald-300 group-hover:text-emerald-700 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 dark:group-hover:border-emerald-700 dark:group-hover:text-emerald-400'>
                   {social.icon}

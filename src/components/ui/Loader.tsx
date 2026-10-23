@@ -1,12 +1,21 @@
-import { FaSpinner } from 'react-icons/fa';
+import { FaCode } from 'react-icons/fa';
 
 const Loader = () => {
   return (
-    <div className='m-6 flex h-screen w-screen items-center justify-center overflow-hidden'>
-      <div className='flex w-full flex-col items-center justify-center gap-4'>
-        <div className='flex h-28 w-28 animate-spin items-center justify-center rounded-full border-8 border-gray-300 text-4xl text-blue-400 dark:border-t-black'>
-          <FaSpinner className='animate-ping' color='white' />
+    <div className='flex min-h-screen w-full items-center justify-center px-4'>
+      <div
+        className='flex flex-col items-center gap-5 text-zinc-600 dark:text-zinc-400'
+        role='status'
+        aria-live='polite'
+      >
+        <div className='relative flex h-16 w-16 items-center justify-center'>
+          <span className='absolute inset-0 animate-spin rounded-full border-2 border-zinc-200 border-t-emerald-600 motion-reduce:animate-none dark:border-zinc-700 dark:border-t-emerald-400' />
+          <FaCode
+            className='animate-pulse text-xl text-emerald-700 motion-reduce:animate-none dark:text-emerald-400'
+            aria-hidden='true'
+          />
         </div>
+        <p className='text-sm font-medium tracking-wide'>Loading</p>
       </div>
     </div>
   );

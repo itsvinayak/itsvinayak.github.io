@@ -36,7 +36,6 @@ const filterYouTubeData = (data: any) => {
   if (!data) {
     data = {};
   }
-  console.log('filterYouTubeData ', data);
 
   const subscriberCount = Number(data?.subscriberCount) || 0;
   const viewCount = Number(data?.viewCount) || 0;
@@ -54,7 +53,9 @@ const filterYouTubeData = (data: any) => {
   }
   if (data) {
     filteredData = {
-      link: `https://www.youtube.com/channel/${process.env.YOUTUBE_CHANNEL_ID || YOUTUBE_CHANNEL_ID}`,
+      link: `https://www.youtube.com/channel/${
+        process.env.YOUTUBE_CHANNEL_ID || YOUTUBE_CHANNEL_ID
+      }`,
       title: '@itsvinayak',
       description: displayText,
       largeImage: {
@@ -67,7 +68,6 @@ const filterYouTubeData = (data: any) => {
       },
     };
   }
-  console.log('filteredData : ', filteredData);
   return filteredData;
 };
 
@@ -76,11 +76,11 @@ const YouTubeStats = async () => {
   try {
     youTubeStats = await getYoutubeStatsData();
   } catch (error) {
-    console.log('Error : ', error);
+    console.error('Unable to load YouTube stats:', error);
   }
-  let filteredYouTubeStats: YouTubeStatsProps = filterYouTubeData(youTubeStats?.stats);
-
-  console.log('YouTubeStats : ', youTubeStats);
+  let filteredYouTubeStats: YouTubeStatsProps = filterYouTubeData(
+    youTubeStats?.stats
+  );
 
   return (
     <>{filteredYouTubeStats && <DoubleImageCard {...filteredYouTubeStats} />}</>

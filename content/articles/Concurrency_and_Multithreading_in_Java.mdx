@@ -1,0 +1,268 @@
+Concurrency and Multithreading in Java
+
+# Java Concurrency and Multithreading
+
+## Table of Contents
+# Java Concurrency and Multithreading
+
+## Table of Contents
+
+- [Synchronization Basics in Java](#synchronization-basics-in-java)
+  - [Process](#process)
+  - [Inspecting Java Processes and Threads](#inspecting-java-processes-and-threads)
+  - [Thread and Runnable](#thread-and-runnable)
+  - [Thread Scheduler, Race Condition, Daemon Threads and Thread Groups](#thread-scheduler-race-condition-daemon-threads-and-thread-groups)
+  - [Synchronization](#synchronization)
+
+- [Concurrency in Java](#concurrency-in-java)
+  - [Memory Management](#memory-management)
+  - [Deadlock and Livelock](#deadlock-and-livelock)
+  - [Executor Services, Callable and Future](#executor-services-callable-and-future)
+  - [Executor Service Implementations and ThreadFactory](#executor-service-implementations-and-threadfactory)
+
+- [More on Multithreading](#more-on-multithreading)
+  - [Fork/Join Framework](#forkjoin-framework)
+  - [CompletableFuture](#completablefuture)
+  - [Lock API](#lock-api)
+    - [Lock](#lock)
+    - [ReadWriteLock](#readwritelock)
+    - [ReentrantLock](#reentrantlock)
+    - [ReentrantReadWriteLock](#reentrantreadwritelock)
+    - [StampedLock](#stampedlock)
+  - [Synchronizers](#synchronizers)
+    - [CyclicBarrier](#cyclicbarrier)
+    - [CountDownLatch](#countdownlatch)
+    - [Semaphore](#semaphore)
+    - [Exchanger](#exchanger)
+    - [Phaser](#phaser)
+  - [Virtual Threads](#virtual-threads)
+---
+
+## Synchronization Basics in Java
+
+### Process
+A Process is a self-contained execution environment with its own memory space and resources. Two Processes do not share memory directly they communicate through inter-process communication mechanisms such as pipes, sockets, or shared memory. A Process can spawn multiple threads, each thread sharing the same memory space and resources of the parent process.
+
+#### Understanding java Threads and CPU Cores
+
+Core is a smallest unit of CPU that can independently execute instructions. When we say 8 cores CPU, it means the CPU contains 8 physical cores for executing instructions concurrently.
+If our program is multithreaded, this means its can simultaneously run 8 threads on the 8 cores of the CPU. But if we have more threads than cores, the OS will time-slice the CPU among the threads and context switches occur, where turns are taken by each thread to get CPU time.
+
+So, when we say our program is concurrent it means that multiple threads of execution are making progress within the program, potentially running in parallel on multiple CPU cores.
+
+#### States of a Process and Thread
+
+- **New**: thread is created but not yet started.
+- **Runnable**: ready for CPU time but not yet running.
+- **Running**: currently executing.
+- **Blocked/Waiting**: waiting for a monitor lock or a specific condition.
+- **Timed Waiting**: waiting for a specified amount of time.
+- **Terminated**: has completed execution.
+
+
+### Inspecting Java Processes and Threads
+Using **Java diagnostic command-line tool** `jcmd` we can inspect Java processes and their threads.
+
+```bash
+jcmd <pid> Thread.print
+```
+
+Example:
+```bash
+admin@220 ~ % jcmd 84488 Thread.print
+84488:
+"main" #1 prio=5 os_prio=0 tid=0x00007f8b58001000 nid=0x1e03 waiting on condition [0x00007f8b5a3ff000]
+   java.lang.Thread.State: RUNNABLE
+
+"Reference Handler" #2 prio=10 os_prio=0 tid=0x00007f8b58002000 nid=0x1e04 in Object.wait() [0x00007f8b5a4ff000]
+   java.lang.Thread.State: WAITING (on object monitor)
+...
+```
+
+### Thread and Runnable
+
+Java provides the `Thread` class and the `Runnable` interface to create and manage threads. A `Thread` represents a single thread of execution, while a `Runnable` is a task that can be executed by a thread. Threads can be extended or implemented using the `Runnable` interface to define their behavior.
+
+
+- Runnable implementation:
+```java
+class RunnableImplementation implements Runnable {
+
+    @Override
+    public void run() {
+        System.out.println(
+                "Thread name ::  "
+                        + Thread.currentThread().getName());
+    }
+}
+
+
+public class Main {
+    public static void main(String[] args) {
+      Runnable task = new RunnableImplementation();
+      Thread t1 = new Thread(task); 
+      t1.start();
+    }
+}
+```
+
+- Anonymous Runnable Implementation:
+```java
+public class Main {
+    public static void main(String[] args) {
+        Runnable task = new Runnable() {
+            @Override
+            public void run() {
+                System.out.println(
+                        "Thread name ::  "
+                                + Thread.currentThread().getName());
+            }
+        };
+        Thread t1 = new Thread(task);
+        t1.start();
+    }
+}
+```
+
+- Extending Thread:
+
+We can extend `Thread` class and override its `run` method. This approach allows us to define the thread's behavior directly within the subclass.
+
+Example:
+
+```java
+public class RunThreads extends Thread {
+    public static void main(String[] args) {
+        Thread t1 = new RunThreads();
+        System.out.println(
+            "Current thread name is "
+            + Thread.currentThread().getName()
+        );
+        t1.start();
+    }
+
+    @Override
+    public void run() {
+        System.out.println(
+                "Thread name ::  "
+                        + Thread.currentThread().getName());
+    }
+}
+```
+
+- Lambda expression:
+```java
+public class Main {
+    public static void main(String[] args) {
+        Runnable task = () -> {
+            System.out.println(
+                    "Thread name ::  "
+                            + Thread.currentThread().getName());
+        };
+        Thread t1 = new Thread(task);
+        t1.start();
+    }
+}
+```
+
+- Method reference:
+```java
+public class Main {
+    public static void main(String[] args) {
+        Runnable task = Main::printThreadName;
+        Thread t1 = new Thread(task);
+        t1.start();
+    }
+
+    public static void printThreadName() {
+        System.out.println(
+                "Thread name ::  "
+                        + Thread.currentThread().getName());
+    }
+}
+```
+
+NOTE: Threads provide run and start methods to execute Thread tasks. The `run` method contains the code that will be executed by the main thread, while the `start` method is used to begin the thread's execution in a new call stack.
+
+Complete Example:
+```java
+public class RunThreads extends Thread {
+
+    public static void main(String[] args) {
+        // Thread 1: Runnable implementation
+        Runnable task = new RunnableImplementation();
+        Thread t1 = new Thread(task);
+
+        // Thread 2: Anonymous Runnable
+        Thread t2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println(
+                    "Thread name ::  "
+                    + Thread.currentThread().getName()
+                );
+            }
+        });
+
+        // Thread 3: Extending Thread
+        Thread t3 = new RunThreads();
+
+        // Thread 4: Lambda expression
+        Thread t4 = new Thread(() ->
+            System.out.println(
+                "Thread name ::  "
+                + Thread.currentThread().getName()
+            )
+        );
+
+        // Thread 5: Method reference
+        Thread t5 = new Thread(RunThreads::execute);
+        // if i dont give name here, the thread will have a default name like Thread-0, Thread-1, etc.
+
+        System.out.println(
+            "Current thread name is "
+            + Thread.currentThread().getName()
+        );
+
+        t1.run(); // Executes on main thread
+
+        t1.start();
+        t2.start();
+        t3.start();
+        t4.start();
+        t5.start();
+    }
+
+    public static void execute() {
+        System.out.println(
+            "Thread name ::  "
+            + Thread.currentThread().getName()
+        );
+    }
+
+    @Override
+    public void run() {
+        System.out.println(
+                "Thread name ::  "
+                        + Thread.currentThread().getName());
+    }
+}
+
+class RunnableImplementation implements Runnable {
+
+    @Override
+    public void run() {
+        System.out.println(
+                "Thread name ::  "
+                        + Thread.currentThread().getName());
+    }
+}
+```
+
+### Interrupted Exception
+
+The `InterruptedException` is thrown when a thread is waiting, sleeping, or otherwise occupied, and another thread interrupts it using the `interrupt` method. It is a checked exception and must be either caught or declared in the method signature.
+
+### Thread Scheduler, Race Condition, Daemon Threads and Thread Groups
+
+### 

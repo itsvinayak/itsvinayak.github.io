@@ -22,14 +22,6 @@ const DoubleImageCard = ({
   largeImage,
   smallImage,
 }: DoubleImageCardProps) => {
-  console.log(
-    'DoubleImageCard : ',
-    link,
-    title,
-    description,
-    largeImage,
-    smallImage
-  );
   if (!link || !title || !description || !largeImage || !smallImage) {
     return null;
   }
@@ -51,7 +43,7 @@ const DoubleImageCard = ({
   return (
     <Link
       href={link}
-      className='m-1 flex w-full flex-col items-center justify-around rounded border dark:border-zinc-600 dark:bg-[#262626] bg-gray-300 md:w-[46%] md:flex-row md:py-4 md:align-middle'
+      className='m-1 flex w-full flex-col items-center justify-around rounded border bg-gray-300 md:w-[46%] md:flex-row md:py-4 md:align-middle dark:border-zinc-600 dark:bg-[#262626]'
     >
       <div>
         <div className='relative h-10 p-1 md:h-16'>

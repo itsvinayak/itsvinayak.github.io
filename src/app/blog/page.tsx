@@ -5,10 +5,15 @@ import { getAllPost } from '@lib/utils';
 import ArticleCard from '@ui/ArticleCard';
 import { SinglePostProps } from '@components/types/ArticleProps';
 import type { Metadata } from 'next';
+import { createPageMetadata } from '@lib/seo';
 
 export const metadata: Metadata = {
-  title: 'Blog',
-  description: 'Blog Page of Vinayaks Personal Website',
+  ...createPageMetadata({
+    title: 'Blog',
+    description:
+      'Practical guides and notes on backend engineering, developer tools, payment systems, and modern software.',
+    path: '/blog',
+  }),
 };
 
 const Page = () => {
@@ -17,13 +22,19 @@ const Page = () => {
     <Layout>
       <BasicDiv className='w-full'>
         <header className='w-full max-w-5xl pb-7'>
-          <p className='mb-3 text-xs font-semibold uppercase text-emerald-700 dark:text-emerald-400'>
+          <p className='page-reveal mb-3 text-xs font-semibold uppercase text-emerald-700 dark:text-emerald-400'>
             Notes, guides &amp; field reports
           </p>
-          <h1 className='text-left text-3xl font-bold tracking-tight text-zinc-950 sm:text-4xl dark:text-zinc-100'>
+          <h1
+            className='page-reveal text-left font-serif text-3xl font-medium tracking-tight text-zinc-950 sm:text-4xl dark:text-zinc-100'
+            style={{ animationDelay: '80ms' }}
+          >
             My Blog
           </h1>
-          <div className='mt-4 flex flex-wrap items-center justify-between gap-3'>
+          <div
+            className='page-reveal mt-4 flex flex-wrap items-center justify-between gap-3'
+            style={{ animationDelay: '160ms' }}
+          >
             <p className='max-w-xl text-sm leading-6 text-zinc-600 dark:text-zinc-400'>
               Practical notes on backend engineering, developer tools, and the
               systems behind modern software.

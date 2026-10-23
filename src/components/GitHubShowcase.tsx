@@ -2,12 +2,7 @@
 
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import {
-  FaCodeBranch,
-  FaExternalLinkAlt,
-  FaGithub,
-  FaStar,
-} from 'react-icons/fa';
+import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
 
 type Repository = {
   id: number;
@@ -42,6 +37,7 @@ const numberFormat = new Intl.NumberFormat('en-US');
 
 const GitHubShowcase = () => {
   const [data, setData] = useState<GitHubData | null>(null);
+  const [displayMetrics, setDisplayMetrics] = useState([0, 0, 0, 0]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [reloadKey, setReloadKey] = useState(0);
@@ -95,9 +91,6 @@ const GitHubShowcase = () => {
   const repositories = (data?.repositories ?? []).filter(
     (repository) => !repository.fork && !repository.archived
   );
-  const topRepositories = [...repositories]
-    .sort((first, second) => second.stargazers_count - first.stargazers_count)
-    .slice(0, 4);
   const totalStars = repositories.reduce(
     (total, repository) => total + repository.stargazers_count,
     0
@@ -120,22 +113,50 @@ const GitHubShowcase = () => {
     recentEvents.map((event) => new Date(event.created_at).toDateString())
   ).size;
 
-  const languageCounts = repositories.reduce<Record<string, number>>(
-    (counts, repository) => {
-      if (repository.language) {
-        counts[repository.language] = (counts[repository.language] ?? 0) + 1;
+  useEffect(() => {
+    if (!data) {
+      return;
+    }
+
+    const reducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+    const targetMetrics = [
+      repositories.length,
+      totalStars,
+      commitCount,
+      activeDays,
+    ];
+    let animationFrame = 0;
+
+    if (reducedMotion) {
+      setDisplayMetrics(targetMetrics);
+      return;
+    }
+
+    const duration = 1000;
+    const startTime = performance.now();
+
+    const animate = (timestamp: number) => {
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      const easedProgress = 1 - (1 - progress) ** 3;
+      setDisplayMetrics(
+        targetMetrics.map((value) => Math.floor(value * easedProgress))
+      );
+
+      if (progress < 1) {
+        animationFrame = window.requestAnimationFrame(animate);
+      } else {
+        setDisplayMetrics(targetMetrics);
       }
-      return counts;
-    },
-    {}
-  );
-  const languages = Object.entries(languageCounts)
-    .sort((first, second) => second[1] - first[1])
-    .slice(0, 5);
-  const languageTotal = Object.values(languageCounts).reduce(
-    (total, count) => total + count,
-    0
-  );
+    };
+
+    animationFrame = window.requestAnimationFrame(animate);
+
+    return () => {
+      window.cancelAnimationFrame(animationFrame);
+    };
+  }, [data, repositories.length, totalStars, commitCount, activeDays]);
 
   return (
     <section
@@ -175,11 +196,20 @@ const GitHubShowcase = () => {
         {[
           {
             label: 'Public projects',
-            value: data ? repositories.length : null,
+            value: data ? displayMetrics[0] : null,
           },
-          { label: 'Stars across projects', value: data ? totalStars : null },
-          { label: 'Commits · 30 days', value: data ? commitCount : null },
-          { label: 'Active days · 30 days', value: data ? activeDays : null },
+          {
+            label: 'Stars across projects',
+            value: data ? displayMetrics[1] : null,
+          },
+          {
+            label: 'Commits · 30 days',
+            value: data ? displayMetrics[2] : null,
+          },
+          {
+            label: 'Active days · 30 days',
+            value: data ? displayMetrics[3] : null,
+          },
         ].map((metric) => (
           <div
             key={metric.label}
@@ -197,120 +227,6 @@ const GitHubShowcase = () => {
             </p>
           </div>
         ))}
-      </div>
-
-      <div className='grid gap-10 pt-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12'>
-        <section aria-labelledby='top-repositories-heading'>
-          <div className='mb-4 flex items-baseline justify-between gap-4'>
-            <h3
-              id='top-repositories-heading'
-              className='text-lg font-semibold text-zinc-950 dark:text-zinc-50'
-            >
-              Top Repositories by Stars
-            </h3>
-            <span className='text-xs text-zinc-500 dark:text-zinc-400'>
-              Ranked by stars
-            </span>
-          </div>
-
-          {loading ? (
-            <p className='py-5 text-sm text-zinc-500 dark:text-zinc-400'>
-              Loading repositories...
-            </p>
-          ) : topRepositories.length ? (
-            <ol className='divide-y divide-zinc-200 dark:divide-zinc-800'>
-              {topRepositories.map((repository, index) => (
-                <li key={repository.id}>
-                  <a
-                    href={repository.html_url}
-                    target='_blank'
-                    rel='noreferrer'
-                    className='group grid grid-cols-[2rem_minmax(0,1fr)_auto] items-center gap-3 py-4'
-                  >
-                    <span className='font-mono text-xs text-zinc-400'>
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
-                    <span className='min-w-0'>
-                      <span className='block truncate font-semibold text-zinc-900 transition group-hover:text-emerald-700 dark:text-zinc-100 dark:group-hover:text-emerald-400'>
-                        {repository.name}
-                      </span>
-                      <span className='mt-1 block truncate text-xs text-zinc-500 dark:text-zinc-400'>
-                        {repository.description ||
-                          repository.language ||
-                          'Open source project'}
-                      </span>
-                    </span>
-                    <span className='inline-flex items-center gap-1 text-sm tabular-nums text-zinc-600 dark:text-zinc-300'>
-                      <FaStar className='text-amber-500' aria-hidden='true' />
-                      {numberFormat.format(repository.stargazers_count)}
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ol>
-          ) : (
-            <p className='py-5 text-sm text-zinc-500 dark:text-zinc-400'>
-              {error
-                ? 'Repository data is temporarily unavailable.'
-                : 'No public repositories found.'}
-            </p>
-          )}
-        </section>
-
-        <section
-          aria-labelledby='languages-heading'
-          className='border-t border-zinc-200 pt-8 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0 dark:border-zinc-800'
-        >
-          <div className='mb-4 flex items-center gap-2'>
-            <FaCodeBranch
-              className='text-emerald-700 dark:text-emerald-400'
-              aria-hidden='true'
-            />
-            <h3
-              id='languages-heading'
-              className='text-lg font-semibold text-zinc-950 dark:text-zinc-50'
-            >
-              Languages Used Across Projects
-            </h3>
-          </div>
-
-          {loading ? (
-            <p className='py-5 text-sm text-zinc-500 dark:text-zinc-400'>
-              Loading language mix...
-            </p>
-          ) : languages.length ? (
-            <ul className='space-y-4'>
-              {languages.map(([language, count]) => {
-                const percentage = Math.round((count / languageTotal) * 100);
-                return (
-                  <li key={language}>
-                    <div className='mb-2 flex items-center justify-between gap-3 text-sm'>
-                      <span className='font-medium text-zinc-800 dark:text-zinc-200'>
-                        {language}
-                      </span>
-                      <span className='text-xs tabular-nums text-zinc-500 dark:text-zinc-400'>
-                        {count} {count === 1 ? 'project' : 'projects'} ·{' '}
-                        {percentage}%
-                      </span>
-                    </div>
-                    <div className='h-1.5 overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-800'>
-                      <div
-                        className='h-full rounded-full bg-emerald-600 dark:bg-emerald-400'
-                        style={{ width: `${percentage}%` }}
-                      />
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
-          ) : (
-            <p className='py-5 text-sm text-zinc-500 dark:text-zinc-400'>
-              {error
-                ? 'Language data is temporarily unavailable.'
-                : 'No language data available.'}
-            </p>
-          )}
-        </section>
       </div>
 
       <div className='mt-8 border-t border-zinc-200 pt-6 dark:border-zinc-800'>
@@ -335,7 +251,7 @@ const GitHubShowcase = () => {
             width={663}
             height={104}
             unoptimized
-            className='h-auto min-w-[600px] max-w-full'
+            className='h-auto w-full min-w-[600px] max-w-none lg:min-w-0'
           />
         </a>
       </div>

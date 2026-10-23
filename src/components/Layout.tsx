@@ -10,10 +10,10 @@ const Layout = ({ children, className }: LayoutProps) => {
     <main className='min-h-screen w-full overflow-y-hidden bg-white text-black dark:bg-[#111010] dark:text-white'>
       <div className={cn('flex flex-col items-center rounded-lg', className)}>
         <Navbar />
-        <div className='min-h-screen w-full px-4 py-20 md:w-3/5'>
+        <div className='min-h-screen w-full px-4 py-20 md:w-3/5 lg:w-[calc(60%_+_12rem)]'>
           {children}
         </div>
-        <hr className='h-px dark:bg-gray-200 border-0 bg-gray-700 w-3/4'/>
+        <hr className='h-px w-3/4 border-0 bg-gray-700 dark:bg-gray-200' />
         <Footer />
       </div>
     </main>

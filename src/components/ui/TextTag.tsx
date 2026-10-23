@@ -8,7 +8,6 @@ interface TextTagProps {
 }
 
 const TextTag = ({ text, logo, className }: TextTagProps) => {
-  console.log('TextTag : ', text, logo);
   if (typeof logo === 'string' && logo.length !== 0) {
     logo = (
       <Image
