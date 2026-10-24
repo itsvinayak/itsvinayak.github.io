@@ -1,5 +1,11 @@
 import Link from 'next/link';
-import { FaArrowRight, FaCode, FaCheckCircle, FaServer } from 'react-icons/fa';
+import {
+  FaArrowRight,
+  FaCheckCircle,
+  FaCloud,
+  FaCode,
+  FaServer,
+} from 'react-icons/fa';
 
 const technologyGroups = [
   {
@@ -11,6 +17,11 @@ const technologyGroups = [
     label: 'Web',
     icon: FaCode,
     technologies: ['JavaScript', 'Next.js', 'React'],
+  },
+  {
+    label: 'DevOps',
+    icon: FaCloud,
+    technologies: ['Docker', 'Git', 'Kubernetes', 'Ansible'],
   },
   {
     label: 'Quality',
@@ -63,7 +74,7 @@ const HomeContent = () => {
         </Link>
       </div>
 
-      <div className='mt-9 grid gap-5 border-t border-zinc-200 pt-5 sm:grid-cols-3 sm:gap-4 dark:border-zinc-800'>
+      <div className='mt-9 grid gap-5 border-t border-zinc-200 pt-5 sm:grid-cols-2 sm:gap-4 md:grid-cols-4 dark:border-zinc-800'>
         {technologyGroups.map((group, index) => {
           const Icon = group.icon;
 
