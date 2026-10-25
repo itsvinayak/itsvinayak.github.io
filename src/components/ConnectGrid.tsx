@@ -1,7 +1,7 @@
 import { SocialLinks } from '@components/data/social';
 import { FaArrowRight, FaEnvelope, FaExternalLinkAlt } from 'react-icons/fa';
 
-const emailAddress = 'itsvinayak@gmail.com';
+const emailAddress = 'itssvinayak@gmail.com';
 
 const ConnectGrid = () => {
   const socialLinks = SocialLinks.filter((social) => social.link.trim());
