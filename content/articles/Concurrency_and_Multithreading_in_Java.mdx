@@ -6,29 +6,23 @@ tags: ['java', 'programming', 'beginner']
 authors: ['vinayak']
 ---
 
-
-# Java Concurrency and Multithreading
-
-## Table of Contents
-# Java Concurrency and Multithreading
-
 ## Table of Contents
 
 - [Synchronization Basics in Java](#synchronization-basics-in-java)
   - [Process](#process)
   - [Inspecting Java Processes and Threads](#inspecting-java-processes-and-threads)
   - [Thread and Runnable](#thread-and-runnable)
+  - [Interrupted Exception](#interrupted-exception)
   - [Thread Scheduler, Race Condition, Daemon Threads and Thread Groups](#thread-scheduler-race-condition-daemon-threads-and-thread-groups)
   - [Synchronization](#synchronization)
 
 - [Concurrency in Java](#concurrency-in-java)
-  - [Memory Management](#memory-management)
+  - [Shared Memory](#shared-memory)
   - [Deadlock and Livelock](#deadlock-and-livelock)
   - [Executor Services, Callable and Future](#executor-services-callable-and-future)
-  - [Executor Service Implementations and ThreadFactory](#executor-service-implementations-and-threadfactory)
 
 - [More on Multithreading](#more-on-multithreading)
-  - [Fork/Join Framework](#forkjoin-framework)
+  - [Fork/Join](#forkjoin)
   - [CompletableFuture](#completablefuture)
   - [Lock API](#lock-api)
     - [Lock](#lock)
@@ -56,6 +50,22 @@ Core is a smallest unit of CPU that can independently execute instructions. When
 If our program is multithreaded, this means its can simultaneously run 8 threads on the 8 cores of the CPU. But if we have more threads than cores, the OS will time-slice the CPU among the threads and context switches occur, where turns are taken by each thread to get CPU time.
 
 So, when we say our program is concurrent it means that multiple threads of execution are making progress within the program, potentially running in parallel on multiple CPU cores.
+
+```java
+int cores = Runtime.getRuntime().availableProcessors();
+System.out.println("Available CPU cores: " + cores);
+```
+
+> Sometime people use a formula to determine the optimal number of threads based on the number of available CPU cores. 
+> The formula often used is:
+> ```
+> Optimal number of threads = Number of CPU cores * (1 + Wait time / Compute time)
+> ```
+> Where:
+> - **Wait time** is the time a thread spends waiting for I/O or other resources.
+> - **Compute time** is the time a thread spends performing computations.
+
+
 
 #### States of a Process and Thread
 
@@ -191,6 +201,9 @@ public class Main {
 
 NOTE: Threads provide run and start methods to execute Thread tasks. The `run` method contains the code that will be executed by the main thread, while the `start` method is used to begin the thread's execution in a new call stack.
 
+t.run() → Executes the code on the current thread.
+t.start() → Starts a new thread, which then executes run().
+
 Complete Example:
 ```java
 public class RunThreads extends Thread {
@@ -268,8 +281,1038 @@ class RunnableImplementation implements Runnable {
 
 ### Interrupted Exception
 
-The `InterruptedException` is thrown when a thread is waiting, sleeping, or otherwise occupied, and another thread interrupts it using the `interrupt` method. It is a checked exception and must be either caught or declared in the method signature.
+Java provides the `interrupt` method to signal a thread to stop execution flow. When a thread is interrupted, it can either handle the interruption by catching the `InterruptedException` or by checking its interrupted status using `Thread.currentThread().isInterrupted()`.
+
+Example:
+```java
+import java.util.concurrent.TimeUnit;
+
+public class TestingInterrupt implements Runnable {
+
+    @Override
+    public void run() {
+        try {
+            System.out.println("inside run function");
+            work();
+            System.out.println("work functioncompleted");
+        } catch (InterruptedException x) {
+            System.out.println("work function was interrupted");
+            return;
+        }
+        System.out.println("leaving run function");
+    }
+
+    public void work() throws InterruptedException {
+        while (true) {
+            System.out.println("working...");
+            if (Thread.currentThread().isInterrupted()) {
+                System.out.println("isInterrupted() = " + Thread.currentThread().isInterrupted());
+                
+                // this thread goes to sleep for a short time, which will throw InterruptedException if interrupted
+                TimeUnit.MILLISECONDS.sleep(10);
+                
+                System.out.println("this line won't be executed");
+            }
+        }
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        TestingInterrupt runnableTask = new TestingInterrupt();
+        Thread thread = new Thread(runnableTask);
+        thread.start();
+
+        // wait for 2 sec 
+        Thread.sleep(2000);
+        
+        
+        System.out.println("inside main function about to interrupting other thread");
+        
+        thread.interrupt();
+
+        // wait for the other thread to finish before leaving main()
+        thread.join();
+        System.out.println("leaving main function");
+    }
+}
+```
+
+
+**Code Execution flow:**
+1. main function starts and creates a thread with the `TestingInterrupt` runnable task.
+    - as `thread.start()` is called, thread class invokes overridden `run` method of `TestingInterrupt` class in the new thread.
+    - run method invokes the `work` method.
+2. Within main method, `Thread.sleep(2000)` is called, which pauses the main thread for 2 seconds.
+3. After 2 seconds, `thread.interrupt()` is called to signal the other thread to stop its execution.
+4. After this, main thread waits for the other thread to finish by calling `thread.join()`.
+5. Inside Work method, `Thread.currentThread().isInterrupted()` is checked in each iteration of the loop.
+    - After main thread calls `thread.interrupt()`, the interrupted status of the other thread becomes true.
+    - The sleep will throw `InterruptedException` if the thread is interrupted, which is caught in the `run` method, within catch block.
+
 
 ### Thread Scheduler, Race Condition, Daemon Threads and Thread Groups
 
-### 
+
+If we have multiple threads running and CPU doesn't have enough cores to run all threads simultaneously, we might need to rely on the **thread scheduler** to determine which thread gets to run at any given time. Due to this, the order is not guaranteed and can lead to race conditions. But we have scheduling algorithms and locks to help manage thread execution and prevent race conditions.
+
+Main **scheduling algorithms** :
+- Preemptive Priority-Based Scheduling
+- Time-Slicing (Round-Robin) Scheduling
+- First-Come, First-Served (FCFS) Scheduling
+
+#### Preemptive Priority-Based Scheduling
+
+In Java, each thread has a priority, which is an integer value between `Thread.MIN_PRIORITY` (1) and `Thread.MAX_PRIORITY` (10). We use `Thread.setPriority(int priority)` to set the priority of a thread and `Thread.getPriority()` to get the current priority of a thread.
+The scheduler uses these priorities to decide which thread should run next. Higher priority threads are more likely to be executed before lower priority threads, but this is not strictly guaranteed.
+
+```java
+Thread thread1 = new Thread(() -> {
+    System.out.println("Thread 1 running");
+});
+Thread thread2 = new Thread(() -> {
+    System.out.println("Thread 2 running");
+});
+
+thread1.setPriority(Thread.MAX_PRIORITY); // or thread1.setPriority(10)
+thread2.setPriority(Thread.MIN_PRIORITY);
+
+thread1.start();
+thread2.start();
+```
+
+
+#### Time-Slicing (Round-Robin) Scheduling and First-Come, First-Served (FCFS) Scheduling
+
+Java doesn't provide method or API to control the exact scheduling of threads. The thread scheduler is part of the JVM and underlying operating system.
+
+In Time-Slicing (Round-Robin) Scheduling, each thread gets a fixed time slice to execute, and the scheduler cycles through the threads. In First-Come, First-Served (FCFS) Scheduling, threads are executed in the order they arrive, without preemption.
+
+> we can't always predict the sequence of execution.
+
+#### Thread.yield()
+
+The `Thread.yield()` method is a hint to the thread scheduler that the current thread is willing to yield its current use of the CPU. The scheduler may choose to pause the current thread and allow other threads to execute. But this is not guaranteed, JVM and OS can ignore it.
+
+```java
+public class TestingYield {
+
+	public static void main(String[] args) {
+		var t0 = new Thread(() -> {
+			Thread.yield();
+			System.out.println(Thread.currentThread().getName());
+		});
+		var t1 = new Thread(() -> System.out.println(Thread.currentThread().getName()));
+		t0.start();
+		t1.start();
+	}
+}
+```
+
+#### Daemon Threads
+
+In Java, a **daemon thread** is a background thread which is detached from the main program flow and does not exit until all user threads have finished execution. Java provides the `setDaemon(boolean on)` method to mark a thread as a daemon.
+
+```java
+Thread daemonThread = new Thread(() -> {
+    while (true) {
+        System.out.println("Daemon thread running");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+});
+daemonThread.setDaemon(true);
+daemonThread.start();
+```
+
+#### Thread Groups
+
+In Java, a **thread group** is a mechanism to group multiple threads together. This allows us to manage multiple threads as a single unit. We can create a thread group using the `ThreadGroup` class.
+
+```java
+ThreadGroup group = new ThreadGroup("GroupName");
+
+Thread thread1 = new Thread(group, () -> {
+    System.out.println("Thread 1 running");
+});
+Thread thread2 = new Thread(group, () -> {
+    System.out.println("Thread 2 running");
+});
+
+thread1.start();
+thread2.start();
+
+
+// to print details of the thread group
+System.out.println("Active threads in group: " + group.activeCount());
+System.out.println("Thread group name: " + group.getName());
+```
+
+We can also perform operations on the entire group, such as interrupting all threads:
+
+```java
+group.interrupt();
+```
+
+### Synchronization
+
+- Critical Sections
+A critical section is a group of instructions that should be executed concurrently only by one thread at a time to prevent race conditions.
+
+- Atomic Operations
+An atomic operation is an operation that is performed as a single unit without any interference from other threads, ensuring consistency and preventing race conditions. Java provides several classes and mechanisms to perform atomic operations, such as the `AtomicInteger` class and the `synchronized` keyword.
+
+`count++` is not atomic and can lead to race conditions when accessed by multiple threads concurrently.
+
+Below is an example of using `AtomicInteger` to perform atomic operations:
+
+```java
+import java.util.concurrent.atomic.AtomicInteger;
+AtomicInteger count = new AtomicInteger(5);
+count.incrementAndGet();
+```
+
+
+- Monitors
+Monitor is a locking mechanism that allows threads to have both mutual exclusion and the ability to wait for certain conditions. In Java, every object can act as a monitor, and the `synchronized` keyword is used to acquire the monitor lock.
+
+- Mutexes
+A mutex (mutual exclusion) is a lock that ensures that only one thread can access a resource at a time.
+
+- Monitors vs Mutexes
+
+Monitors are higher-level constructs that include mutexes and condition variables, while mutexes are lower-level locks used for mutual exclusion.
+
+- Synchronized method and block with the `synchronized` keyword
+
+The `synchronized` keyword in Java is used to control access to critical sections, ensuring that only one thread can execute a block of code or method at a time.
+
+
+```java
+// Synchronized block
+synchronized (this) {
+    // critical section code
+}
+```
+
+```java
+// Synchronized method
+public synchronized void synchronizedMethod() {
+    // critical section code
+}
+```
+
+- Wait and Notify Mechanisms
+The `wait()` and `notify()` methods are used for inter-thread communication, allowing threads to wait for certain conditions and notify other threads when those conditions are met. These methods must be called within a synchronized context.
+
+```java
+synchronized (this) {
+    while (conditionNotMet) {
+        wait();
+    }
+    // critical section code
+    notify();
+}
+```
+
+
+```java
+public class TestingWriterReader {
+    static class MessageContext {
+        private String message;
+        private boolean available = false;
+
+        // Writer writes a message
+        public synchronized void write(String msg) {
+            message = msg;
+            available = true;
+
+            System.out.println("Writer: Message written");
+            notify(); // Wake up the waiting reader
+        }
+
+        // Reader reads the message
+        public synchronized String read() throws InterruptedException {
+            while (!available) {
+                System.out.println("Reader: Waiting for message...");
+                wait(); // Release lock and wait
+            }
+
+            available = false;
+            return message;
+        }
+    }
+
+    public static void main(String[] args) {
+        MessageContext  contextObj = new MessageContext();
+
+        Thread reader = new Thread(() -> {
+            try {
+                String msg = contextObj.read();
+                System.out.println("Reader: Received: " + msg);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        });
+
+        Thread writer = new Thread(() -> {
+            try {
+                Thread.sleep(1000); // Simulate writing delay
+                contextObj.write("Hello from Writer!");
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        });
+
+        reader.start();
+        writer.start();
+    }
+}
+```
+**Output:**
+```
+Reader: Waiting for message...
+Writer: Message written
+Reader: Received: Hello from Writer!
+```
+
+## Concurrency in Java
+
+### Shared Memory
+
+Java Memory is divided 2 main regions: heap and stack memory. 
+
+- Heap memory is shared among all threads, this is used for objects with dynamic memory allocation.
+- Stack memory is thread-local and stores method call frames and local variables.
+
+To safely share memory between threads, synchronization mechanisms such as `synchronized` blocks, `volatile` variables, and higher-level concurrency utilities from the `java.util.concurrent` package are used.
+
+With these utilities, Java provides different ways to handle concurrency and shared memory safely.
+
+- ThreadLocal → Each thread gets its own copy of a value.
+
+```java
+ThreadLocal<Integer> local = ThreadLocal.withInitial(() -> 0);
+
+Runnable task = () -> {
+    local.set(local.get() + 1);
+    System.out.println(
+        Thread.currentThread().getName() + ": " + local.get()
+    );
+};
+
+new Thread(task, "A").start();
+new Thread(task, "B").start();
+```
+Output:
+```text
+A: 1
+B: 1
+```
+
+
+- InheritableThreadLocal → A child thread can inherit a value from its parent thread.
+
+```java
+InheritableThreadLocal<Integer> inheritableThreadLocal = new InheritableThreadLocal<>();
+
+Runnable inheritableTask = () -> {
+    inheritableThreadLocal.set(inheritableThreadLocal.get() + 1);
+    System.out.println(
+        Thread.currentThread().getName() + ": " + inheritableThreadLocal.get()
+    );
+};
+
+new Thread(inheritableTask, "Parent").start();
+Thread.sleep(100); // Ensure parent thread sets the value before child starts
+new Thread(inheritableTask, "Child").start();
+```
+Output:
+```text
+Parent: 1
+Child: 2
+```
+
+- AtomicInteger → Multiple threads can safely update the same integer.
+
+```java
+import java.util.concurrent.atomic.AtomicInteger;
+
+AtomicInteger atomicInt = new AtomicInteger(0);
+
+Runnable atomicTask = () -> {
+    int newValue = atomicInt.incrementAndGet();
+    System.out.println(
+        Thread.currentThread().getName() + ": " + newValue
+    );
+};
+
+new Thread(atomicTask, "Thread-1").start();
+new Thread(atomicTask, "Thread-2").start();
+```
+Output:
+```text
+Thread-1: 1
+Thread-2: 2
+```
+
+
+### Deadlock and Livelock
+
+Deadlock is a state where two or more threads are blocked forever, each waiting for a resource held by the other.
+
+**Example of deadlock:**
+```java
+import java.util.concurrent.TimeUnit;
+
+public class TestingDeadlockIssue {
+
+	private static Object resource1 = new Object();
+	private static Object resource2 = new Object();
+	
+	public static void main(String[] args) {
+		new Thread(() -> {
+			synchronized (resource1) {
+				System.out.println("resource1 is captured");
+				try {
+					TimeUnit.MILLISECONDS.sleep(500);
+				} catch (InterruptedException e) {}
+				
+				synchronized (resource2) {
+					System.out.println("This block will never be executed");
+				}
+			}
+		}).start();
+		
+		new Thread(() -> {
+			synchronized (resource2) {
+				System.out.println("resource2 is captured");
+				synchronized (resource1) {
+					System.out.println("This block will never be executed");
+				}
+			}
+		}).start();
+	}
+}
+```
+
+In this above example, the two threads are trying to acquire locks on `resource1` and `resource2` in different orders, leading to a deadlock situation. To resolve deadlock we can use techniques like Lock ordering, which is acquiring locks in a consistent global order to prevent circular wait conditions.
+
+**Example of Lock ordering to prevent deadlock:**
+```java
+import java.util.concurrent.TimeUnit;
+
+public class TestingDeadlockIssue {
+
+	private static Object resource1 = new Object();
+	private static Object resource2 = new Object();
+	
+	public static void main(String[] args) {
+		new Thread(() -> {
+			synchronized (resource1) {
+				System.out.println("resource1 is captured");
+				try {
+					TimeUnit.MILLISECONDS.sleep(500);
+				} catch (InterruptedException e) {}
+				
+				synchronized (resource2) {
+					System.out.println("resource2 is captured");
+				}
+			}
+		}).start();
+		
+		new Thread(() -> {
+			synchronized (resource1) {
+				System.out.println("resource1 is captured");
+				synchronized (resource2) {
+					System.out.println("resource2 is captured");
+				}
+			}
+		}).start();
+	}
+}
+```
+
+Livelock is a situation where threads are not blocked but keep changing their state in response to each other, preventing progress.
+
+**Example of livelock:**
+```java
+import java.util.concurrent.TimeUnit;
+
+public class LivelockIssue {
+
+    static class Worker {
+        private final String name;
+        private boolean active = true;
+
+        Worker(String name) {
+            this.name = name;
+        }
+
+        public boolean isActive() {
+            return active;
+        }
+
+        public void work(Worker other) {
+            while (active) {
+                if (other.isActive()) {
+                    System.out.println(
+                        name + ": Other worker is active. Yielding..."
+                    );
+
+                    try {
+                        TimeUnit.MILLISECONDS.sleep(100);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        return;
+                    }
+
+                    continue;
+                }
+
+                System.out.println(name + ": Doing work...");
+                active = false;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Worker workerA = new Worker("Worker A");
+        Worker workerB = new Worker("Worker B");
+
+        Thread t1 = new Thread(() -> workerA.work(workerB));
+        Thread t2 = new Thread(() -> workerB.work(workerA));
+
+        t1.start();
+        t2.start();
+    }
+}
+```
+
+**What happens in the above example:**
+    - Worker A checks if Worker B is active.
+    - Worker B checks if Worker A is active.
+    - Both workers yield and check again.
+    - Neither changes its active state to false.
+    - Both threads continue running indefinitely.
+    
+To fix this, we can use CountDownLatch for giving priority to the threads, CountDownLatch is a synchronization utility that allows one or more threads to wait until a specified number of operations or events are completed.
+
+**Example using CountDownLatch:**
+```java
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+
+public class TestingDeadlockIssue {
+
+    static class Worker {
+        private final String name;
+        private final int priority;
+        private volatile boolean active = true;
+
+        Worker(String name, int priority) {
+            this.name = name;
+            this.priority = priority;
+        }
+
+        public boolean isActive() {
+            return active;
+        }
+
+        public void work(Worker other, CountDownLatch start) {
+            try {
+                // due to this, both threads will wait until the start latch is counted down
+                start.await();
+
+                while (active) {
+                    // change is this condition helps to deside which worker should wait based on priority
+                    if (other.isActive() && priority < other.priority) {
+                        System.out.println(
+                            name + ": Waiting for " + other.name
+                        );
+
+                        TimeUnit.MILLISECONDS.sleep(100);
+                        continue;
+                    }
+
+                    System.out.println(name + ": Doing work...");
+                    active = false;
+                }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Worker a = new Worker("Worker A", 2);
+        Worker b = new Worker("Worker B", 1);
+
+        CountDownLatch start = new CountDownLatch(1);
+
+        Thread t1 = new Thread(() -> a.work(b, start));
+        Thread t2 = new Thread(() -> b.work(a, start));
+
+        t1.start();
+        t2.start();
+		
+		// both threads are ready to start working
+        start.countDown();
+    }
+}
+```
+
+### Executor Services, Callable and Future
+
+- **ExecutorService**
+
+ExecutorService is java's concurrency library method which allow us to manage threads lifecycle, without manual intervention. ExecutorService uses factory methods from `Executors` class, to create thread pools. thread pools is used to reduce the overhead of creating and destroying threads repeatedly.
+
+**Example of creating a cached thread pool using ExecutorService:**
+
+```java
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class TestinghExecutorServices {
+	
+	public static void main(String[] args) {
+		ExecutorService es = Executors.newCachedThreadPool();
+		es.execute(() -> System.out.println("thread T1: " + Thread.currentThread().getName()));
+		es.execute(() -> System.out.println("thread T2: " + Thread.currentThread().getName()));
+		
+		es.shutdown();
+	}
+
+}
+```
+
+**Ways to create a thread pool include:**
+
+| Method       | Description |
+|--------------|-------------|
+| `Executors.newCachedThreadPool()`     | Creates a thread pool that creates new threads as needed, but will reuse previously constructed threads when available. |
+| `Executors.newFixedThreadPool(int n)` | Creates a thread pool with a fixed number of threads. |
+| `Executors.newSingleThreadExecutor()` | Creates a single-threaded executor that uses a single worker thread to execute tasks. |
+| `Executors.newScheduledThreadPool(int n)` | Creates a thread pool that can schedule commands to execute periodically with or without a fixed delay. |
+
+
+
+- **execute() vs submit()**
+
+
+- execute() is used to submit tasks for execution without expecting any result, execute() is Runnable only.
+- submit() is used to submit tasks for execution and returns a Future representing the pending result of the task, submit() can accept both Runnable and Callable.
+
+> Runnable task calls `run()` method and does not return a result, while Callable task calls `call()` method and returns a result.
+
+
+Future represents the result of an asynchronous computation. It provides methods to check if the computation is complete, to wait for its completion, and to retrieve the result of the computation.
+
+
+
+```java
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
+public class TestingFuture {
+
+    public static void main(String[] args) throws Exception {
+
+        ExecutorService executor =
+                Executors.newSingleThreadExecutor();
+
+        Future<Integer> future = executor.submit(() -> {
+            System.out.println("Calculating...");
+            Thread.sleep(2000);
+
+            return 100 + 200;
+        });
+
+        System.out.println("Task submitted");
+
+        // Wait for the result if it is not ready
+        Integer result = future.get();
+
+        System.out.println("Result: " + result);
+
+        executor.shutdown();
+    }
+}
+```
+
+- **invokeAny() vs invokeAll()**
+
+
+invokeAll - executes multiple tasks and returns all their results.
+invokeAny - executes multiple tasks and returns the result of one that has completed successfully.
+
+
+**Example of invokeAll()**
+```java
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
+public class TestingInvokeAll {
+	
+	public static void main(String[] args) throws InterruptedException {
+		ExecutorService es = Executors.newCachedThreadPool();
+		// callable tasks to be executed by the executor service
+		List<Callable<String>> tasks = new ArrayList<>(Arrays.asList(
+					() -> "task #1",
+					() -> "task #2",
+					() -> "task #3"
+				));
+		
+		List<Future<String>> futures = es.invokeAll(tasks);
+		// stream the futures and print their results
+		// stream vs map -> stream allows processing elements in a functional style, map transforms each element.\
+		// stream is part of the Java Stream API, which allows functional-style operations on collections of elements.
+		// without stream, we would need to use a for loop to iterate over the futures and get their results.
+		futures.stream().map(future -> {
+			try {
+				return future.get();
+			} catch (InterruptedException | ExecutionException e) {
+				e.printStackTrace();
+			}
+			return "";
+		}).forEach(System.out::println);
+		// :: is the method reference operator in Java, used to refer to methods without invoking them.
+		// Shutdown the executor service
+		es.shutdown();
+	}
+}
+```
+
+
+**Example of invokeAny()**
+```java
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class TestingInvokeAny {
+
+	public static void main(String[] args) throws InterruptedException, ExecutionException {
+		ExecutorService es = Executors.newCachedThreadPool();
+		List<Callable<String>> tasks = new ArrayList<>(Arrays.asList(
+					() -> "task #1",
+					() -> "task #2",
+					() -> "task #3"
+				));
+
+		// invokeAny returns the result of one successfully completed task
+		String result = es.invokeAny(tasks);
+		System.out.println("Result: " + result);
+
+		es.shutdown();
+	}
+}
+```
+
+
+- **awaitTermination**
+
+The `awaitTermination` method is used to block the current thread until either all tasks have completed execution after a shutdown request, or the timeout occurs, or the current thread is interrupted, whichever happens first.
+
+**Example of awaitTermination()**
+```java
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
+public class TestingAwaitTermination {
+
+	public static void main(String[] args) throws InterruptedException {
+		ExecutorService es = Executors.newCachedThreadPool();
+		es.submit(() -> {
+			Thread.sleep(2000);
+			System.out.println("Task completed");
+			return null;
+		});
+		es.shutdown();
+		if (es.awaitTermination(5, TimeUnit.SECONDS)) {
+			System.out.println("All tasks completed");
+		} else {
+			System.out.println("Timeout occurred before termination");
+		}
+	}
+}
+```
+
+
+## More on Multithreading
+
+
+### Fork/Join 
+
+#### ForkJoinPool
+
+ForkJoinPool is a thread pool that allows Java to break tasks into smaller subtasks and then combine them to produce a final result.
+
+
+```text
+           +-------------+
+           |  Root task  |
+           +------+------+ 
+                  | fork
+        +---------+---------+
+        v                   v
+    +-------------+     +-------------+
+    |  Subtask 1  |     |  Subtask 2  |
+    +------+------+     +------+------+
+        | join              | join
+        +---------+---------+
+                  v
+           +-------------+
+           |   Result    |
+           +-------------+
+```
+
+
+```java
+import java.util.concurrent.*;
+
+public class TestingForkJoin {
+    static class SumTask extends RecursiveTask<Integer> {
+        private final int start;
+        private final int end;
+        SumTask(int start, int end) {
+            this.start = start;
+            this.end = end;
+        }
+        @Override
+        protected Integer compute() {
+            // Base case: small enough to calculate directly
+            if (end - start <= 2) {
+                int sum = 0;
+
+                for (int i = start; i <= end; i++) {
+                    sum += i;
+                }
+
+                return sum;
+            }
+
+            // Divide the task into two subtasks
+            int mid = (start + end) / 2;
+
+            SumTask left = new SumTask(start, mid);
+            SumTask right = new SumTask(mid + 1, end);
+
+            // Execute subtasks in parallel
+            left.fork();
+
+            // Compute one subtask in the current worker
+            int rightResult = right.compute();
+
+            // Wait for the other subtask
+            int leftResult = left.join();
+
+            // Combine results
+            return leftResult + rightResult;
+        }
+    }
+
+    public static void main(String[] args) {
+            // Create a ForkJoinPool with 4 threads
+            ForkJoinPool pool = new ForkJoinPool(4);
+        try {
+            // Submit the SumTask to the pool and get the result
+            int result = pool.invoke(new SumTask(1, 10));
+            System.out.println("Sum = " + result);
+        } finally {
+            pool.shutdown();
+        }
+    }
+}
+```
+
+- RecursiveTask: RecursiveTask is a class in the Fork/Join framework that represents a task that returns a result. It is used when you want to break a task into smaller subtasks and then combine their results.
+
+- RecursiveAction: RecursiveAction is a class in the Fork/Join framework that represents a task that does not return a result. It is used when you want to break a task into smaller subtasks and execute them in parallel without combining results.
+
+
+```java
+import java.util.concurrent.RecursiveAction;
+import java.util.concurrent.RecursiveTask;
+
+class TestingRecursiveTask extends RecursiveTask<Integer> {
+    private final int n;
+    TestingRecursiveTask(int n) {
+        this.n = n;
+    }
+    @Override
+    protected Integer compute() {
+        if (n <= 1) return n;
+        TestingRecursiveTask f1 = new TestingRecursiveTask(n - 1);
+        TestingRecursiveTask f2 = new TestingRecursiveTask(n - 2);
+        f1.fork();
+        int result2 = f2.compute();
+        int result1 = f1.join();
+        return result1 + result2;
+    }
+}
+
+class TestingRecursiveAction extends RecursiveAction {
+    private final int n;
+    TestingRecursiveAction(int n) {
+        this.n = n;
+    }
+    @Override
+    protected void compute() {
+        if (n <= 1) return;
+        TestingRecursiveAction f1 = new TestingRecursiveAction(n - 1);
+        TestingRecursiveAction f2 = new TestingRecursiveAction(n - 2);
+        f1.fork();
+        f2.compute();
+        f1.join();
+    }
+}
+```
+
+> what is work-stealing ? 
+> Work-stealing is a scheduling strategy used by the Fork/Join framework where idle worker threads can "steal" tasks from the queues of busy threads to keep all threads busy and improve parallelism.
+
+
+##### ForkJoinPool vs ExecutorService
+
+| Feature | ExecutorService | ForkJoinPool |
+| --- | --- | --- |
+| Primary purpose | General task execution | Parallel divide-and-conquer tasks |
+| Work distribution | Depends on executor implementation | Work-stealing |
+| Typical tasks | Background jobs, API calls | Recursive computation, parallel algorithms |
+| Main task interfaces | Runnable, Callable | RecursiveTask, RecursiveAction |
+| Result handling | Future | ForkJoinTask, join() |
+
+ForkJoinPool extends AbstractExecutorService which extends ExecutorService, providing additional support for work-stealing and parallel divide-and-conquer tasks.
+
+
+### Future, CompletionStage and CompletableFuture ( was introduced in Java 8)
+
+- runAsync :`runAsync` is a method in `CompletableFuture` that allows you to run a task asynchronously without blocking the main thread. It takes a `Runnable` and returns a `CompletableFuture<Void>`.
+
+**Example:**
+```java
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
+public class TestingRunAsync {
+	public static void main(String[] args) throws InterruptedException, ExecutionException {
+		// runAsync using the default ForkJoinPool, it allow program to spawn asynchronous tasks without explicitly providing an ExecutorService
+		// mean code will not block the main thread while the asynchronous task is running
+		CompletableFuture.runAsync(() -> {
+			System.out.println("Thread name: " + Thread.currentThread().getName());
+			try {
+				TimeUnit.SECONDS.sleep(10);
+				System.out.println("Slept for 10 seconds for " + Thread.currentThread().getName());
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		});
+		TimeUnit.SECONDS.sleep(2);
+		ExecutorService es = Executors.newCachedThreadPool();
+		// below code is not using the default ForkJoinPool, it uses the provided ExecutorService instead
+		// this allows us to control the thread pool used for asynchronous execution
+		CompletableFuture.runAsync(() -> {
+			System.out.println("Thread name: " + Thread.currentThread().getName());
+			try {
+				TimeUnit.SECONDS.sleep(10);
+				System.out.println("Slept for 10 seconds for " + Thread.currentThread().getName());
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}, es);
+		es.shutdown();
+	}
+}
+```
+
+**Output:**
+```
+Thread name: ForkJoinPool.commonPool-worker-1
+Thread name: pool-1-thread-1
+Slept for 10 seconds for ForkJoinPool.commonPool-worker-1
+Slept for 10 seconds for pool-1-thread-1
+```
+
+- supplyAsync: `supplyAsync` is a method in `CompletableFuture` that allows you to run a task asynchronously and return a result. It takes a `Supplier` and returns a `CompletableFuture` containing the result of the computation.
+
+**Example:**
+```java
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
+public class TestingSupplyAsync {
+	public static void main(String[] args) throws InterruptedException, ExecutionException {
+		// supplyAsync using the default ForkJoinPool
+		CompletableFuture<String> future1 = CompletableFuture.supplyAsync(() -> {
+			System.out.println("Thread name: " + Thread.currentThread().getName());
+			try {
+				TimeUnit.SECONDS.sleep(5);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			return "Result from default ForkJoinPool";
+		});
+
+		ExecutorService es = Executors.newCachedThreadPool();
+		// supplyAsync using the provided ExecutorService
+		CompletableFuture<String> future2 = CompletableFuture.supplyAsync(() -> {
+			System.out.println("Thread name: " + Thread.currentThread().getName());
+			try {
+				TimeUnit.SECONDS.sleep(5);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			return "Result from custom ExecutorService";
+		}, es);
+
+		System.out.println(future1.get());
+		System.out.println(future2.get());
+		es.shutdown();
+	}
+}
+```
+
+
+- complete() and default values: `complete()` is a method in `CompletableFuture` that allows you to manually complete a `CompletableFuture` with a given value. If the `CompletableFuture` is already completed, this method has no effect. You can also provide a default value to be used if the computation has not completed yet.
+
+#### CompletableFuture provide functional such as: 
+- Executing asynchronous tasks
+    - Methods like `supplyAsync()`, `complete()` and `runAsync()` allow you to execute tasks asynchronously.
+- Transforming results of asynchronous computations (Callback methods)
+    - Methods like `thenApply()` and `thenApplyAsync()` allow you to transform the result of a completed future.
+- Combining multiple asynchronous computations (Dependent versus independent tasks)
+    - Methods like `thenCombine()`, `thenCompose()` and `allOf()` allow you to combine results from multiple futures.
+- Handling exceptions in asynchronous computations
+    - Methods like `exceptionally()` and `handle()` allow you to handle exceptions that occur during asynchronous computations.
+- Getting results
+    - Methods like `get()` and `join()` allow you to retrieve the result of a completed future, blocking if necessary until the computation is done.
+- Cancelling asynchronous computations
+    - Methods like `cancel()` allow you to cancel an ongoing computation if it has not yet completed.
+    
+
+
+### Lock API
+
+The `Lock` interface in Java provides more extensive locking operations than can be obtained using `synchronized` methods and statements and includes the ability to try to acquire the lock without blocking, and the ability to interrupt threads waiting to acquire a lock.
+
