@@ -26,10 +26,9 @@ authors: ['vinayak']
   - [CompletableFuture](#completablefuture)
   - [Lock API](#lock-api)
     - [Lock](#lock)
-    - [ReadWriteLock](#readwritelock)
     - [ReentrantLock](#reentrantlock)
+    - [Condition](#condition)
     - [ReentrantReadWriteLock](#reentrantreadwritelock)
-    - [StampedLock](#stampedlock)
   - [Synchronizers](#synchronizers)
     - [CyclicBarrier](#cyclicbarrier)
     - [CountDownLatch](#countdownlatch)
@@ -84,7 +83,7 @@ Using **Java diagnostic command-line tool** `jcmd` we can inspect Java processes
 jcmd <pid> Thread.print
 ```
 
-Example:
+**Example:**:
 ```bash
 admin@220 ~ % jcmd 84488 Thread.print
 84488:
@@ -145,7 +144,7 @@ public class Main {
 
 We can extend `Thread` class and override its `run` method. This approach allows us to define the thread's behavior directly within the subclass.
 
-Example:
+**Example:**:
 
 ```java
 public class RunThreads extends Thread {
@@ -204,7 +203,7 @@ NOTE: Threads provide run and start methods to execute Thread tasks. The `run` m
 t.run() → Executes the code on the current thread.
 t.start() → Starts a new thread, which then executes run().
 
-Complete Example:
+Complete **Example:**:
 ```java
 public class RunThreads extends Thread {
 
@@ -283,7 +282,7 @@ class RunnableImplementation implements Runnable {
 
 Java provides the `interrupt` method to signal a thread to stop execution flow. When a thread is interrupted, it can either handle the interruption by catching the `InterruptedException` or by checking its interrupted status using `Thread.currentThread().isInterrupted()`.
 
-Example:
+**Example:**:
 ```java
 import java.util.concurrent.TimeUnit;
 
@@ -465,7 +464,7 @@ An atomic operation is an operation that is performed as a single unit without a
 
 `count++` is not atomic and can lead to race conditions when accessed by multiple threads concurrently.
 
-Below is an example of using `AtomicInteger` to perform atomic operations:
+Below is an **Example:** of using `AtomicInteger` to perform atomic operations:
 
 ```java
 import java.util.concurrent.atomic.AtomicInteger;
@@ -605,7 +604,7 @@ Runnable task = () -> {
 new Thread(task, "A").start();
 new Thread(task, "B").start();
 ```
-Output:
+**Output:**
 ```text
 A: 1
 B: 1
@@ -628,7 +627,7 @@ new Thread(inheritableTask, "Parent").start();
 Thread.sleep(100); // Ensure parent thread sets the value before child starts
 new Thread(inheritableTask, "Child").start();
 ```
-Output:
+**Output:**
 ```text
 Parent: 1
 Child: 2
@@ -651,7 +650,7 @@ Runnable atomicTask = () -> {
 new Thread(atomicTask, "Thread-1").start();
 new Thread(atomicTask, "Thread-2").start();
 ```
-Output:
+**Output:**
 ```text
 Thread-1: 1
 Thread-2: 2
@@ -662,7 +661,7 @@ Thread-2: 2
 
 Deadlock is a state where two or more threads are blocked forever, each waiting for a resource held by the other.
 
-**Example of deadlock:**
+****Example:** of deadlock:**
 ```java
 import java.util.concurrent.TimeUnit;
 
@@ -697,9 +696,9 @@ public class TestingDeadlockIssue {
 }
 ```
 
-In this above example, the two threads are trying to acquire locks on `resource1` and `resource2` in different orders, leading to a deadlock situation. To resolve deadlock we can use techniques like Lock ordering, which is acquiring locks in a consistent global order to prevent circular wait conditions.
+In this above **Example:**, the two threads are trying to acquire locks on `resource1` and `resource2` in different orders, leading to a deadlock situation. To resolve deadlock we can use techniques like Lock ordering, which is acquiring locks in a consistent global order to prevent circular wait conditions.
 
-**Example of Lock ordering to prevent deadlock:**
+****Example:** of Lock ordering to prevent deadlock:**
 ```java
 import java.util.concurrent.TimeUnit;
 
@@ -736,7 +735,7 @@ public class TestingDeadlockIssue {
 
 Livelock is a situation where threads are not blocked but keep changing their state in response to each other, preventing progress.
 
-**Example of livelock:**
+****Example:** of livelock:**
 ```java
 import java.util.concurrent.TimeUnit;
 
@@ -790,7 +789,7 @@ public class LivelockIssue {
 }
 ```
 
-**What happens in the above example:**
+**What happens in the above **Example:**:**
     - Worker A checks if Worker B is active.
     - Worker B checks if Worker A is active.
     - Both workers yield and check again.
@@ -799,7 +798,7 @@ public class LivelockIssue {
     
 To fix this, we can use CountDownLatch for giving priority to the threads, CountDownLatch is a synchronization utility that allows one or more threads to wait until a specified number of operations or events are completed.
 
-**Example using CountDownLatch:**
+****Example:** using CountDownLatch:**
 ```java
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -869,7 +868,7 @@ public class TestingDeadlockIssue {
 
 ExecutorService is java's concurrency library method which allow us to manage threads lifecycle, without manual intervention. ExecutorService uses factory methods from `Executors` class, to create thread pools. thread pools is used to reduce the overhead of creating and destroying threads repeatedly.
 
-**Example of creating a cached thread pool using ExecutorService:**
+****Example:** of creating a cached thread pool using ExecutorService:**
 
 ```java
 import java.util.concurrent.ExecutorService;
@@ -950,7 +949,7 @@ invokeAll - executes multiple tasks and returns all their results.
 invokeAny - executes multiple tasks and returns the result of one that has completed successfully.
 
 
-**Example of invokeAll()**
+****Example:** of invokeAll()**
 ```java
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -993,7 +992,7 @@ public class TestingInvokeAll {
 ```
 
 
-**Example of invokeAny()**
+****Example:** of invokeAny()**
 ```java
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -1027,7 +1026,7 @@ public class TestingInvokeAny {
 
 The `awaitTermination` method is used to block the current thread until either all tasks have completed execution after a shutdown request, or the timeout occurs, or the current thread is interrupted, whichever happens first.
 
-**Example of awaitTermination()**
+****Example:** of awaitTermination()**
 ```java
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -1315,4 +1314,998 @@ public class TestingSupplyAsync {
 ### Lock API
 
 The `Lock` interface in Java provides more extensive locking operations than can be obtained using `synchronized` methods and statements and includes the ability to try to acquire the lock without blocking, and the ability to interrupt threads waiting to acquire a lock.
+
+
+#### ReentrantLock
+
+The `ReentrantLock` class provides reentrant mutual exclusion. A thread can acquire the lock multiple times without causing a deadlock. Fairness option is also available in `ReentrantLock` to ensure that the longest-waiting thread gets the lock first.
+
+
+**Example:** usage:
+```java
+import java.util.concurrent.locks.ReentrantLock;
+
+public class ReentrantLockExample {
+    private final ReentrantLock lock = new ReentrantLock();
+
+    public void performTask() {
+        lock.lock();
+        try {
+            // Critical section
+            System.out.println("Thread " + Thread.currentThread().getName() + " is executing the task.");
+        } finally {
+            lock.unlock();
+        }
+    }
+}
+```
+
+- Comparing a ReentrantLock with a synchronized method
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.IntStream;
+
+
+public class TestingReentrantLock {
+
+	private static int counter;
+	
+	private Lock lock = new ReentrantLock();
+	// this can also be private ReentrantLock instead of Lock
+
+	public static void main(String[] args) throws InterruptedException {
+		var thisInstance = new TestingReentrantLock();
+		var es = Executors.newFixedThreadPool(4);
+		IntStream.range(0, 10000).forEach((i) -> es.execute(thisInstance::incrementWithLock));
+		terminateExecutorService(es);
+		System.out.println(counter);
+		counter = 0;
+		var es1 = Executors.newFixedThreadPool(4);
+		IntStream.range(0, 10000).forEach((i) -> es1.execute(thisInstance::incrementSynchronized));
+		terminateExecutorService(es1);
+		System.out.println(counter);
+		counter = 0;
+		var es2 = Executors.newFixedThreadPool(4);
+		IntStream.range(0, 10000).forEach((i) -> es2.execute(thisInstance::increment));
+		terminateExecutorService(es2);
+		System.out.println(counter);
+	}
+
+	public void incrementWithLock() {
+		try {
+			lock.lock();
+			counter++;
+		} finally {
+			lock.unlock();
+		}
+	}
+	public void incrementSynchronized() {
+		synchronized(this) {
+			counter++;
+		}
+	}
+	public void increment() {
+		counter++;
+	}
+	private static void terminateExecutorService(ExecutorService es) throws InterruptedException {
+	    // closing pool to accept no new tasks and finish existing ones
+		es.shutdown();
+		es.awaitTermination(3, TimeUnit.SECONDS);
+		es.shutdownNow();
+	}
+}
+```
+
+- Output of the program
+```text
+$ javac TestingReentrantLock.java && java TestingReentrantLock
+10000
+10000
+9906
+```
+
+> lock.unlock() should always be called in a finally block to ensure that the lock is released even if an exception occurs within the critical section.
+
+- Reentrancy with nested methods
+
+**Example:**:
+```java
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+public class TestingReentrantLock {
+
+	private Lock lock = new ReentrantLock();
+
+	public static void main(String[] args) throws InterruptedException {
+		var demo = new TestingReentrantLock();
+		var es = Executors.newFixedThreadPool(4);
+		
+		es.execute(() -> System.out.println(demo.calculate("+", 2, 3)));
+		es.execute(() -> System.out.println(demo.calculate("+", 7, 12)));
+		es.execute(() -> System.out.println(demo.calculate("+", 87, 4)));
+		
+		es.execute(() -> System.out.println(demo.calculate("-", 2, 3)));
+		es.execute(() -> System.out.println(demo.calculate("-", 57, 12)));
+		es.execute(() -> System.out.println(demo.calculate("-", 110, 7)));
+		
+		terminateExecutorService(es);
+		
+	}
+
+	public double add(double value1, double value2) {
+		try {
+			lock.lock();
+			System.out.println("lock is acquired");
+			
+			return value1 + value2;
+		} finally {
+			lock.unlock();
+			System.out.println("lock is released");
+		}
+	}
+
+	public double subtract(double value1, double value2) {
+		try {
+			lock.lock();
+			System.out.println("lock is acquired");
+			
+			return value1 - value2;
+		} finally {
+			lock.unlock();
+			System.out.println("lock is released");
+		}
+	}
+
+	public double calculate(String operation, double operand1, double operand2) {
+		try {
+			lock.lock();
+			System.out.println("lock is acquired");
+
+			switch (operation) {
+			case "+":
+				return add(operand1, operand2);
+			case "-":
+				return subtract(operand1, operand2);
+			default:
+				System.out.println("Calculate works only with + and - operators and two values only");
+				return 0;
+			}
+
+		} finally {
+			lock.unlock();
+			System.out.println("lock is released");
+		}
+	}
+	
+	private static void terminateExecutorService(ExecutorService es) throws InterruptedException {
+		es.shutdown();
+		es.awaitTermination(3, TimeUnit.SECONDS);
+		es.shutdownNow();
+	}
+}
+```
+
+In above **Example:** calculate method acquires the lock and then calls either add or subtract methods, which also attempt to acquire the same lock. Since ReentrantLock is reentrant, the same thread can acquire the lock multiple times without causing a deadlock. This demonstrates the reentrancy feature of ReentrantLock.
+
+> If a non-reentrant lock such as Semaphore were used, this code would result in a deadlock because the same thread would not be able to acquire the lock it already holds.
+
+
+- Fair vs unfair locks
+Fairness can reduce starvation risk, but it can also reduce throughput. It does not guarantee fair CPU scheduling, and untimed tryLock() can still barge even on a fair lock.
+
+    - Unfair lock: Waiting thread is not guaranteed to acquire the lock.
+    - Fair lock: Threads waiting to acquire the lock are generally served in arrival order.
+
+**Example:**:
+
+```java
+ReentrantLock fairLock = new ReentrantLock(true); // fair lock
+ReentrantLock unfairLock = new ReentrantLock(false); // unfair lock
+```
+
+- Timed and interruptible locking
+
+ReentrantLock provides methods to acquire the lock with a timeout and to respond to interrupts:
+
+- `tryLock(long timeout, TimeUnit unit)`: Attempts to acquire the lock within the specified time.
+- `lockInterruptibly()`: Acquires the lock unless the current thread is interrupted.
+
+****Example:** of tryLock with timeout:**
+```java
+import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+public class TestingReentrantLock {
+	
+	private static ReentrantLock lock = new ReentrantLock();
+	
+	public static void main(String[] args) {
+		var es = Executors.newFixedThreadPool(2);
+		
+		es.submit(TestingReentrantLock::LockingTask);
+		es.submit(TestingReentrantLock::LockingTask);
+		
+		es.shutdown();
+	}
+
+	private static void LockingTask() {
+		try {
+			System.out.println(Thread.currentThread().getName() + " is trying to acquire the lock");
+			// Try to acquire the lock within 2 seconds
+			// how this works is that tryLock will attempt to acquire the lock within the specified time
+			// if it fails to acquire the lock within 2 seconds, it will return false
+			if (lock.tryLock(2, TimeUnit.SECONDS)) {
+				System.out.println("lock is acquired: " + lock.isLocked());
+				TimeUnit.SECONDS.sleep(3);
+			} else {
+				System.out.println("Thread didn't acquired a lock: " + Thread.currentThread().getName());
+				System.out.println("lock is currently held: " + lock.isLocked() );
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} finally {
+			if (lock.isHeldByCurrentThread()) {
+				lock.unlock();
+			}
+		}
+	}
+}
+```
+
+**Output:**
+
+```text
+$ javac TestingReentrantLock.java && java TestingReentrantLock
+pool-1-thread-1 is trying to acquire the lock
+pool-1-thread-2 is trying to acquire the lock
+lock is acquired: true
+Thread didn't acquired a lock: pool-1-thread-2
+lock is currently held: true
+```
+
+****Example:** of lockInterruptibly():**
+```java
+import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+public class TestingReentrantLock {
+
+	private static ReentrantLock lock = new ReentrantLock();
+
+	public static void main(String[] args) {
+		var es = Executors.newFixedThreadPool(2);
+
+		es.submit(TestingReentrantLock::LockingTask);
+		es.submit(TestingReentrantLock::LockingTask);
+
+		es.shutdown();
+	}
+
+	private static void LockingTask() {
+		try {
+			System.out.println(Thread.currentThread().getName() + " is trying to acquire the lock");
+			// Try to acquire the lock within 2 seconds
+			// how this works is that tryLock will attempt to acquire the lock within the
+			// specified time
+			// if it fails to acquire the lock within 2 seconds, it will return false
+			if (lock.tryLock(2, TimeUnit.SECONDS)) {
+				System.out.println("lock is acquired: " + lock.isLocked() + " by thread: " + Thread.currentThread().getName());
+				TimeUnit.SECONDS.sleep(3);
+			} else {
+				// trying lockInterruptibly
+				System.out.println("Trying lockInterruptibly...");
+				lock.lockInterruptibly();
+				System.out.println("Thread acquired a lock: " + Thread.currentThread().getName());
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} finally {
+			if (lock.isHeldByCurrentThread()) {
+				lock.unlock();
+			}
+		}
+	}
+}
+```
+
+**Output:**
+
+```text
+pool-1-thread-1 is trying to acquire the lock
+pool-1-thread-2 is trying to acquire the lock
+lock is acquired: true by thread: pool-1-thread-1
+Trying lockInterruptibly...
+Thread acquired a lock: pool-1-thread-2
+```
+
+> lockInterruptibly() does not automatically interrupt a thread. It makes waiting responsive to an interrupt request.
+
+#### Condition
+
+A Condition Interfaceallows threads to wait for a specific state change while coordinating through a Lock.
+
+Important methods of the Condition interface include:
+| Method | Description |
+| --- | --- |
+| `await()` | Waits until signalled or interrupted. |
+| `awaitUninterruptibly()` | Waits without terminating its wait because of interruption. |
+| `await(long, TimeUnit)` | Waits for a limited time. |
+| `awaitNanos(long)` | Waits for a specified duration in nanoseconds. |
+| `awaitUntil(Date)` | Waits until a deadline. |
+| `signal()` | Wakes one waiting thread. |
+| `signalAll()` | Wakes all waiting threads. |
+
+
+```java
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.concurrent.Executors;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+public class TestingCondition {
+	public static void printStack(TestingCondition instance) {
+		instance.lock.lock();
+		try {
+			System.out.println("Current stack: " + instance.stack);
+		} finally {
+			instance.lock.unlock();
+		}
+	}
+
+	private static final int CAPACITY = 5;
+
+	private Deque<String> stack = new LinkedList<>();
+	private Lock lock = new ReentrantLock();
+	private Condition stackEmptyCondition = lock.newCondition();
+	private Condition stackFullCondition = lock.newCondition();
+
+	public static void main(String[] args) {
+		var TestingConditionInstance = new TestingCondition();
+		var es = Executors.newFixedThreadPool(4);
+
+		es.submit(() -> System.out.println(TestingConditionInstance.popFromStack()));
+		es.submit(() -> TestingConditionInstance.pushToStack("Test String #1"));
+		// print stack after pushing Test String #1
+		printStack(TestingConditionInstance); 
+		es.submit(() -> TestingConditionInstance.pushToStack("Test String #2"));
+		es.submit(() -> TestingConditionInstance.pushToStack("Test String #3"));
+		es.submit(() -> System.out.println(TestingConditionInstance.popFromStack()));
+		es.submit(() -> System.out.println(TestingConditionInstance.popFromStack()));
+		
+
+		es.shutdown();
+	}
+
+	public void pushToStack(String item) {
+		try {
+			lock.lock();
+			while (stack.size() == CAPACITY) {
+				stackFullCondition.await();
+			}
+			stack.push(item);
+			System.out.println("Pushed item: " + item);
+			// Signal any waiting threads that the stack is no longer empty
+			stackEmptyCondition.signalAll();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} finally {
+			lock.unlock();
+		}
+	}
+
+	public String popFromStack() {
+		try {
+			lock.lock();
+			while (stack.size() == 0) {
+				// Wait until the stack is no longer empty
+				stackEmptyCondition.await();
+			}
+			var item = stack.pop();
+			System.out.println("Popped item: " + item);
+			return item;
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} finally {
+			// Signal any waiting threads that the stack is no longer full
+			stackFullCondition.signalAll();
+			lock.unlock();
+		}
+		return "";
+	}
+}
+```
+
+**Output:**
+
+```text
+$ javac TestingCondition.java && java TestingCondition
+Current stack: []
+Pushed item: Test String #1
+Popped item: Test String #1
+Test String #1
+Pushed item: Test String #2
+Pushed item: Test String #3
+Popped item: Test String #3
+Test String #3
+Popped item: Test String #2
+Test String #2
+```
+
+
+> Critical rules for using conditions in Java:
+> - lock should be acquired before calling await(), signal(), or signalAll().
+> - await() releases the associated lock while waiting and reacquires it before returning.
+> - Use a loop to recheck the condition after waking.
+> - Signal the condition corresponding to the state change.
+> - Always release the lock in finally.
+
+
+#### ReentrantReadWriteLock
+
+A read-write lock separates access into two modes:
+
+- Read lock: Multiple threads can read concurrently.
+- Write lock: Exclusive access for modifying shared state.
+
+```java
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
+public class TestingReentrantReadWriteLock {
+
+	private Map<String, String> syncHashMap = new HashMap<>();
+    private ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
+    private Lock writeLock = readWriteLock.writeLock();
+    private Lock readLock = readWriteLock.readLock();
+
+    public void put(String key, String value) {
+        try {
+            writeLock.lock();
+            syncHashMap.put(key, value);
+        } finally {
+            writeLock.unlock();
+        }
+    }
+
+    public String remove(String key){
+        try {
+            writeLock.lock();
+            return syncHashMap.remove(key);
+        } finally {
+            writeLock.unlock();
+        }
+    }
+
+    public String get(String key){
+        try {
+            readLock.lock();
+            return syncHashMap.get(key);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    public boolean containsKey(String key) {
+        try {
+            readLock.lock();
+            return syncHashMap.containsKey(key);
+        } finally {
+            readLock.unlock();
+        }
+    }
+    
+    public static void main(String[] args) {
+        var instance = new TestingReentrantReadWriteLock();
+        var es = Executors.newFixedThreadPool(4);
+        es.submit(() -> instance.put("key1", "value1"));
+        es.submit(() -> System.out.println(instance.get("key1")));
+        es.submit(() -> instance.put("key3", "value3"));
+        es.submit(() -> instance.put("key2", "value2"));
+        es.submit(() -> System.out.println(instance.get("key2")));
+        es.submit(() -> System.out.println(instance.get("key3")));
+        es.shutdown();
+    }
+}
+```
+
+**Output:**
+```text
+value1
+value2
+value3
+```
+
+
+## Synchronizers
+
+Synchronizers are utilities that help coordinate the execution of multiple threads. They provide mechanisms to control the order and timing of thread execution, ensuring proper synchronization and avoiding race conditions. Common synchronizers classesin Java include `CyclicBarrier`, `CountDownLatch`, `Semaphore`, and `Exchanger`.
+
+### CyclicBarrier
+
+CyclicBarrier is a class which implements synchronization aid that allows a set of threads to all wait for each other to reach a common barrier point. It is useful in scenarios where you want multiple threads to wait until all threads have reached a certain point before proceeding.
+
+| Method | Description |
+| --- | --- |
+| `await()` | Causes the current thread to wait until all parties have reached the barrier. |
+| `getParties()` | Returns the number of parties required to trip the barrier. |
+| `getNumberWaiting()` | Returns the number of parties currently waiting at the barrier. |
+| `reset()` | Resets the barrier to its initial state. |
+
+**Example:**
+
+```java
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.Executors;
+import java.util.stream.IntStream;
+
+public class TestingCyclicBarrier {
+	
+	private static final int NUMBER_OF_THREADS = 4;
+	private static final int NUMBERS_TO_GENERATE = 3;
+	private static final int MAXIMUM_RANDOM_NUMBER = 100;
+	
+	private static CyclicBarrier barrier;
+	private List<Integer> generatedNumbers = new CopyOnWriteArrayList<>();
+	private Random r = new Random();
+	
+	public static void main(String[] args) {
+		var  TestingCyclicBarrierInstance = new TestingCyclicBarrier();
+		barrier = new CyclicBarrier(NUMBER_OF_THREADS, TestingCyclicBarrierInstance::numberGenerationCallback);
+		
+		var ex = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+		IntStream.range(0, NUMBER_OF_THREADS).forEach(i -> ex.submit(TestingCyclicBarrierInstance::generateNumbers));
+		System.out.println("getParties(): " + barrier.getParties());
+		
+		ex.shutdown();
+		
+	}
+	
+	private void numberGenerationCallback() {
+		int max = generatedNumbers.stream()
+						.mapToInt(i -> i)
+						.max().getAsInt();
+		System.out.println("All generated numbers: " + generatedNumbers);
+		System.out.println("Maximum: " + max);
+						
+	}
+
+	private void generateNumbers() {
+		for (int i = 0; i < NUMBERS_TO_GENERATE; i++) {
+			generatedNumbers.add(r.nextInt(MAXIMUM_RANDOM_NUMBER));
+		}
+		try {
+			System.out.println("await(): " + barrier.await());
+		} catch (InterruptedException | BrokenBarrierException e) {
+			e.printStackTrace();
+		}
+	}
+}
+```
+
+```text
+$ javac TestingCyclicBarrier.java && java TestingCyclicBarrier
+All generated numbers: [17, 75, 85, 34, 84, 55, 13, 55, 87, 0, 39, 61]
+Maximum: 87
+getParties(): 4
+await(): 0
+await(): 3
+await(): 1
+await(): 2
+```
+
+
+### CountDownLatch
+
+countDownLatch is a class that allows one or more threads to wait until a set of operations being performed in other threads completes. It is initialized with a given count, and threads can call `await()` to wait until the count reaches zero. Other threads call `countDown()` to decrement the count.
+
+| Method | Description |
+|--------|-------------|
+| countDown() | Decrements the count of the latch by one. |
+| await() | Causes the current thread to wait until the latch has counted down to zero. |
+| getCount() | Returns the current count of the latch. |
+
+**Example:**
+
+```java
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executors;
+import java.util.stream.IntStream;
+import java.util.concurrent.TimeUnit;
+
+public class TestingCountDownLatch {
+	private static final int COUNT = 4;
+	public static void main(String[] args) throws InterruptedException {
+		CountDownLatch countDownLatch = new CountDownLatch(COUNT);
+		var es = Executors.newFixedThreadPool(2);
+		IntStream.range(0, COUNT).forEach(i -> es.submit(new Worker(countDownLatch)));
+		countDownLatch.await();
+		System.out.println("Latch is released");
+		es.shutdown();
+	}
+	private static class Worker implements Runnable {
+		private CountDownLatch countDownLatch;
+		public Worker(CountDownLatch countDownLatch) {
+			this.countDownLatch = countDownLatch;
+		}
+		
+		public void run() {
+			System.out.println("doing some work...");
+			System.out.println(countDownLatch.getCount());
+			countDownLatch.countDown();
+		}
+	}
+}
+```
+
+```text
+$ javac TestingCountDownLatch.java && java TestingCountDownLatch
+doing some work...
+4
+doing some work...
+3
+doing some work...
+2
+doing some work...
+1
+Latch is released
+```
+
+### Semaphore
+
+semaphore is a class that uses permits to control access to a shared resource. Threads can acquire permits before accessing the resource and release them after use. It also initialized with a given number of permits.
+
+| Method | Description |
+|--------|-------------|
+| acquire() | Acquires a permit, blocking if necessary until one is available. |
+| release() | Releases a permit, returning it to the semaphore. |
+| availablePermits() | Returns the current number of available permits. |
+| tryAcquire() | Attempts to acquire a permit immediately, returning true if successful, false otherwise. |
+
+**Example:**
+
+```java
+import java.util.concurrent.Executors;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.IntStream;
+
+public class TestingSemaphore {
+	public static void main(String[] args) throws InterruptedException {
+		int loginPermits = 4;
+		var es = Executors.newFixedThreadPool(4);
+		var TestingSemaphoreInstance = new TestingSemaphore(loginPermits);
+		IntStream.range(0, loginPermits).forEach(user -> es.submit(TestingSemaphoreInstance::tryLogin));
+		es.shutdown();
+		es.awaitTermination(2, TimeUnit.SECONDS);
+		// permits are not automatically released until logout is called
+		System.out.println("availablePermitsForLogin:\t" + TestingSemaphoreInstance.availablePermitsForLogin());
+		TestingSemaphoreInstance.tryLogin();
+		
+		TestingSemaphoreInstance.logout();
+		System.out.println("availablePermitsForLogin:\t" + TestingSemaphoreInstance.availablePermitsForLogin());
+	}
+
+	private Semaphore semaphore;
+
+	public TestingSemaphore(int slotLimit) {
+		semaphore = new Semaphore(slotLimit);
+	}
+
+	private void tryLogin() {
+		if (semaphore.tryAcquire()) {
+			System.out.println("Congrats! You are logged in!");
+		} else {
+			System.out.println("No permits for login available. Try later.");
+		}
+	}
+
+	private void logout() {
+		semaphore.release();
+	}
+
+	private int availablePermitsForLogin() {
+		return semaphore.availablePermits();
+	}
+}
+```
+```text
+$ javac TestingSemaphore.java && java TestingSemaphore
+Congrats! You are logged in!
+Congrats! You are logged in!
+Congrats! You are logged in!
+Congrats! You are logged in!
+availablePermitsForLogin:	0
+No permits for login available. Try later.
+availablePermitsForLogin:	1
+```
+
+
+### Exchanger
+
+Exchanger is a class which allows to exchange data between two threads.
+
+**Example:**
+```java
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Exchanger;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
+public class TestingExchanger {
+	
+	public static void main(String[] args) throws InterruptedException {
+		Exchanger<String> exchanger = new Exchanger<>();
+
+	    Runnable task1 = () -> {
+	        try {
+	            String msg = exchanger.exchange("Message from Task #1");
+	            System.out.println("Received from another thread in task #1: " + msg);
+	        } catch (InterruptedException e) {
+	            e.printStackTrace();
+	        }
+	    };
+
+	    Runnable task2 = () -> {
+	        try {
+	            String msg = exchanger.exchange("Message from Task #2");
+	            System.out.println("Received from another thread in task #2: " + msg);
+	        } catch (InterruptedException e) {
+	        	 e.printStackTrace();
+	        }
+	    };
+	    var es = Executors.newCachedThreadPool();
+	    es.submit(task1);
+	    es.submit(task2);
+	    es.shutdown();
+	}
+}
+```
+**Output:**
+```text
+$ javac TestingExchanger.java && java TestingExchanger
+Received from another thread in task #1: Message from Task #2
+Received from another thread in task #2: Message from Task #1
+```
+
+### Phaser
+
+Phaser is a class which allows threads to wait for each other at a common barrier point, similar to CyclicBarrier, but more flexible.
+
+In phaser we have arriveAndAwaitAdvance method which can be used by a thread to signal its arrival at the barrier and wait for other threads to arrive as well.
+
+**Example:**
+```java
+import java.util.concurrent.Executors;
+import java.util.concurrent.Phaser;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.IntStream;
+
+public class TestingPhaser {
+	private static final int NUMBER_OF_THREADS = 2;
+	private static Phaser phaser = new Phaser();
+	public static void main(String[] args) throws InterruptedException {
+		var es = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+		System.out.println("Phase before tasks execution: " + phaser.getPhase());
+		IntStream.range(0, NUMBER_OF_THREADS).forEach(i -> es.submit(new Task(phaser)));
+		es.shutdown();
+		
+		es.awaitTermination(1, TimeUnit.SECONDS);
+		System.out.println("Parties after all threads are de-registered: " 
+				+ phaser.getRegisteredParties());
+		
+	}
+
+	private static class Task implements Runnable {
+		private Phaser phaser;
+		public Task(Phaser phaser) {
+			this.phaser = phaser;
+			this.phaser.register();
+		}
+
+		@Override
+		public void run() {
+			System.out.println("Arrived in thread: " + Thread.currentThread().getName());
+			// Arrive at the phaser and wait for other threads to reach this point
+			System.out.println("Arrival phase number: " + phaser.arriveAndAwaitAdvance());
+			try {
+				TimeUnit.MILLISECONDS.sleep(100);
+				System.out.println("getPhase(): " + phaser.getPhase());
+				System.out.println("Arrived in thread: " + Thread.currentThread().getName());
+				System.out.println("Arrival phase number: " + phaser.arriveAndAwaitAdvance());
+				TimeUnit.MILLISECONDS.sleep(100);
+				System.out.println("getPhase(): " + phaser.getPhase());
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			phaser.arriveAndDeregister();
+		}
+	}
+}
+```
+
+**Output:**
+```text
+$ javac TestingPhaser.java && java TestingPhaser
+Phase before tasks execution: 0
+Arrived in thread: pool-1-thread-2
+Arrived in thread: pool-1-thread-1
+Arrival phase number: 1
+Arrival phase number: 1
+getPhase(): 1
+Arrived in thread: pool-1-thread-1
+getPhase(): 1
+Arrived in thread: pool-1-thread-2
+Arrival phase number: 2
+Arrival phase number: 2
+getPhase(): 2
+getPhase(): 2
+Parties after all threads are de-registered: 0
+```
+
+
+## Virtual Threads ( Java 21 )
+
+
+A virtual thread is a lightweight thread that is managed by the JRE rather than the operating system. Thread created and managed by OS as known as platform threads they are heavier and have more overhead compared to virtual threads. Virtual threads allow for a large number of concurrent threads with minimal resource consumption, making them suitable for high-concurrency applications.
+
+**Example:**
+```java
+import java.util.List;
+import java.util.concurrent.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.IntStream;
+
+public class TestingVirtualThread {
+
+    public static void main(String[] args) throws InterruptedException {
+
+        // create a virtual thread using Thread.startVirtualThread()
+        Thread vThread = Thread.startVirtualThread(() -> {
+            System.out.println("within virtual thread (Thread.startVirtualThread)");
+        });
+
+        // Wait for the virtual thread to finish
+        vThread.join();
+
+        // create a virtual thread using Executors.newVirtualThreadPerTaskExecutor()
+        try (ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor()) {
+            // Submit a simple task
+            Future<String> result = executor.submit(() -> {
+                System.out.println("within virtual thread in ExecutorService!");
+                return "Task completed";
+            });
+
+            // Wait and print result
+            System.out.println("Result: " + result.get());
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        // run multiple tasks in parallel using virtual threads
+        int numberOfTasks = 4;
+
+        System.out.println("\nRunning " + numberOfTasks + " tasks in parallel using virtual threads...");
+        long startTime = System.nanoTime();
+
+        try (ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor()) {
+        	List<Future<?>> futures = IntStream.range(0, numberOfTasks)
+        	        .<Future<?>>mapToObj(i -> executor.submit(() -> {
+        	            System.out.println("Task #" + i + " is running on " + Thread.currentThread());
+        	            // Simulate some work
+        	            try {
+        	                Thread.sleep(100);           // Simulate work
+        	            } catch (InterruptedException e) {
+        	                Thread.currentThread().interrupt();
+        	            }
+        	        }))
+        	        .toList();
+            
+            for (Future<?> future : futures) {
+                try {
+                    future.get(); // block until task completes
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        long endTime = System.nanoTime();
+        double virtualThreadsTime = (endTime - startTime) / 1_000_000.0;
+		System.out.printf("Finished %d tasks in %.2f ms%n",
+                numberOfTasks, virtualThreadsTime);
+        
+        startTime = System.nanoTime();
+        int cpus = Runtime.getRuntime().availableProcessors();
+        try (ExecutorService executor = Executors.newFixedThreadPool(cpus)) {
+            List<Future<?>> futures = IntStream.range(0, numberOfTasks)
+                    .<Future<?>>mapToObj(i -> executor.submit(() -> {
+                        System.out.println("Task #" + i + " is running on " + Thread.currentThread());
+                        // Simulate some work
+                        try {
+                            Thread.sleep(100);           
+                        } catch (InterruptedException e) {
+                            Thread.currentThread().interrupt();
+                        }
+                    }))
+                    .toList();
+            
+            for (Future<?> future : futures) {
+                try {
+                    future.get(); // block until task completes
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        endTime = System.nanoTime();
+        double platformThreadsTime = (endTime - startTime) / 1_000_000.0;
+		System.out.printf("Finished %d tasks in %.2f ms%n",
+                numberOfTasks, platformThreadsTime);
+		System.out.println("=== Result ===");
+		System.out.println("Virtual Threads Time: " + virtualThreadsTime);
+		System.out.println("Platform Threads Time: " + platformThreadsTime);
+
+        Runtime runtime = Runtime.getRuntime();
+        long memoryBefore = runtime.totalMemory() - runtime.freeMemory();
+        System.out.println("Memory usage before tasks: " + memoryBefore);
+        // Suggest running garbage collection before measuring memory after tasks
+        System.gc();
+        long memoryAfter = runtime.totalMemory() - runtime.freeMemory();
+        System.out.println("Memory usage after tasks: " + memoryAfter);
+    }
+}
+```
+
+**Output:**
+```
+within virtual thread (Thread.startVirtualThread)
+within virtual thread in ExecutorService!
+Result: Task completed
+
+Running 4 tasks in parallel using virtual threads...
+Task #0 is running on VirtualThread[#18]/runnable@ForkJoinPool-1-worker-1
+Task #1 is running on VirtualThread[#19]/runnable@ForkJoinPool-1-worker-2
+Task #2 is running on VirtualThread[#20]/runnable@ForkJoinPool-1-worker-2
+Task #3 is running on VirtualThread[#21]/runnable@ForkJoinPool-1-worker-2
+Finished 4 tasks in 108.27 ms
+Task #0 is running on Thread[#23,pool-1-thread-1,5,main]
+Task #1 is running on Thread[#23,pool-1-thread-1,5,main]
+Task #2 is running on Thread[#23,pool-1-thread-1,5,main]
+Task #3 is running on Thread[#23,pool-1-thread-1,5,main]
+Finished 4 tasks in 404.18 ms
+=== Result ===
+Virtual Threads Time: 108.270899
+Platform Threads Time: 404.176887
+Memory usage before tasks: 8838440
+Memory usage after tasks: 4702336
+```
 
