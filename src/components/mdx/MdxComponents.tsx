@@ -5,6 +5,7 @@ import BlogTitle from '@components/BlogTitle';
 import { cn } from '@lib/utils';
 import { Callout } from '@ui/Callout';
 import { MdxCard } from '@components/mdx/MdxCard';
+import { CodeBlock } from '@components/mdx/CodeBlock';
 
 interface MDXComponents {
   [key: string]: React.ComponentType<any>;
@@ -84,7 +85,10 @@ const components: MDXComponents = {
     />
   ),
   ul: ({ className, ...props }: { className: string }) => (
-    <ul className={cn('my-6 ml-6 list-disc', className)} {...props} />
+    <ul
+      className={cn('my-6 ml-6 list-disc [&_ul]:my-2', className)}
+      {...props}
+    />
   ),
   ol: ({ className, ...props }: { className: string }) => (
     <ol className={cn('my-6 ml-6 list-decimal', className)} {...props} />
@@ -139,22 +143,29 @@ const components: MDXComponents = {
       {...props}
     />
   ),
-  pre: ({ className, ...props }: { className: string }) => (
-    // <!-- add unique id  -->
-    <div className='relative'>
-      <pre
-        className={cn(
-          'mb-4 mt-4 overflow-x-auto rounded-lg bg-black px-[0.8rem] py-[0.8rem] font-mono text-sm',
-          className
-        )}
-        {...props}
-      />
-    </div>
-  ),
+  pre: CodeBlock,
   code: ({ className, ...props }: { className: string }) => (
     <code
       className={cn(
-        'relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm',
+        'relative rounded bg-zinc-200 px-[0.3rem] py-[0.2rem] font-mono text-sm dark:bg-zinc-800 [pre_&]:bg-transparent [pre_&]:p-0',
+        className
+      )}
+      {...props}
+    />
+  ),
+  details: ({ className, ...props }: { className: string }) => (
+    <details
+      className={cn(
+        'my-6 rounded-xl border border-zinc-300 bg-zinc-50 p-4 dark:border-zinc-700 dark:bg-zinc-900/50 [&[open]>summary]:mb-3',
+        className
+      )}
+      {...props}
+    />
+  ),
+  summary: ({ className, ...props }: { className: string }) => (
+    <summary
+      className={cn(
+        'cursor-pointer select-none text-lg font-semibold marker:text-zinc-500',
         className
       )}
       {...props}
