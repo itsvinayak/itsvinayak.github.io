@@ -1,38 +1,39 @@
+import type { ReactNode } from 'react';
 import Image from 'next/image';
 import { cn } from '@lib/utils';
 
 interface TextTagProps {
   text: string;
-  logo?: any;
+  logo?: ReactNode | string;
   className?: string;
 }
 
 const TextTag = ({ text, logo, className }: TextTagProps) => {
-  if (typeof logo === 'string' && logo.length !== 0) {
-    logo = (
+  const logoContent =
+    typeof logo === 'string' && logo.length > 0 ? (
       <Image
         src={logo}
-        alt={text}
+        alt=''
         width={16}
         height={16}
-        className='inline-block'
+        aria-hidden='true'
+        className='h-4 w-4 object-contain'
       />
+    ) : typeof logo === 'string' || logo == null ? null : (
+      logo
     );
-  } else if (typeof logo === 'object' && logo !== null) {
-    logo = logo;
-  } else {
-    logo = null;
-  }
 
   return (
     <span
       className={cn(
-        'inline-flex items-center rounded border border-neutral-200 bg-neutral-800 p-0.5 text-sm leading-4 text-white no-underline md:p-1  dark:border-neutral-700 dark:text-neutral-100',
+        'mx-0.5 inline-flex translate-y-[-0.04em] items-center gap-1 rounded-md border border-emerald-200/80 bg-emerald-50 px-1.5 py-0.5 align-baseline text-[0.92em] font-medium leading-[1.35] text-emerald-950 decoration-transparent dark:border-emerald-800/80 dark:bg-emerald-950/50 dark:text-emerald-200',
         className
       )}
     >
-      <span className='text-neutral-100'>{text}</span>
-      {logo && <span className='ml-1'>{!!logo && logo}</span>}
+      {logoContent && (
+        <span className='inline-flex shrink-0 items-center'>{logoContent}</span>
+      )}
+      <span>{text}</span>
     </span>
   );
 };

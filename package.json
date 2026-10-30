@@ -6,6 +6,8 @@
   "scripts": {
     "sync:pagefind": "mkdir -p public/pagefind && cp -R out/pagefind/. public/pagefind/",
     "dev": "next dev",
+    "lint:check": "eslint . --ext .ts,.tsx",
+    "dev:port": "next dev -p $npm_config_port",
     "build": "next build",
     "postbuild": "next-sitemap && pagefind --site out && npm run sync:pagefind",
     "start-server": "next start",
