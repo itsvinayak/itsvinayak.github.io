@@ -1,6 +1,6 @@
 import { ImageData } from '@components/data/image';
 import GitHubShowcase from '@components/GitHubShowcase';
-import ImageGrid from '@ui/ImageGrid';
+import ImageCarousel from '@ui/ImageCarousel';
 import Heading from '@ui/Heading';
 
 const ImageContent = () => {
@@ -10,7 +10,7 @@ const ImageContent = () => {
       <div className='pb-12'>
         <Heading heading='Glimpses from My Life' />
       </div>
-      <ImageGrid images={ImageData} />
+      <ImageCarousel images={ImageData} />
     </section>
   );
 };

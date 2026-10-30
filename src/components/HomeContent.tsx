@@ -41,7 +41,7 @@ const HomeContent = () => {
 
       <h1
         id='home-intro-title'
-        className='intro-reveal font-serif text-4xl font-medium leading-tight text-zinc-950 sm:text-5xl md:text-6xl dark:text-zinc-50'
+        className='intro-reveal text-balance font-serif text-4xl font-medium leading-tight text-zinc-950 sm:text-5xl md:text-6xl md:leading-[1.1] dark:text-zinc-50'
         style={{ animationDelay: '80ms' }}
       >
         Hey, I’m Vinayak.
