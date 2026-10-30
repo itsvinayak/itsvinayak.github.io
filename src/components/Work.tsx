@@ -19,7 +19,7 @@ const About = () => {
         <br />
         <br />
 
-        I played a key role in developing the <strong>Finacle OE Payments</strong>
+        I played a key role in developing the <strong>Finacle OE Payments </strong>
         backend for the Hong Kong Faster Payment System (HKFPS) and implemented the
         Foreign Exchange module for Payments. I also optimized system performance by
         introducing bulk database inserts, improving transaction processing across

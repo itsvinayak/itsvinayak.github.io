@@ -7,6 +7,12 @@
       "skillPath": "skills/feature-arch/SKILL.md",
       "computedHash": "89974623942cb1a811ee86d4764032cff2d70031849d5a4f351fcb9f873ead45"
     },
+    "motion": {
+      "source": "secondsky/claude-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/motion/skills/motion/SKILL.md",
+      "computedHash": "7b293f2fd97c563bbe9835ba0010ef6771aa0493493fb9c31cfa704a556da8aa"
+    },
     "next-bundle-optimizer": {
       "source": "vercel/next.js",
       "sourceType": "github",

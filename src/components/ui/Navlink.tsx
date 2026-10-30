@@ -1,72 +1,55 @@
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { cn } from '@lib/utils';
+import { motion } from 'motion/react';
 
 const itemClass =
-  'relative inline-flex w-full items-center justify-start rounded-lg px-4 py-2 text-sm font-semibold tracking-wide text-zinc-800 transition-colors hover:bg-zinc-800 hover:text-zinc-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-zinc-500 dark:text-zinc-100 dark:hover:bg-zinc-700 dark:hover:text-zinc-100 md:w-fit md:text-base';
-const mobileItemClass = 'min-h-12 py-3 text-lg md:text-lg';
-const mobileChildClass = 'min-h-11 py-2.5 text-base font-medium md:text-base';
+  'relative inline-flex min-h-10 w-full items-center justify-start rounded-full px-3 text-sm font-semibold text-zinc-700 transition-colors hover:bg-zinc-100 hover:text-zinc-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600 dark:text-zinc-300 dark:hover:bg-zinc-800 dark:hover:text-white lg:w-fit';
+const mobileItemClass =
+  'min-h-14 rounded-none border-b border-zinc-200 px-2 text-xl dark:border-zinc-800';
 
 const Navlink = ({ links, classNameProps, onLinkClick, variant }: any) => {
+  const pathname = usePathname();
+
   return (
-    <ul className={cn('rounded font-medium', classNameProps)}>
+    <ul className={cn('font-medium', classNameProps)}>
       {links.map((link: any) => {
-        const children = link.children as
-          | { name: string; href: string }[]
-          | undefined;
-        const isDropdown = !!children && variant !== 'mobile';
+        const isActive =
+          pathname === link.href ||
+          (link.href !== '/' && pathname.startsWith(`${link.href}/`));
 
         return (
-          <li
-            key={link.name}
-            className={cn('list-none', isDropdown && 'group relative')}
+          <motion.li
+            key={link.href}
+            className='list-none'
+            variants={{
+              open: { opacity: 1, y: 0 },
+              closed: { opacity: 0, y: 8 },
+            }}
           >
             <Link
               href={link.href}
               onClick={onLinkClick}
+              aria-current={isActive ? 'page' : undefined}
               className={cn(
                 itemClass,
                 variant === 'mobile' && mobileItemClass,
+                isActive &&
+                  'bg-emerald-50 text-emerald-900 hover:bg-emerald-100 lg:bg-transparent lg:hover:bg-emerald-50 dark:bg-emerald-950/60 dark:text-emerald-300 dark:hover:bg-emerald-950 dark:lg:bg-transparent dark:lg:hover:bg-emerald-950/40',
                 link.itemClass
               )}
             >
-              {link.name}
-              {isDropdown && (
-                <svg
+              <span className='relative z-10'>{link.name}</span>
+              {isActive && variant !== 'mobile' && (
+                <motion.span
                   aria-hidden='true'
-                  viewBox='0 0 20 20'
-                  fill='currentColor'
-                  className='ml-1 h-4 w-4 transition-transform motion-reduce:transition-none group-focus-within:rotate-180 group-hover:rotate-180'
-                >
-                  <path d='M5.23 7.21a.75.75 0 0 1 1.06.02L10 11.17l3.71-3.94a.75.75 0 1 1 1.08 1.04l-4.25 4.5a.75.75 0 0 1-1.08 0l-4.25-4.5a.75.75 0 0 1 .02-1.06Z' />
-                </svg>
+                  layoutId='active-navigation-indicator'
+                  transition={{ type: 'spring', stiffness: 420, damping: 34 }}
+                  className='absolute inset-x-3 -bottom-px z-0 h-0.5 rounded-full bg-emerald-500'
+                />
               )}
             </Link>
-            {children && (
-              <ul
-                className={cn(
-                  isDropdown
-                    ? 'invisible absolute left-0 top-full z-50 min-w-44 rounded-lg border border-zinc-200 bg-white p-1 opacity-0 shadow-lg transition motion-reduce:transition-none group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100 dark:border-zinc-700 dark:bg-[#111010]'
-                    : 'ml-4 border-l border-zinc-200 pl-2 dark:border-zinc-800'
-                )}
-              >
-                {children.map((child) => (
-                  <li key={child.href} className='list-none'>
-                    <Link
-                      href={child.href}
-                      onClick={onLinkClick}
-                      className={cn(
-                        itemClass,
-                        'md:w-full',
-                        variant === 'mobile' && mobileChildClass
-                      )}
-                    >
-                      {child.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </li>
+          </motion.li>
         );
       })}
     </ul>
