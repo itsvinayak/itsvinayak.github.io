@@ -6,7 +6,8 @@ tags: ['java', 'programming', 'beginner']
 authors: ['vinayak']
 ---
 
-## Table of Contents
+<details>
+<summary><strong>Table of Contents</strong></summary>
 
 - [Synchronization Basics in Java](#synchronization-basics-in-java)
   - [Process](#process)
@@ -15,27 +16,27 @@ authors: ['vinayak']
   - [Interrupted Exception](#interrupted-exception)
   - [Thread Scheduler, Race Condition, Daemon Threads and Thread Groups](#thread-scheduler-race-condition-daemon-threads-and-thread-groups)
   - [Synchronization](#synchronization)
-
 - [Concurrency in Java](#concurrency-in-java)
   - [Shared Memory](#shared-memory)
   - [Deadlock and Livelock](#deadlock-and-livelock)
   - [Executor Services, Callable and Future](#executor-services-callable-and-future)
-
 - [More on Multithreading](#more-on-multithreading)
   - [Fork/Join](#forkjoin)
-  - [CompletableFuture](#completablefuture)
+  - [CompletableFuture](#completablefuture--was-introduced-in-java-8)
   - [Lock API](#lock-api)
-    - [Lock](#lock)
     - [ReentrantLock](#reentrantlock)
     - [Condition](#condition)
     - [ReentrantReadWriteLock](#reentrantreadwritelock)
-  - [Synchronizers](#synchronizers)
-    - [CyclicBarrier](#cyclicbarrier)
-    - [CountDownLatch](#countdownlatch)
-    - [Semaphore](#semaphore)
-    - [Exchanger](#exchanger)
-    - [Phaser](#phaser)
-  - [Virtual Threads](#virtual-threads)
+- [Synchronizers](#synchronizers)
+  - [CyclicBarrier](#cyclicbarrier)
+  - [CountDownLatch](#countdownlatch)
+  - [Semaphore](#semaphore)
+  - [Exchanger](#exchanger)
+  - [Phaser](#phaser)
+- [Virtual Threads](#virtual-threads--java-21-)
+
+</details>
+
 ---
 
 ## Synchronization Basics in Java
@@ -1199,7 +1200,7 @@ class TestingRecursiveAction extends RecursiveAction {
 ForkJoinPool extends AbstractExecutorService which extends ExecutorService, providing additional support for work-stealing and parallel divide-and-conquer tasks.
 
 
-### Future, CompletionStage and CompletableFuture ( was introduced in Java 8)
+### CompletableFuture ( was introduced in Java 8)
 
 - runAsync :`runAsync` is a method in `CompletableFuture` that allows you to run a task asynchronously without blocking the main thread. It takes a `Runnable` and returns a `CompletableFuture<Void>`.
 
