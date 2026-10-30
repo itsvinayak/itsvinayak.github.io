@@ -13,7 +13,15 @@ import { usePathname } from 'next/navigation';
 
 const links = [
     { name: 'Home', href: '/' },
-    { name: 'Work', href: '/work' },
+    {
+        name: 'Work',
+        href: '/work',
+        children: [
+            { name: 'Experience', href: '/work' },
+            { name: 'Projects', href: '/projects' },
+            { name: 'Skills', href: '/skills' },
+        ],
+    },
     { name: 'Blog', href: '/blog' },
     { name: 'Connect', href: '/connect' },
 ];
@@ -135,7 +143,7 @@ const Navbar = () => {
                     />
 
                     {/* Menu */}
-                    <div className="relative flex h-screen w-full flex-col bg-white dark:bg-[#111010]">
+                    <div className="relative flex h-[100dvh] w-full flex-col overflow-y-auto overscroll-contain bg-white dark:bg-[#111010]">
 
                         {/* Top Bar */}
                         <div className="flex h-16 items-center justify-between border-b border-zinc-200 px-4 dark:border-zinc-800">
@@ -155,6 +163,7 @@ const Navbar = () => {
                         <div className="flex flex-1 flex-col px-6 py-8">
                             <Navlink
                                 links={links}
+                                variant="mobile"
                                 classNameProps="block rounded-xl px-4 py-4 text-xl font-semibold text-zinc-900 transition dark:text-white"
                                 onLinkClick={closeNav}
                             />
