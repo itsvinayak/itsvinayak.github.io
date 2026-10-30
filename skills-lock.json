@@ -1,6 +1,12 @@
 {
   "version": 1,
   "skills": {
+    "feature-arch": {
+      "source": "PyModel/react-frontend-skills",
+      "sourceType": "github",
+      "skillPath": "skills/feature-arch/SKILL.md",
+      "computedHash": "89974623942cb1a811ee86d4764032cff2d70031849d5a4f351fcb9f873ead45"
+    },
     "next-bundle-optimizer": {
       "source": "vercel/next.js",
       "sourceType": "github",
@@ -37,11 +43,100 @@
       "skillPath": "skills/next-partial-prefetching-optimizer/SKILL.md",
       "computedHash": "97b935496e9f821417229fd4afe153dc57732911991b48144371b15b11716fbe"
     },
+    "nextjs": {
+      "source": "PyModel/react-frontend-skills",
+      "sourceType": "github",
+      "skillPath": "skills/nextjs/SKILL.md",
+      "computedHash": "92ec10ddef26c3722acd05afb2255a3c4b5482d4e10631df7da08849f4f84e76"
+    },
+    "nextjs-bisect-regression": {
+      "source": "vercel-labs/next-maintainer-skills",
+      "sourceType": "github",
+      "skillPath": "skills/nextjs-bisect-regression/SKILL.md",
+      "computedHash": "03f686e18672300f96f0762577d56f2d141e5a468e3359a34d0f149621eaf5be"
+    },
+    "nextjs-create-regression-test": {
+      "source": "vercel-labs/next-maintainer-skills",
+      "sourceType": "github",
+      "skillPath": "skills/nextjs-create-regression-test/SKILL.md",
+      "computedHash": "f3d8d13177b8def0a71903feab3b7b1cb5906b19e332d10282fac8488e371d62"
+    },
+    "nextjs-fix-issue": {
+      "source": "vercel-labs/next-maintainer-skills",
+      "sourceType": "github",
+      "skillPath": "skills/nextjs-fix-issue/SKILL.md",
+      "computedHash": "eafea483fd7fe806646ddde5b586239c40e600a630e0c037b43a435abd5d49f4"
+    },
+    "nextjs-reproduce-issue": {
+      "source": "vercel-labs/next-maintainer-skills",
+      "sourceType": "github",
+      "skillPath": "skills/nextjs-reproduce-issue/SKILL.md",
+      "computedHash": "7c16cb8b1a429390db81e2534613341c588fef0b4d91abf75f7ea2566488955f"
+    },
     "nextjs-seo": {
       "source": "laguagu/claude-code-nextjs-skills",
       "sourceType": "github",
       "skillPath": "skills/nextjs-seo/SKILL.md",
       "computedHash": "726bf5d74980df84377fa1672795a44cfdcf0df2da21eadac326eaa6fba181d1"
+    },
+    "nextjs-verify-canary": {
+      "source": "vercel-labs/next-maintainer-skills",
+      "sourceType": "github",
+      "skillPath": "skills/nextjs-verify-canary/SKILL.md",
+      "computedHash": "837d2c4e3eca7d65b317acd4b4020ffa2e0646581f8fac4a945bce71a5d325b0"
+    },
+    "playwright": {
+      "source": "PyModel/react-frontend-skills",
+      "sourceType": "github",
+      "skillPath": "skills/playwright/SKILL.md",
+      "computedHash": "bc536f7ac9d99bfed2f1bc3824613a690b767d32d416c1cf70a0b15fcbf8f27c"
+    },
+    "react": {
+      "source": "PyModel/react-frontend-skills",
+      "sourceType": "github",
+      "skillPath": "skills/react/SKILL.md",
+      "computedHash": "185ae5be2814cc943d88af40a662de4dfcb3255b08d1eb7f0c5f8ca04a340693"
+    },
+    "tailwind": {
+      "source": "PyModel/react-frontend-skills",
+      "sourceType": "github",
+      "skillPath": "skills/tailwind/SKILL.md",
+      "computedHash": "1ff820d056094e5111101616b9ee6a9ccf512d94d4ff532315b69c7f5240c5cd"
+    },
+    "typescript": {
+      "source": "PyModel/react-frontend-skills",
+      "sourceType": "github",
+      "skillPath": "skills/typescript/SKILL.md",
+      "computedHash": "fee484e582653d80725982a6444426ff2c314aff4dddeefc13ebc86ea16edc47"
+    },
+    "ui-design": {
+      "source": "PyModel/react-frontend-skills",
+      "sourceType": "github",
+      "skillPath": "skills/ui-design/SKILL.md",
+      "computedHash": "92c236db93808e48d8dd4a42366a4aba0e131fd32dca322726d8753933fd7921"
+    },
+    "ui-taste": {
+      "source": "uizze.sh",
+      "sourceType": "well-known",
+      "computedHash": "b9d9f1f68d2db3316639cf77ad74dae34a2ed2ffb90845e5de6c592095c78a3d"
+    },
+    "vercel-composition-patterns": {
+      "source": "PyModel/react-frontend-skills",
+      "sourceType": "github",
+      "skillPath": "skills/vercel-composition-patterns/SKILL.md",
+      "computedHash": "400ced6cdb745750894ab82f1157c6de3e4c517ce7e21595856a6b7d8ed54cb3"
+    },
+    "vercel-react-best-practices": {
+      "source": "PyModel/react-frontend-skills",
+      "sourceType": "github",
+      "skillPath": "skills/vercel-react-best-practices/SKILL.md",
+      "computedHash": "87f24e11caae52161d9a76fa3d37a504697cbc53cad8031e3f039c7d83b45727"
+    },
+    "web-design-guidelines": {
+      "source": "PyModel/react-frontend-skills",
+      "sourceType": "github",
+      "skillPath": "skills/web-design-guidelines/SKILL.md",
+      "computedHash": "678d5289ade8f7a1b4ebf3f02d884cced6c2615b16d89c635453562e3f51035f"
     }
   }
 }

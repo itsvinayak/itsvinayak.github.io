@@ -18,7 +18,6 @@ const components: MDXComponents = {
         'mt-2 scroll-m-20 text-4xl font-bold tracking-tight',
         className
       )}
-      aria-label="Heading 1"
       {...props}
     />
   ),
@@ -28,7 +27,6 @@ const components: MDXComponents = {
         'mt-10 scroll-m-20 border-b pb-1 text-3xl font-semibold tracking-tight first:mt-0',
         className
       )}
-      aria-label="Heading 2"
       {...props}
     />
   ),
@@ -38,7 +36,6 @@ const components: MDXComponents = {
         'mt-8 scroll-m-20 text-2xl font-semibold tracking-tight',
         className
       )}
-      aria-label="Heading 3"
       {...props}
     />
   ),
@@ -48,7 +45,6 @@ const components: MDXComponents = {
         'mt-8 scroll-m-20 text-xl font-semibold tracking-tight',
         className
       )}
-      aria-label="Heading 4"
       {...props}
     />
   ),
@@ -58,7 +54,6 @@ const components: MDXComponents = {
         'mt-8 scroll-m-20 text-lg font-semibold tracking-tight',
         className
       )}
-      aria-label="Heading 5"
       {...props}
     />
   ),
@@ -68,7 +63,6 @@ const components: MDXComponents = {
         'mt-8 scroll-m-20 text-base font-semibold tracking-tight',
         className
       )}
-      aria-label="Heading 6"
       {...props}
     />
   ),
@@ -111,11 +105,17 @@ const components: MDXComponents = {
     ...props
   }: React.ImgHTMLAttributes<HTMLImageElement>) => (
     // eslint-disable-next-line @next/next/no-img-element
-    <img className={cn('rounded-md border', className)} alt={alt} {...props} />
+    <img
+      className={cn('rounded-md border', className)}
+      alt={alt}
+      loading='lazy'
+      decoding='async'
+      {...props}
+    />
   ),
   hr: ({ ...props }) => <hr className='my-4 md:my-8' {...props} />,
   table: ({ className, ...props }: React.HTMLAttributes<HTMLTableElement>) => (
-    <div className='my-6 w-full overflow-y-auto'>
+    <div className='my-6 w-full overflow-x-auto'>
       <table className={cn('w-full', className)} {...props} />
     </div>
   ),

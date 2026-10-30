@@ -34,6 +34,8 @@ const username = 'itsvinayak';
 const githubProfileUrl = `https://github.com/${username}`;
 const contributionChartUrl = `https://ghchart.rshah.org/${username}`;
 const numberFormat = new Intl.NumberFormat('en-US');
+const cacheKey = `github-showcase-${username}`;
+const cacheTtl = 10 * 60 * 1000;
 
 const GitHubShowcase = () => {
   const [data, setData] = useState<GitHubData | null>(null);
@@ -50,6 +52,16 @@ const GitHubShowcase = () => {
       setError(false);
 
       try {
+        // Unauthenticated GitHub API is limited to 60 req/hr per IP; cache briefly.
+        const cached = sessionStorage.getItem(cacheKey);
+        if (cached && reloadKey === 0) {
+          const { time, value } = JSON.parse(cached);
+          if (Date.now() - time < cacheTtl) {
+            setData(value);
+            return;
+          }
+        }
+
         const [repositoriesResponse, eventsResponse] = await Promise.all([
           fetch(
             `https://api.github.com/users/${username}/repos?per_page=100&sort=updated&type=owner`,
@@ -72,7 +84,14 @@ const GitHubShowcase = () => {
           eventsResponse.json(),
         ])) as [Repository[], PublicEvent[]];
 
-        setData({ repositories, events });
+        const value = { repositories, events };
+        setData(value);
+        try {
+          sessionStorage.setItem(
+            cacheKey,
+            JSON.stringify({ time: Date.now(), value })
+          );
+        } catch {}
       } catch (loadError) {
         if (!controller.signal.aborted) {
           setError(true);

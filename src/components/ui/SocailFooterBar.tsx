@@ -19,7 +19,9 @@ const SocialFooterBar: React.FC<SocialFooterBarProps> = ({ className }) => {
           key={link.title}
           href={link.link}
           target='_blank'
-          className='flex h-16 w-16 flex-row items-center justify-center hover:text-gray-400'
+          rel='noopener noreferrer'
+          aria-label={link.title}
+          className='flex h-16 w-16 flex-row items-center justify-center hover:text-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-zinc-500'
         >
           {link.icon}
         </Link>

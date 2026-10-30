@@ -1,12 +1,10 @@
 import Loader from '@ui/Loader';
 import Provider from '@components/Provider';
 import { Roboto } from 'next/font/google';
-import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Suspense } from 'react';
 //@ts-ignore
 import '@/globals.css';
 import type { Metadata } from 'next';
-import { Analytics } from '@vercel/analytics/react';
 import { siteStructuredData, siteUrl } from '@lib/seo';
 
 const roboto = Roboto({
@@ -97,8 +95,6 @@ export default function RootLayout({
         <Provider>
           <Suspense fallback={<Loader />}>{children}</Suspense>
         </Provider>
-        <SpeedInsights />
-        <Analytics />
       </body>
     </html>
   );

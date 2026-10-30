@@ -10,7 +10,7 @@ const ImageComponent: React.FC<ImageComponentProps> = ({
 }) => {
   return (
     <div className='animate-ease-out animate-flipUp'>
-    <Link href={src} target='_blank'>
+    <Link href={src} target='_blank' rel='noopener noreferrer'>
       <Image
         src={src}
         width={300}

@@ -26,6 +26,7 @@ const NavbarLogo = () => {
                 alt='vinayak'
                 width={40}
                 height={40}
+                priority
                 className='ml-1 rounded-full border border-neutral-200 dark:border-neutral-700'
             />
             <span className='sr-only'>Logo</span>
@@ -37,8 +38,9 @@ const NavbarButton = ({ actionFunction, actionType }: any) => {
     return (
         <button
             type='button'
-            className='inline-flex h-10 w-10 items-center justify-center rounded-full border border-zinc-300/80 bg-white/80 text-zinc-800 shadow-sm backdrop-blur-sm transition hover:scale-[1.03] hover:bg-white active:scale-95 focus:outline-none dark:border-zinc-700 dark:bg-zinc-900/60 dark:text-zinc-100 dark:hover:bg-zinc-900'
+            className='inline-flex h-10 w-10 items-center justify-center rounded-full border border-zinc-300/80 bg-white/80 text-zinc-800 shadow-sm backdrop-blur-sm transition hover:scale-[1.03] hover:bg-white active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500 dark:border-zinc-700 dark:bg-zinc-900/60 dark:text-zinc-100 dark:hover:bg-zinc-900'
             onClick={actionFunction}
+            aria-expanded={!!actionType}
             aria-label={actionType ? 'Close menu' : 'Open menu'}
         >
             {actionType ? <FaTimes className='text-sm' /> : <FaBars className='text-sm' />}
@@ -60,7 +62,7 @@ const Navbar = () => {
             setIsScrolled(scrollPosition > 0);
         };
 
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll, { passive: true });
 
         return () => {
             window.removeEventListener('scroll', handleScroll);
