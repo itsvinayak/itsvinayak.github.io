@@ -1,10 +1,12 @@
 const { withContentCollections } = require('@content-collections/next');
+const remarkMath = require('remark-math');
+const rehypeKatex = require('rehype-katex');
 
 const config = {
   dest: 'public',
   register: true,
   scope: '/',
-}
+};
 
 if (process.env.DEPLOYMENT_TYPE === 'development') {
   config.disable = true;
@@ -18,13 +20,22 @@ const nextConfig = withPWA({
   reactStrictMode: true,
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
   swcMinify: true,
+
   experimental: {
-    optimizePackageImports: ['react-icons/fa', 'react-icons/fa6', 'react-icons/bs', 'react-icons/cg', 'react-icons/md'],
+    optimizePackageImports: [
+      'react-icons/fa',
+      'react-icons/fa6',
+      'react-icons/bs',
+      'react-icons/cg',
+      'react-icons/md',
+    ],
   },
+
   output: 'export',
+
   images: {
     unoptimized: true,
-  }
+  },
 });
 
 module.exports = withContentCollections(nextConfig);

@@ -6,6 +6,8 @@ import { Suspense } from 'react';
 import '@/globals.css';
 import type { Metadata } from 'next';
 import { siteStructuredData, siteUrl } from '@lib/seo';
+//@ts-ignore
+import 'katex/dist/katex.min.css'
 
 const roboto = Roboto({
   weight: ['400', '700'],
