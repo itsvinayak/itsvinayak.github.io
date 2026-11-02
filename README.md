@@ -3,7 +3,6 @@
 
 [![GitHub Pages deploy](https://github.com/itsvinayak/itsvinayak.github.io/actions/workflows/nextjs.yml/badge.svg)](https://github.com/itsvinayak/itsvinayak.github.io/actions/workflows/nextjs.yml) ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
 
-[Preview Link](https://itsvinayak.vercel.app/)
 
 DarkNexfolio is a sleek and responsive personal website built with Next.js, designed to showcase your portfolio with a sophisticated dark theme. Whether you're a developer, designer, or creative professional, DarkNexfolio provides a modern and immersive experience for your visitors.
 
