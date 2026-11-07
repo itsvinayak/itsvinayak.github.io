@@ -24,6 +24,55 @@ body {
   );
 }
 
+.viewport-beam {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  filter: drop-shadow(0 0 4px rgba(139, 92, 246, 0.55));
+}
+
+.viewport-beam__border {
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+
+.viewport-beam__border::before {
+  content: '';
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  offset-path: rect(0 auto auto 0);
+  offset-anchor: center;
+  background: linear-gradient(
+    135deg,
+    #f472b6,
+    #a78bfa,
+    #60a5fa,
+    #5eead4,
+    #fcd34d
+  );
+  mask: radial-gradient(circle, #000 0%, transparent 70%);
+  animation: viewport-beam-travel 18s linear infinite;
+}
+
+@keyframes viewport-beam-travel {
+  to {
+    offset-distance: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce), (forced-colors: active) {
+  .viewport-beam {
+    display: none;
+  }
+}
+
 h1,
 h2,
 h3 {
