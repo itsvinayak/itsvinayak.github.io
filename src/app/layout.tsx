@@ -94,6 +94,9 @@ export default function RootLayout({
         />
       </head>
       <body className={roboto.className}>
+        <div className='viewport-beam' aria-hidden='true'>
+          <div className='viewport-beam__border' />
+        </div>
         <Provider>
           <Suspense fallback={<Loader />}>{children}</Suspense>
         </Provider>
