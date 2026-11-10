@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@lib/utils';
 import { motion } from 'motion/react';
+import { useNavigationCurtains } from '@components/NavigationCurtains';
 
 const itemClass =
   'relative inline-flex min-h-10 w-full items-center justify-start rounded-full px-3 text-sm font-semibold text-zinc-700 transition-colors hover:bg-zinc-100 hover:text-zinc-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600 dark:text-zinc-300 dark:hover:bg-zinc-800 dark:hover:text-white lg:w-fit';
@@ -10,6 +11,7 @@ const mobileItemClass =
 
 const Navlink = ({ links, classNameProps, onLinkClick, variant }: any) => {
   const pathname = usePathname();
+  const navigateWithCurtains = useNavigationCurtains();
 
   return (
     <ul className={cn('font-medium', classNameProps)}>
@@ -29,7 +31,24 @@ const Navlink = ({ links, classNameProps, onLinkClick, variant }: any) => {
           >
             <Link
               href={link.href}
-              onClick={onLinkClick}
+              onClick={(event) => {
+                onLinkClick?.();
+
+                if (
+                  event.defaultPrevented ||
+                  event.button !== 0 ||
+                  event.metaKey ||
+                  event.ctrlKey ||
+                  event.shiftKey ||
+                  event.altKey ||
+                  pathname === link.href
+                ) {
+                  return;
+                }
+
+                event.preventDefault();
+                navigateWithCurtains(link.href);
+              }}
               aria-current={isActive ? 'page' : undefined}
               className={cn(
                 itemClass,

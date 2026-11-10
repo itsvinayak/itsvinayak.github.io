@@ -1,5 +1,7 @@
 import Loader from '@ui/Loader';
 import Provider from '@components/Provider';
+import AmbientBackground from '@components/AmbientBackground';
+import { NavigationCurtainsProvider } from '@components/NavigationCurtains';
 import { Roboto } from 'next/font/google';
 import { Suspense } from 'react';
 //@ts-ignore
@@ -87,6 +89,12 @@ export default function RootLayout({
         />
         <link rel='manifest' href='/site.webmanifest' />
         <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "document.documentElement.style.setProperty('--beam-hue', String(Math.floor(Math.random() * 360)));",
+          }}
+        />
+        <script
           type='application/ld+json'
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(siteStructuredData).replace(/</g, '\\u003c'),
@@ -94,12 +102,14 @@ export default function RootLayout({
         />
       </head>
       <body className={roboto.className}>
-        <div className='viewport-beam' aria-hidden='true'>
-          <div className='viewport-beam__border' />
-        </div>
-        <Provider>
-          <Suspense fallback={<Loader />}>{children}</Suspense>
-        </Provider>
+        <NavigationCurtainsProvider>
+          <AmbientBackground />
+          <div className='site-content'>
+            <Provider>
+              <Suspense fallback={<Loader />}>{children}</Suspense>
+            </Provider>
+          </div>
+        </NavigationCurtainsProvider>
       </body>
     </html>
   );
